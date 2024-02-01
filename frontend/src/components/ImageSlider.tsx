@@ -1,32 +1,11 @@
 import React, { useState } from "react"
 
-import styles from "./imageSlider.module.css"
 import "./imageSlider.css"
 
 import { Slide } from "react-slideshow-image"
 import "react-slideshow-image/dist/styles.css"
 
 export default function ImageSlider({ slides }: { slides: any }) {
-  const [currentIndex, changeIndex] = useState(0)
-
-  const slide = {
-    backgroundImage: `url(${slides[currentIndex].url})`,
-  }
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  }
-
-  // const spanStyle = {
-  //   padding: "20px",
-  //   background: "#efefef",
-  //   color: "#000000",
-  // }
-
   const divStyle = {
     display: "flex",
     alignItems: "center",
@@ -44,12 +23,6 @@ export default function ImageSlider({ slides }: { slides: any }) {
     easing: "ease",
     indicators: (i: any) => <div className="pagination"></div>,
   }
-
-  function setSlide(index: number): void {
-    changeIndex(index)
-  }
-
-  document.querySelector(".indicators")?.classList.add("container")
 
   return (
     <div className="slide-container">
