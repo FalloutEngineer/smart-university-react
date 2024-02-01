@@ -6186,3 +6186,15 @@ div#chartdiv {
 }
 .humidity-value {
 }
+
+.svg-inline--fa {
+  height: 30px;
+}
+
+.corpuses {
+  display: flex;
+}
+
+.service-icon {
+  margin-bottom: 0px !important;
+}
