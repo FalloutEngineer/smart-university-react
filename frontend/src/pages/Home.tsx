@@ -1,12 +1,30 @@
 import React from "react"
 import Layout from "../components/Layout/Layout"
+import ImageSlider from "../components/ImageSlider"
 
 //TODO: CAROUSEL COMPONENT
 
 export default function Home() {
+  const slides = [
+    { url: process.env.PUBLIC_URL + "/img/1.jpg", caption: "" },
+    { url: process.env.PUBLIC_URL + "/img/2.jpg", caption: "" },
+    { url: process.env.PUBLIC_URL + "/img/3.jpg", caption: "" },
+    { url: process.env.PUBLIC_URL + "/img/4.jpg", caption: "" },
+  ]
+
+  const sliderWrapperStyles = {
+    width: "100vw",
+    height: "100vh",
+    margin: "0 auto",
+  }
+
   return (
     <Layout>
-      <div
+      <div style={sliderWrapperStyles} className="slider-wrapper">
+        <ImageSlider slides={slides} />
+      </div>
+
+      {/* <div
         id="carousel-example-generic"
         className="carousel slide"
         data-ride="carousel"
@@ -122,7 +140,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="bg-color-sky-light" data-auto-height="true">
         <div className="content-lg container">
