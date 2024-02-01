@@ -45,6 +45,8 @@
   padding: 0px;
 
   display: flex;
+
+  z-index: 99;
 }
 
 .slide-container div {

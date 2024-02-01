@@ -13,6 +13,14 @@ export default function ImageSlider({ slides }: { slides: any }) {
     backgroundImage: `url(${slides[currentIndex].url})`,
   }
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  }
+
   // const spanStyle = {
   //   padding: "20px",
   //   background: "#efefef",
@@ -28,28 +36,14 @@ export default function ImageSlider({ slides }: { slides: any }) {
   }
 
   const sliderProperties = {
-    duration: 5000,
-    autoplay: false,
+    duration: 3000,
+    autoplay: true,
     transitionDuration: 500,
     arrows: false,
     infinite: true,
     easing: "ease",
     indicators: (i: any) => <div className="pagination"></div>,
   }
-
-  const pagination = slides.map((slide: never, index: number) => {
-    return (
-      <button
-        key={index}
-        onClick={() => {
-          setSlide(index)
-        }}
-        className={
-          styles.bullet + " " + (index === currentIndex ? styles.active : "")
-        }
-      ></button>
-    )
-  })
 
   function setSlide(index: number): void {
     changeIndex(index)
@@ -58,10 +52,6 @@ export default function ImageSlider({ slides }: { slides: any }) {
   document.querySelector(".indicators")?.classList.add("container")
 
   return (
-    // <div className={styles.slider}>
-    //   <div className={styles.slide} style={slide}></div>
-    //   <div className="pagination">{pagination}</div>
-    // </div>
     <div className="slide-container">
       <Slide {...sliderProperties}>
         {slides.map((slideImage: any, index: number) => {
@@ -72,9 +62,7 @@ export default function ImageSlider({ slides }: { slides: any }) {
                   ...divStyle,
                   backgroundImage: `url(${slideImage.url})`,
                 }}
-              >
-                {/* <span style={spanStyle}>{slideImage.caption}</span> */}
-              </div>
+              ></div>
             </div>
           )
         })}

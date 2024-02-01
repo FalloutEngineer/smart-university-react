@@ -1,6 +1,9 @@
 import React from "react"
 import Layout from "../components/Layout/Layout"
 import ImageSlider from "../components/ImageSlider"
+import MainHero from "../components/MainHero"
+
+import "./home.css"
 
 //TODO: CAROUSEL COMPONENT
 
@@ -22,6 +25,7 @@ export default function Home() {
     <Layout>
       <div style={sliderWrapperStyles} className="slider-wrapper">
         <ImageSlider slides={slides} />
+        <MainHero />
       </div>
 
       {/* <div
