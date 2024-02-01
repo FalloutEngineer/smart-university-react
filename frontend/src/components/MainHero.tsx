@@ -12,10 +12,7 @@ export default function MainHero() {
             Державного Університету
           </h1>
         </div>
-        <a
-          href="1building.html"
-          className="btn-theme btn-theme-sm btn-white-brd text-uppercase"
-        >
+        <a href="1building.html" className="button-outline">
           Дивитися
         </a>
       </div>
