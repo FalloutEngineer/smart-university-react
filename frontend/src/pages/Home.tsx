@@ -37,7 +37,7 @@ export default function Home() {
               icon={"/img/icon.png"}
               link={"/"}
             />
-            <Corpus heading={"2 корпус"} icon={"/img/icon.png"} link={"/"} />
+            <Corpus heading={"2 корпус"} link={"/"} />
             <Corpus heading={"5 корпус"} link={"/"} />
             <Corpus heading={"6 корпус"} link={"/"} />
           </div>

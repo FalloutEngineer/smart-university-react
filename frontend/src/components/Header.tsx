@@ -1,11 +1,28 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 export default function Header() {
   //TODO: get state from server
   let currentPage: string = "main"
 
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const position = window.pageYOffset
+      setIsScrolled(position !== 0)
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
+
   return (
-    <header className="header navbar-fixed-top">
+    <header
+      className={"header navbar-fixed-top " + (isScrolled ? "scrolled" : "")}
+    >
       <nav className="navbar" role="navigation">
         <div className="container">
           <div className="menu-container">
