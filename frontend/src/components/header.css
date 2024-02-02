@@ -1,0 +1,49 @@
+.headerMenu {
+}
+
+.collapsed {
+}
+
+.menu-container {
+}
+
+.navbar-nav {
+  overflow: hidden;
+  height: 100%;
+  max-height: 0px;
+
+  transition: max-height 1s ease;
+}
+
+.collapsed .navbar-nav {
+  max-height: 50vh;
+}
+
+.active .toggle-icon {
+  background: #17bed2 !important;
+  -webkit-transition-duration: 0.3s !important;
+  -o-transition-duration: 0.3s !important;
+  transition-duration: 0.3s !important;
+  -webkit-transition-property: all !important;
+  -o-transition-property: all !important;
+  transition-property: all !important;
+  -webkit-transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1) !important;
+  -o-transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1) !important;
+  transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1) !important;
+}
+
+.active .toggle-icon:after,
+.active .toggle-icon:before {
+  width: 21px !important;
+  height: 1px !important;
+  background: #17bed2 !important;
+  -webkit-transition-duration: 0.3s !important;
+  -o-transition-duration: 0.3s !important;
+  transition-duration: 0.3s !important;
+  -webkit-transition-property: all !important;
+  -o-transition-property: all !important;
+  transition-property: all !important;
+  -webkit-transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1) !important;
+  -o-transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1) !important;
+  transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1) !important;
+}

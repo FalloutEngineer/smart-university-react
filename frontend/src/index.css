@@ -3831,7 +3831,7 @@ fieldset[disabled] .btn-theme {
   transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1);
 }
 
-.header .navbar-toggle:hover .toggle-icon {
+/* .header .navbar-toggle:hover .toggle-icon {
   background: #17bed2;
   -webkit-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
@@ -3858,7 +3858,7 @@ fieldset[disabled] .btn-theme {
   -webkit-transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1);
   -o-transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1);
   transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1);
-}
+} */
 
 .header .logo-img-active,
 .header .logo-img-main,
@@ -3875,9 +3875,9 @@ fieldset[disabled] .btn-theme {
   transition-timing-function: cubic-bezier(0.7, 1, 0.7, 1);
 }
 
-.header .navbar-toggle:hover .toggle-icon.is-clicked {
+/* .header .navbar-toggle:hover .toggle-icon.is-clicked {
   background: rgba(81, 87, 105, 0);
-}
+} */
 
 .header .logo {
   width: 100%;

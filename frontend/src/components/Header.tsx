@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react"
 
+import "./header.css"
+
 export default function Header({
   useDarkFont = false,
 }: {
@@ -9,6 +11,12 @@ export default function Header({
   let currentPage: string = "main"
 
   const [isScrolled, setIsScrolled] = useState(false)
+
+  const [isOpened, setIsOpened] = useState(false)
+
+  function toggleMobileMenu() {
+    setIsOpened((prevState) => !prevState)
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,9 +45,10 @@ export default function Header({
           <div className="menu-container">
             <button
               type="button"
-              className="navbar-toggle"
-              data-toggle="collapse"
-              data-target=".nav-collapse"
+              className={"navbar-toggle " + (isOpened && "active")}
+              onClick={() => {
+                toggleMobileMenu()
+              }}
             >
               <span className="sr-only">Toggle navigation</span>
               <span className="toggle-icon"></span>
@@ -61,7 +70,8 @@ export default function Header({
             </div>
           </div>
 
-          <div className="collapse navbar-collapse nav-collapse">
+          {/* <div className="collapse navbar-collapse nav-collapse"> */}
+          <div className={"headerMenu " + (!isOpened ? "collapsed" : "")}>
             <div className="menu-container">
               <ul className="navbar-nav navbar-nav-right">
                 <li className="nav-item">
