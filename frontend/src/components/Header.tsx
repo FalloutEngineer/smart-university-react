@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react"
 
-export default function Header() {
+export default function Header({
+  useDarkFont = false,
+}: {
+  useDarkFont?: boolean
+}) {
   //TODO: get state from server
   let currentPage: string = "main"
 
@@ -21,7 +25,12 @@ export default function Header() {
 
   return (
     <header
-      className={"header navbar-fixed-top " + (isScrolled ? "scrolled" : "")}
+      className={
+        "header navbar-fixed-top " +
+        (useDarkFont ? "dark-font" : "") +
+        " " +
+        (isScrolled ? "scrolled" : "")
+      }
     >
       <nav className="navbar" role="navigation">
         <div className="container">

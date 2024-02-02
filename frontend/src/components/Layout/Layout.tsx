@@ -4,12 +4,20 @@ import Header from "../Header"
 import PageScripts from "../PageScripts"
 import Footer from "../Footer"
 
-export default function Layout({ children }: { children: any }) {
+import "./layout.css"
+
+export default function Layout({
+  children,
+  useDarkHeaderFont = false,
+}: {
+  children: any
+  useDarkHeaderFont?: boolean
+}) {
   return (
-    <div>
+    <div className="mainLayout">
       <Head />
-      <Header />
-      <main>{children}</main>
+      <Header useDarkFont={useDarkHeaderFont} />
+      <main className="mainLayout__main">{children}</main>
       <Footer />
       <PageScripts />
     </div>
