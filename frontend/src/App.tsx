@@ -5,6 +5,7 @@ import ErrorPage from "./pages/ErrorPage"
 import Faculties from "./pages/Faculties"
 import BuildingsPage from "./pages/BuildingsPage"
 import LoginPage from "./pages/LoginPage"
+import BuildingPage from "./pages/BuildingPage"
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       {/* <ErrorPage /> */}
       {/* <Faculties /> */}
       {/* <BuildingsPage /> */}
-      <LoginPage />
+      {/* <LoginPage /> */}
+      <BuildingPage />
     </div>
   )
 }
