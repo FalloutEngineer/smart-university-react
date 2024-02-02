@@ -3,7 +3,7 @@ import React from "react"
 export default function Head() {
   return (
     <head>
-      <meta charSet="utf-8" />
+      {/* <meta charSet="utf-8" />
       <title>MTB KSU</title>
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -28,7 +28,7 @@ export default function Head() {
       <script src="/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
       <script src="/tippy.js@6.3.7/dist/tippy-bundle.umd.js"></script>
       <script src="/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-      <script src="/tippy.js@6.3.7/dist/tippy-bundle.umd.min.js"></script>
+      <script src="/tippy.js@6.3.7/dist/tippy-bundle.umd.min.js"></script> */}
     </head>
   )
 }

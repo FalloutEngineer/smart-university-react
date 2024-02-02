@@ -15,7 +15,7 @@ export default function FacultiesCard({
   return (
     <div className="facultyCard">
       <div style={colorStyle} className="ui-price circle">
-        <i className={"fas " + params.icon}></i>
+        <i className={"fas " + params.icon + " fa-w-16"}></i>
       </div>
 
       <div className="ui-plan">
