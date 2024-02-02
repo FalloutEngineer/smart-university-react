@@ -9,16 +9,20 @@ import "./layout.css"
 export default function Layout({
   children,
   useDarkHeaderFont = false,
+  headerless = false,
+  footerless = false,
 }: {
   children: any
   useDarkHeaderFont?: boolean
+  headerless?: boolean
+  footerless?: boolean
 }) {
   return (
     <div className="mainLayout">
       <Head />
-      <Header useDarkFont={useDarkHeaderFont} />
+      {headerless ? null : <Header useDarkFont={useDarkHeaderFont} />}
       <main className="mainLayout__main">{children}</main>
-      <Footer />
+      {footerless ? null : <Footer />}
       <PageScripts />
     </div>
   )
