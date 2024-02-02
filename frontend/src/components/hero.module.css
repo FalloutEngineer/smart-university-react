@@ -11,6 +11,8 @@
   justify-content: center;
 
   text-align: left;
+
+  min-height: 600px;
 }
 
 .heroTitle {

@@ -20,8 +20,10 @@ export default function ImageSlider({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    backgroundPosition: "center",
     backgroundSize: "cover",
     height: "100vh",
+    minHeight: "600px",
   }
 
   const useIndicators = slides.length > 1
