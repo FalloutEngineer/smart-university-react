@@ -10,13 +10,13 @@
 .navbar-nav {
   overflow: hidden;
   height: 100%;
-  max-height: 0px;
+  max-height: 50vh;
 
   transition: max-height 1s ease;
 }
 
 .collapsed .navbar-nav {
-  max-height: 50vh;
+  max-height: 0px;
 }
 
 .active .toggle-icon {
