@@ -49,6 +49,121 @@ export default function Faculties() {
             },
           }}
         />
+        <FacultiesCard
+          params={{
+            icon: "fa-globe",
+            name: "Факультет біології, географії та екології",
+            color: "#53A306",
+            area: "1319.1 м²",
+            cathedras: "3",
+            rooms: "24",
+            numberOfSeats: "418",
+            bachelors: {
+              fullTime: 156,
+              external: 33,
+            },
+            masters: {
+              fullTime: 49,
+              external: 17,
+            },
+            phd: {
+              fullTime: 7,
+              external: 3,
+            },
+          }}
+        />
+        <FacultiesCard
+          params={{
+            icon: "fa-globe",
+            name: "Факультет біології, географії та екології",
+            color: "#53A306",
+            area: "1319.1 м²",
+            cathedras: "3",
+            rooms: "24",
+            numberOfSeats: "418",
+            bachelors: {
+              fullTime: 156,
+              external: 33,
+            },
+            masters: {
+              fullTime: 49,
+              external: 17,
+            },
+            phd: {
+              fullTime: 7,
+              external: 3,
+            },
+          }}
+        />
+        <FacultiesCard
+          params={{
+            icon: "fa-globe",
+            name: "Факультет біології, географії та екології",
+            color: "#53A306",
+            area: "1319.1 м²",
+            cathedras: "3",
+            rooms: "24",
+            numberOfSeats: "418",
+            bachelors: {
+              fullTime: 156,
+              external: 33,
+            },
+            masters: {
+              fullTime: 49,
+              external: 17,
+            },
+            phd: {
+              fullTime: 7,
+              external: 3,
+            },
+          }}
+        />
+        <FacultiesCard
+          params={{
+            icon: "fa-globe",
+            name: "Факультет біології, географії та екології",
+            color: "#53A306",
+            area: "1319.1 м²",
+            cathedras: "3",
+            rooms: "24",
+            numberOfSeats: "418",
+            bachelors: {
+              fullTime: 156,
+              external: 33,
+            },
+            masters: {
+              fullTime: 49,
+              external: 17,
+            },
+            phd: {
+              fullTime: 7,
+              external: 3,
+            },
+          }}
+        />
+        <FacultiesCard
+          params={{
+            icon: "fa-globe",
+            name: "Факультет біології, географії та екології",
+            color: "#53A306",
+            area: "1319.1 м²",
+            cathedras: "3",
+            rooms: "24",
+            numberOfSeats: "418",
+            bachelors: {
+              fullTime: 156,
+              external: 33,
+            },
+            masters: {
+              fullTime: 49,
+              external: 17,
+            },
+            phd: {
+              fullTime: 7,
+              external: 3,
+            },
+          }}
+        />
       </FacultiesGrid>
     </Layout>
   )

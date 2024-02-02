@@ -1,0 +1,12 @@
+.facultiesGrid {
+  background-color: rgb(48, 46, 51);
+
+  padding: 30px 15px;
+}
+
+.facultiesContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 30px;
+}

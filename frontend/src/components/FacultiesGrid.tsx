@@ -1,6 +1,11 @@
 import React from "react"
-import FacultiesCard from "./FacultiesCard"
+
+import "./faculties.css"
 
 export default function FacultiesGrid({ children }: { children: any }) {
-  return <div>{children}</div>
+  return (
+    <div className="facultiesGrid">
+      <div className="facultiesContainer container">{children}</div>
+    </div>
+  )
 }
