@@ -7,9 +7,9 @@ import Faculties from "./pages/Faculties"
 function App() {
   return (
     <div className="App">
-      {/* <Home /> */}
+      <Home />
       {/* <ErrorPage /> */}
-      <Faculties />
+      {/* <Faculties /> */}
     </div>
   )
 }

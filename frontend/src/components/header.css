@@ -1,3 +1,7 @@
+.header {
+  max-width: 100vw !important;
+}
+
 .headerMenu {
 }
 
@@ -7,16 +11,18 @@
 .menu-container {
 }
 
-.navbar-nav {
-  overflow: hidden;
-  height: 100%;
-  max-height: 50vh;
+@media (max-width: 991px) {
+  .navbar-nav {
+    overflow: hidden;
+    height: 100%;
+    max-height: 50vh;
 
-  transition: max-height 1s ease;
-}
+    transition: max-height 1s ease;
+  }
 
-.collapsed .navbar-nav {
-  max-height: 0px;
+  .collapsed .navbar-nav {
+    max-height: 0px;
+  }
 }
 
 .active .toggle-icon {

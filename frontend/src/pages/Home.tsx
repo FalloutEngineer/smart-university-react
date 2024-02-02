@@ -24,6 +24,7 @@ export default function Home() {
 
   return (
     <Layout>
+      <div className="headerPlaceholder"></div>
       <div style={sliderWrapperStyles} className="slider-wrapper">
         <ImageSlider
           slides={slides}

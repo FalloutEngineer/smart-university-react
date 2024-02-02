@@ -1,3 +1,44 @@
 .slider-wrapper {
   position: relative;
 }
+
+.corpuses {
+  max-width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 5px;
+}
+
+.corpuses::before {
+  display: none;
+  content: none;
+}
+
+.corpuses::after {
+  display: none;
+  content: none;
+}
+
+@media (max-width: 991px) {
+  .corpuses {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 991px) {
+  .corpuses {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .corpuses {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* .headerPlaceholder {
+  height: 90px;
+} */
