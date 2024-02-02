@@ -4,6 +4,7 @@ import ImageSlider from "../components/ImageSlider"
 import BuildingsHero from "../components/BuildingsHero"
 
 import "./buildingsPage.css"
+import BuildingsPageItem from "../components/BuildingsPageItem"
 
 export default function BuildingsPage() {
   const slides = [{ url: process.env.PUBLIC_URL + "/img/4.jpg", caption: "" }]
@@ -26,20 +27,8 @@ export default function BuildingsPage() {
         <div className="container">
           {/* TODO: AUTO GENERATE LIST FROM API */}
           <ul className="page-list">
-            <li className="page-list__item">
-              <a href="" className="page-list__link">
-                <span className="page-list__property page-list__property_name">
-                  1 Корпус
-                </span>
-              </a>
-            </li>
-            <li className="page-list__item">
-              <a href="" className="page-list__link">
-                <span className="page-list__property page-list__property_name">
-                  2 Корпус
-                </span>
-              </a>
-            </li>
+            <BuildingsPageItem name={"1 корпус"} link={"/"} />
+            <BuildingsPageItem name={"2 корпус"} link={"/"} />
             {/* TODO: Generate pages from API */}
             {/* <% for (var i = 0; i < buildings.length; i++) { %>
                 <li className="page-list__item">
