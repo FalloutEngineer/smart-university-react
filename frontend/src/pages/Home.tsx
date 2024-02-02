@@ -25,7 +25,10 @@ export default function Home() {
   return (
     <Layout>
       <div style={sliderWrapperStyles} className="slider-wrapper">
-        <ImageSlider slides={slides} />
+        <ImageSlider
+          slides={slides}
+          sliderParams={{ isAutoplay: true, isInfinite: true }}
+        />
         <MainHero />
       </div>
 

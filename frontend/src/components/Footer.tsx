@@ -10,7 +10,7 @@ export default function Footer() {
               <a className="color-base fweight-700" href="/">
                 Херсоньский Державний Університет
               </a>
-              <br />© 2023
+              <br />© 2024
               <br />
               Voichenko V., Koziura A.,
               <a href="https://www.kspu.edu/About/Faculty/FPhysMathemInformatics/ChairInformatics/Staff/Vinnik.aspx">
