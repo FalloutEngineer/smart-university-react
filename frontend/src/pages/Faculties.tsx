@@ -150,18 +150,6 @@ export default function Faculties() {
             cathedras: "3",
             rooms: "24",
             numberOfSeats: "418",
-            bachelors: {
-              fullTime: 156,
-              external: 33,
-            },
-            masters: {
-              fullTime: 49,
-              external: 17,
-            },
-            phd: {
-              fullTime: 7,
-              external: 3,
-            },
           }}
         />
       </FacultiesGrid>

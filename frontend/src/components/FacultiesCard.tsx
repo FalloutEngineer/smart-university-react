@@ -14,12 +14,12 @@ export default function FacultiesCard({
 
   return (
     <div className="facultyCard">
-      <div style={colorStyle} className="ui-price circle">
-        <i className={"fas " + params.icon + " fa-w-16"}></i>
+      <div style={colorStyle} className="facultyCard__circle">
+        <i className={"fas " + params.icon + " fa-w-16 facultyCard__icon"}></i>
       </div>
 
-      <div className="ui-plan">
-        <h4>{params.name}</h4>
+      <div className="facultyCard__body">
+        <h4 className="facultyCard__heading">{params.name}</h4>
         {params.area && <p>Загальна площа - {params.area}</p>}
         {params.cathedras && <p>Кількість кафедр - {params.cathedras}</p>}
         {params.rooms && <p>Загальна кількість аудиторій - {params.rooms}</p>}
@@ -28,7 +28,9 @@ export default function FacultiesCard({
         )}
         <br />
         {(params.bachelors || params.masters || params.phd) && (
-          <p className="bold">Контингент здобувачів вищої освіти:</p>
+          <p className="facultyCard__bold">
+            Контингент здобувачів вищої освіти:
+          </p>
         )}
         {params.bachelors && (
           <p>
