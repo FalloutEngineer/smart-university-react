@@ -4,7 +4,7 @@ import styles from "./hero.module.css"
 
 export default function FacultiesHero() {
   return (
-    <div className={styles.hero}>
+    <div className={styles.hero + " " + styles.heroFaculties}>
       <div className="container content-lg">
         <h1 className={"carousel-title " + styles.heroTitle}>Факультети</h1>
         <p className={styles.heroText}>
