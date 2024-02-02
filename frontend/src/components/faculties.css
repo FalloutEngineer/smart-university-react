@@ -10,3 +10,21 @@
 
   gap: 30px;
 }
+
+@media (max-width: 992px) {
+  .facultiesContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 15px;
+  }
+}
+
+@media (max-width: 573px) {
+  .facultiesContainer {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+
+    gap: 30px;
+  }
+}
