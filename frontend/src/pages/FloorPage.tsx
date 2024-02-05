@@ -9,6 +9,10 @@ import FloorMap from "../components/FloorMap"
 import FloorHeader from "../components/FloorHeader"
 
 export default function FloorPage({ id }: { id: number }) {
+  const sensorsBlockStyles = {
+    backgroundColor: "red",
+  }
+
   return (
     <Layout>
       <FloorHeader
@@ -19,9 +23,6 @@ export default function FloorPage({ id }: { id: number }) {
       />
 
       <div className="plan">
-        {/* style="enable-background:new 0 0 2002.2 590.2;" */}
-        {/* xmlns:xlink="http://www.w3.org/1999/xlink" */}
-
         {/* TODO: pass color from fetched data */}
         <FloorMap
           url="http://localhost:3000/svg/mock-floorPlan.svg"
@@ -30,7 +31,7 @@ export default function FloorPage({ id }: { id: number }) {
       </div>
 
       {/* style="	background: <%-floor.floorColor%>;" */}
-      <div className="ui-60">
+      <div className="ui-60" style={sensorsBlockStyles}>
         <div className="container">
           <div className="row">
             {/* TODO: Pass data from server (sensor), pass link instean values, so items would change separetely from parent */}

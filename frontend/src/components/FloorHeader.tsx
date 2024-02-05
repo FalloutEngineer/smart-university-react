@@ -36,15 +36,7 @@ export default function FloorHeader({
             {name && <h2 style={headingStyles}>{name}</h2>}
             {floor && <h3 style={headingStyles}>{floor} поверх</h3>}
           </div>
-          <div style={imageStyles} className="floor-header__logo-wrapper">
-            {/* {imageUrl && (
-              <img
-                src={imageUrl}
-                alt={"логотип " + name}
-                className="floor-header__logo"
-              />
-            )} */}
-          </div>
+          <div style={imageStyles} className="floor-header__logo-wrapper"></div>
         </div>
       </div>
     </div>
