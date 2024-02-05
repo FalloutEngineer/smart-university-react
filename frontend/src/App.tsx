@@ -17,7 +17,7 @@ function App() {
       {/* <BuildingsPage /> */}
       {/* <LoginPage /> */}
       {/* <BuildingPage id={1} /> */}
-      <FloorPage />
+      <FloorPage id={1} />
     </div>
   )
 }
