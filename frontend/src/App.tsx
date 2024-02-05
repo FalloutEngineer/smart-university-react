@@ -15,7 +15,7 @@ function App() {
       {/* <Faculties /> */}
       {/* <BuildingsPage /> */}
       {/* <LoginPage /> */}
-      <BuildingPage />
+      <BuildingPage id={1} />
     </div>
   )
 }

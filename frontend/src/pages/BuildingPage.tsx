@@ -1,11 +1,25 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Layout from "../components/Layout/Layout"
 import ParallaxWindow from "../components/ParallaxWindow"
 
 import "./buildingPage.css"
 import BuildingItem from "../components/BuildingItem"
 
-export default function BuildingPage() {
+export default function BuildingPage({ id }: { id: number }) {
+  //PARSE BUILDING DATA HERE
+  const building = {
+    name: "",
+    address: "",
+    image: "",
+  }
+
+  //PARSE FLOORS HERE
+  const floors = []
+
+  useEffect(() => {
+    // GET DATA ABOUT BUILDING HERE
+  }, [])
+
   return (
     <Layout>
       <ParallaxWindow imageUrl="url('/img/1.jpg')">
@@ -36,11 +50,11 @@ export default function BuildingPage() {
                     </div>
                 <% } %> */}
           <ul className="page-list">
-            {/* TODO: list image from server */}
+            {/* TODO: list image from server, FROM FLOORS VARIABLE */}
             <BuildingItem number={1} faculties={["ФКНФМ"]} />
             <BuildingItem number={2} faculties={["ФКНФМ", "ФІЗВИХ"]} />
             <BuildingItem
-              number={2}
+              number={3}
               faculties={[
                 "ФКНФМ",
                 "ФІЗВИХ",
