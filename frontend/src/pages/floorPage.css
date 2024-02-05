@@ -1,3 +1,5 @@
+/* SVG styles */
+
 .st0 {
   fill: none;
   stroke: #1d1d1b;
@@ -45,4 +47,49 @@
   fill: #ffffff;
   stroke: #1d1d1b;
   stroke-miterlimit: 10;
+}
+
+/* page styles */
+
+.infoBox {
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+  gap: 15px;
+
+  display: flex;
+  flex-direction: column !important;
+}
+
+.infoboxContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+
+  max-width: 500px;
+}
+
+.qualityBoxes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.air-quality {
+  max-width: fit-content;
+}
+
+.temperature {
+  max-width: 350px;
+}
+
+#co2,
+#tvoc {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 25px;
 }
