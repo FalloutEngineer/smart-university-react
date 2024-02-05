@@ -8,18 +8,24 @@ export default function AirQuality({ co2, aqi }: { co2: number; aqi: number }) {
   const co2Style = {
     backgroundColor: co2Color,
     height: "25px",
+    color: "black",
+    fontWeight: "black",
   }
 
   const aqiStyle = {
     backgroundColor: aqiColor,
     height: "25px",
+    color: "black",
+    fontWeight: "black",
   }
 
   return (
     <div className="air-quality white-box">
       <div className="co2">
         <h4>Чадний газ</h4>
-        <p id="co2" style={co2Style}></p>
+        <p id="co2" style={co2Style}>
+          {co2}
+        </p>
       </div>
 
       <div className="co2__values">
@@ -46,7 +52,9 @@ export default function AirQuality({ co2, aqi }: { co2: number; aqi: number }) {
       </div>
       <div className="co2__quality">
         <h4>Якість повітря (AQI)</h4>
-        <p id="tvoc" style={aqiStyle}></p>
+        <p id="tvoc" style={aqiStyle}>
+          {aqi}
+        </p>
       </div>
       <div className="co2__quality-values">
         <div className="co2__quality-value">

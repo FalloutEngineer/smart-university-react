@@ -1,0 +1,28 @@
+.floorContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 100px;
+  padding-top: 150px;
+}
+
+.leftText {
+  text-align: left;
+}
+
+.floor-header__logo-wrapper {
+  display: flex;
+  max-height: 100%;
+  max-width: 500px;
+
+  width: 250px;
+  height: 250px;
+
+  background-position: center;
+  background-size: contain;
+}
+
+.floor-header__logo-wrapper img {
+}
