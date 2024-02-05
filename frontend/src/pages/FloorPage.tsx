@@ -33,9 +33,9 @@ export default function FloorPage({ id }: { id: number }) {
         <div className="container">
           <div className="row">
             {/* TODO: Pass data from server (sensor) */}
-            <AirQuality />
+            <AirQuality co2={1100} aqi={10} />
 
-            <AirStatus />
+            <AirStatus temperature={21.1} humidity={50} />
           </div>
         </div>
       </div>

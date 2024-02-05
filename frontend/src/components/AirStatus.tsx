@@ -1,12 +1,20 @@
 import React from "react"
 
-export default function AirStatus() {
+export default function AirStatus({
+  temperature,
+  humidity,
+}: {
+  temperature: number
+  humidity: number
+}) {
   return (
     <div className="temperature white-box">
       <div className="temperature__container">
         <h4 className="temperature__heading">Температура:</h4>
         <div className="temperature__value-wrapper">
-          <span className="temperature__value temperature-value">0.0</span>
+          <span className="temperature__value temperature-value">
+            {temperature}
+          </span>
           <div className="temperature__symbol-wrapper">
             <span className="temperature__symbol-upper">o</span>
             <span className="temperature__symbol">C</span>
@@ -16,7 +24,7 @@ export default function AirStatus() {
       <div className="temperature__container">
         <h4 className="temperature__heading">Вологість:</h4>
         <div className="temperature__value-wrapper">
-          <span className="temperature__value humidity-value">0.0</span>
+          <span className="temperature__value humidity-value">{humidity}</span>
           <div className="temperature__symbol-wrapper">
             <span className="temperature__symbol">%</span>
           </div>

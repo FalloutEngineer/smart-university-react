@@ -1,11 +1,25 @@
 import React from "react"
 
-export default function AirQuality() {
+export default function AirQuality({ co2, aqi }: { co2: number; aqi: number }) {
+  const co2Color = getCO2Color(co2)
+
+  const aqiColor = getAQIColor(aqi)
+
+  const co2Style = {
+    backgroundColor: co2Color,
+    height: "25px",
+  }
+
+  const aqiStyle = {
+    backgroundColor: aqiColor,
+    height: "25px",
+  }
+
   return (
     <div className="air-quality white-box">
       <div className="co2">
         <h4>Чадний газ</h4>
-        <p id="co2"></p>
+        <p id="co2" style={co2Style}></p>
       </div>
 
       <div className="co2__values">
@@ -32,7 +46,7 @@ export default function AirQuality() {
       </div>
       <div className="co2__quality">
         <h4>Якість повітря (AQI)</h4>
-        <p id="tvoc"></p>
+        <p id="tvoc" style={aqiStyle}></p>
       </div>
       <div className="co2__quality-values">
         <div className="co2__quality-value">
@@ -58,4 +72,24 @@ export default function AirQuality() {
       </div>
     </div>
   )
+}
+
+function getCO2Color(co2: number): string {
+  if (co2 < 1000) {
+    return "#09bb20"
+  }
+  if (co2 < 5000) {
+    return "#e4e005"
+  }
+  return "#d40f09"
+}
+
+function getAQIColor(aqi: number): string {
+  if (aqi < 220) {
+    return "#09bb20"
+  }
+  if (aqi < 2200) {
+    return "#e4e005"
+  }
+  return "#d40f09"
 }
