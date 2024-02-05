@@ -6,6 +6,7 @@ import Faculties from "./pages/Faculties"
 import BuildingsPage from "./pages/BuildingsPage"
 import LoginPage from "./pages/LoginPage"
 import BuildingPage from "./pages/BuildingPage"
+import FloorPage from "./pages/FloorPage"
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
       {/* <Faculties /> */}
       {/* <BuildingsPage /> */}
       {/* <LoginPage /> */}
-      <BuildingPage id={1} />
+      {/* <BuildingPage id={1} /> */}
+      <FloorPage />
     </div>
   )
 }
