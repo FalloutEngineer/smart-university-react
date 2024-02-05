@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage"
 import BuildingPage from "./pages/BuildingPage"
 import FloorPage from "./pages/FloorPage"
 import Manage from "./pages/Manage"
+import ListPage from "./pages/ListPage"
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
       {/* <LoginPage /> */}
       {/* <BuildingPage id={1} /> */}
       {/* <FloorPage id={1} /> */}
-      <Manage />
+      {/* <Manage /> */}
+      <ListPage listType={"room"} />
     </div>
   )
 }
