@@ -1,5 +1,4 @@
 import React from "react"
-import Layout from "../components/Layout/Layout"
 import DashLayout from "../components/DashLayout/DashLayout"
 
 export default function Manage() {
