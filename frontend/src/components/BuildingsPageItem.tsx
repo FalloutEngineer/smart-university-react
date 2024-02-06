@@ -9,7 +9,7 @@ export default function BuildingsPageItem({
 }) {
   return (
     <li className="page-list__item">
-      <a href={link} className="page-list__link">
+      <a href={"building-page/" + link} className="page-list__link">
         <span className="page-list__property page-list__property_name">
           {name}
         </span>

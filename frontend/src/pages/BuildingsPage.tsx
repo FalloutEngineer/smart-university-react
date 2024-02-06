@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Layout from "../components/Layout/Layout"
 import ImageSlider from "../components/ImageSlider"
 import BuildingsHero from "../components/BuildingsHero"
@@ -6,8 +6,32 @@ import BuildingsHero from "../components/BuildingsHero"
 import "./buildingsPage.css"
 import BuildingsPageItem from "../components/BuildingsPageItem"
 
+const API_URL = process.env.REACT_APP_API_URL
+
+const buildingsAPI = API_URL + `/api/buildings`
+
 export default function BuildingsPage() {
   const slides = [{ url: process.env.PUBLIC_URL + "/img/4.jpg", caption: "" }]
+
+  const [buildings, setBuildings] = useState([])
+
+  useEffect(() => {
+    const fetchBuildings = async () => {
+      const response = await fetch(buildingsAPI)
+      const json = await response.json()
+
+      if (response.ok) {
+        console.log(json)
+
+        setBuildings(json)
+      } else {
+        //TODO: toast error?
+        console.log(response.status, response.text)
+      }
+    }
+
+    fetchBuildings()
+  }, [])
 
   const sliderWrapperStyles = {
     width: "100vw",
@@ -25,20 +49,16 @@ export default function BuildingsPage() {
 
       <div className="page-list__container">
         <div className="container">
-          {/* TODO: AUTO GENERATE LIST FROM API */}
           <ul className="page-list">
-            <BuildingsPageItem name={"1 корпус"} link={"/"} />
-            <BuildingsPageItem name={"2 корпус"} link={"/"} />
-            {/* TODO: Generate pages from API */}
-            {/* <% for (var i = 0; i < buildings.length; i++) { %>
-                <li className="page-list__item">
-                    <a href="/building-page/<%= buildings[i].name %>" className="page-list__link">
-                        <span className="page-list__property page-list__property_name">
-                            <%= buildings[i].name %>
-                        </span>
-                    </a>
-                </li>
-            <% } %> */}
+            {buildings !== null &&
+              buildings.map((building: any) => {
+                return (
+                  <BuildingsPageItem
+                    name={building.name}
+                    link={building.name}
+                  />
+                )
+              })}
           </ul>
         </div>
       </div>
