@@ -12,11 +12,20 @@ import ListPage from "./pages/ListPage"
 import Edit from "./pages/Edit"
 import DashboardView from "./pages/DashboardView"
 import RoomPage from "./pages/RoomPage"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 function App() {
   return (
     <div className="App">
-      {/* <Home /> */}
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="faculties" element={<Faculties />} />
+          <Route path="buildings" element={<BuildingsPage />} />
+          {/* TODO: add auth system */}
+          <Route path="login" element={<LoginPage />} />
+        </Routes>
+      </BrowserRouter>
       {/* <ErrorPage /> */}
       {/* <Faculties /> */}
       {/* <BuildingsPage /> */}
@@ -27,7 +36,7 @@ function App() {
       {/* <ListPage listType={"room"} /> */}
       {/* <Edit /> */}
       {/* <DashboardView /> */}
-      <RoomPage />
+      {/* <RoomPage /> */}
     </div>
   )
 }

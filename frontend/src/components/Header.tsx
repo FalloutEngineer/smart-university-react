@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 
 import "./header.css"
+import { NavLink } from "react-router-dom"
 
 export default function Header({
   useDarkFont = false,
@@ -75,48 +76,34 @@ export default function Header({
             <div className="menu-container">
               <ul className="navbar-nav navbar-nav-right">
                 <li className="nav-item">
-                  <a
-                    className={
-                      "nav-item-child nav-item-hover " +
-                      (currentPage === "main" ? "active" : "")
-                    }
-                    href="/"
-                  >
+                  <NavLink to="/" className={"nav-item-child nav-item-hover"}>
                     Головна
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className={
-                      "nav-item-child nav-item-hover" +
-                      (currentPage === "manage" ? "active" : "")
-                    }
-                    href="/manage"
+                  {/* TODO: AUTH SYSTEM */}
+                  <NavLink
+                    to="/login"
+                    className={"nav-item-child nav-item-hover"}
                   >
                     Керування
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className={
-                      "nav-item-child nav-item-hover" +
-                      (currentPage === "faculties" ? "active" : "")
-                    }
-                    href="/faculties-page"
+                  <NavLink
+                    to="/faculties"
+                    className={"nav-item-child nav-item-hover"}
                   >
                     Факультети
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className={
-                      "nav-item-child nav-item-hover" +
-                      (currentPage === "buildings-page" ? "active" : "")
-                    }
-                    href="/buildings-page"
+                  <NavLink
+                    to="/buildings"
+                    className={"nav-item-child nav-item-hover"}
                   >
                     Будівлі
-                  </a>
+                  </NavLink>
                 </li>
               </ul>
             </div>
