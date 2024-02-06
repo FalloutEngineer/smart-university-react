@@ -1,0 +1,10 @@
+.roomHeading {
+  color: whitesmoke;
+  z-index: 1;
+}
+
+.info__item-value,
+.room__description,
+.roomPulpit {
+  color: black !important;
+}

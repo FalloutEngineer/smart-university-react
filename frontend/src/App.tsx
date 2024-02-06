@@ -11,6 +11,7 @@ import Manage from "./pages/Manage"
 import ListPage from "./pages/ListPage"
 import Edit from "./pages/Edit"
 import DashboardView from "./pages/DashboardView"
+import RoomPage from "./pages/RoomPage"
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
       {/* <Manage /> */}
       {/* <ListPage listType={"room"} /> */}
       {/* <Edit /> */}
-      <DashboardView />
+      {/* <DashboardView /> */}
+      <RoomPage />
     </div>
   )
 }
