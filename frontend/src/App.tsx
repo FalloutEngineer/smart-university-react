@@ -10,6 +10,7 @@ import FloorPage from "./pages/FloorPage"
 import Manage from "./pages/Manage"
 import ListPage from "./pages/ListPage"
 import Edit from "./pages/Edit"
+import DashboardView from "./pages/DashboardView"
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
       {/* <FloorPage id={1} /> */}
       {/* <Manage /> */}
       {/* <ListPage listType={"room"} /> */}
-      <Edit />
+      {/* <Edit /> */}
+      <DashboardView />
     </div>
   )
 }
