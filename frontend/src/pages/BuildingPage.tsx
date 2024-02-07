@@ -36,7 +36,7 @@ export default function BuildingPage() {
     }
 
     const fetchFloors = async (IDs: any) => {
-      console.log(IDs)
+      setFloors([])
 
       IDs.forEach(async (id: any) => {
         const response = await fetch(floorsAPI + "/" + id)
