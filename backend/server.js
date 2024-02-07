@@ -31,11 +31,13 @@ app.use(express.static(path.resolve(__dirname, "static")))
 app.use(session({ secret: secret, cookie: { sameSite: "strict" } }))
 app.use(cookieParser())
 
-const buildingsRoutes = require("./routes/api/buildings")
+const buildingsRoute = require("./routes/api/buildings")
+const floorsRoute = require("./routes/api/floors")
 
 //TODO: NEW ROUTES
 
-app.use("/api/buildings", buildingsRoutes)
+app.use("/api/buildings", buildingsRoute)
+app.use("/api/floors", floorsRoute)
 
 const facultyRouter = require("./routes/faculties")
 app.use("/faculties", facultyRouter)

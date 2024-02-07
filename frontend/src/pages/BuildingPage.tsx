@@ -10,11 +10,15 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const buildingsAPI = API_URL + `/api/buildings`
 
+const floorsAPI = API_URL + `/api/floors`
+
 // { id }: { id: number }
 export default function BuildingPage() {
   const params = useParams()
 
   const [building, setBuilding]: any[] = useState([])
+
+  const [floors, setFloors]: any[] = useState([])
 
   useEffect(() => {
     const fetchBuildings = async () => {
@@ -31,7 +35,28 @@ export default function BuildingPage() {
       }
     }
 
+    const fetchFloors = async (IDs: any) => {
+      console.log(IDs)
+
+      IDs.forEach(async (id: any) => {
+        const response = await fetch(floorsAPI + "/" + id)
+        const json = await response.json()
+
+        if (response.ok) {
+          console.log(json)
+
+          setFloors((prevState: any) => {
+            return [...prevState, json]
+          })
+        } else {
+          //TODO: toast error?
+          console.log(response.status, response.text)
+        }
+      })
+    }
+
     fetchBuildings()
+    fetchFloors(building.floors)
   }, [])
 
   return (
@@ -61,31 +86,15 @@ export default function BuildingPage() {
           )}
           <ul className="page-list">
             {/* TODO: list image from server, FROM FLOORS VARIABLE */}
-            <BuildingItem number={1} faculties={["ФКНФМ"]} />
-            <BuildingItem number={2} faculties={["ФКНФМ", "ФІЗВИХ"]} />
-            <BuildingItem
-              number={3}
-              faculties={[
-                "ФКНФМ",
-                "ФІЗВИХ",
-                "ФІЗВИХ",
-                "ФІЗВИХ",
-                "ФІЗВИХ",
-                "ФІЗВИХ",
-                "ФІЗВИХ",
-                "ФІЗВИХ",
-                "ФІЗВИХ",
-              ]}
-            />
-            {/* <% for (var i = 0; i < floors.length; i++) { %>
-                        <li className="page-list__item">
-                            <a href="/floor-page/<%= floors[i].number %>" className="page-list__link">
-                                <span className="page-list__property page-list__property_name">
-                                    <%= floors[i].number %> Поверх <% if(floors[i].faculty){ %>- <%= floors[i].faculty %> <% } %>
-                                </span>
-                            </a>
-                        </li>
-                    <% } %> */}
+            {floors &&
+              floors.map((floor: any) => {
+                return (
+                  <BuildingItem
+                    number={floor.number}
+                    faculties={[floor.faculty]}
+                  />
+                )
+              })}
           </ul>
         </div>
       </section>
