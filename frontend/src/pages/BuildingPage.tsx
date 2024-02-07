@@ -1,23 +1,37 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import Layout from "../components/Layout/Layout"
 import ParallaxWindow from "../components/ParallaxWindow"
 
 import "./buildingPage.css"
 import BuildingItem from "../components/BuildingItem"
+import { useParams } from "react-router-dom"
 
-export default function BuildingPage({ id }: { id: number }) {
-  //PARSE BUILDING DATA HERE
-  const building = {
-    name: "",
-    address: "",
-    image: "",
-  }
+const API_URL = process.env.REACT_APP_API_URL
 
-  //PARSE FLOORS HERE
-  const floors = []
+const buildingsAPI = API_URL + `/api/buildings`
+
+// { id }: { id: number }
+export default function BuildingPage() {
+  const params = useParams()
+
+  const [building, setBuilding]: any[] = useState([])
 
   useEffect(() => {
-    // GET DATA ABOUT BUILDING HERE
+    const fetchBuildings = async () => {
+      const response = await fetch(buildingsAPI + "/" + params.name)
+      const json = await response.json()
+
+      if (response.ok) {
+        console.log(json)
+
+        setBuilding(json)
+      } else {
+        //TODO: toast error?
+        console.log(response.status, response.text)
+      }
+    }
+
+    fetchBuildings()
   }, [])
 
   return (
@@ -25,30 +39,26 @@ export default function BuildingPage({ id }: { id: number }) {
       <ParallaxWindow imageUrl="url('/img/1.jpg')">
         <div className="parallax-content container buildingPage-content">
           {/* style="text-align: right;" */}
-          <h1 className="carousel-title">3 БУДІВЛЯ</h1>
-          <p>Вул. Шевченка</p>
-          {/* <% if(building.address){ %>
-              <p style="text-align: right; color: white;"><%- building.address %> </p>
-           <% } %> */}
+          <h1 className="carousel-title">{building && building.name}</h1>
+          {building.address !== null ? <p>{building.address}</p> : ""}
         </div>
       </ParallaxWindow>
       <section className="section section_models" id="models_1">
         <div className="container">
           {/* TODO: get image from server */}
-          <div className="model-container">
-            <object
-              className="model-svg"
-              data="/svg/1680280414263.svg"
-              type="image/svg+xml"
-            ></object>
-          </div>
-          {/* <%if (building.svg) { %>
-                    <div className="model-container">
-                        <object className="model-svg" data="/svg/<%= building.svg %>" type="image/svg+xml">
-                            
-                        </object>
-                    </div>
-                <% } %> */}
+          {building.svg !== null ? (
+            <div className="model-container">
+              <object
+                className="model-svg"
+                data={"/svg/" + building.svg}
+                type="image/svg+xml"
+              >
+                Building Model
+              </object>
+            </div>
+          ) : (
+            ""
+          )}
           <ul className="page-list">
             {/* TODO: list image from server, FROM FLOORS VARIABLE */}
             <BuildingItem number={1} faculties={["ФКНФМ"]} />

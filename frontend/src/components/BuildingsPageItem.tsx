@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 
 export default function BuildingsPageItem({
   name,
@@ -9,11 +10,11 @@ export default function BuildingsPageItem({
 }) {
   return (
     <li className="page-list__item">
-      <a href={"building-page/" + link} className="page-list__link">
+      <Link to={"/building/" + link} className="page-list__link">
         <span className="page-list__property page-list__property_name">
           {name}
         </span>
-      </a>
+      </Link>
     </li>
   )
 }
