@@ -35,29 +35,41 @@ export default function BuildingPage() {
       }
     }
 
+    // setFloors([])
+    fetchBuildings().catch((e) => {
+      console.log(e)
+    })
+  }, [])
+
+  useEffect(() => {
     const fetchFloors = async (IDs: any) => {
-      setFloors([])
+      console.log("IDs:", IDs)
 
-      IDs.forEach(async (id: any) => {
-        const response = await fetch(floorsAPI + "/" + id)
-        const json = await response.json()
+      if (IDs) {
+        IDs.forEach(async (id: any) => {
+          const response = await fetch(floorsAPI + "/" + id)
+          const json = await response.json()
 
-        if (response.ok) {
-          console.log(json)
+          if (response.ok) {
+            console.log(json)
 
-          setFloors((prevState: any) => {
-            return [...prevState, json]
-          })
-        } else {
-          //TODO: toast error?
-          console.log(response.status, response.text)
-        }
-      })
+            setFloors((prevState: any) => {
+              return [...prevState, json]
+            })
+          } else {
+            //TODO: toast error?
+            console.log(response.status, response.text)
+          }
+        })
+      } else {
+        console.log("floors IDs is empty")
+      }
     }
 
-    fetchBuildings()
+    setFloors([])
+
     fetchFloors(building.floors)
-  }, [])
+  }, [building])
 
   return (
     <Layout>
@@ -70,7 +82,6 @@ export default function BuildingPage() {
       </ParallaxWindow>
       <section className="section section_models" id="models_1">
         <div className="container">
-          {/* TODO: get image from server */}
           {building.svg !== null ? (
             <div className="model-container">
               <object
@@ -85,7 +96,6 @@ export default function BuildingPage() {
             ""
           )}
           <ul className="page-list">
-            {/* TODO: list image from server, FROM FLOORS VARIABLE */}
             {floors &&
               floors.map((floor: any) => {
                 return (
