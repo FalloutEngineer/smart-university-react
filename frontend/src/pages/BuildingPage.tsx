@@ -12,7 +12,6 @@ const buildingsAPI = API_URL + `/api/buildings`
 
 const floorsAPI = API_URL + `/api/floors`
 
-// { id }: { id: number }
 export default function BuildingPage() {
   const params = useParams()
 

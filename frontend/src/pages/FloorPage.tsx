@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Layout from "../components/Layout/Layout"
 
 /* TODO: INSERT PAGE COLOR HERE */
@@ -8,26 +8,55 @@ import AirStatus from "../components/AirStatus"
 import FloorMap from "../components/FloorMap"
 import FloorHeader from "../components/FloorHeader"
 import FacultiesCard from "../components/FacultiesCard"
+import { useParams } from "react-router-dom"
 
-export default function FloorPage({ id }: { id: number }) {
+const API_URL = process.env.REACT_APP_API_URL
+
+const floorsAPI = API_URL + `/api/floors`
+
+export default function FloorPage() {
+  const params = useParams()
+
+  const [floor, setFloor]: any[] = useState(null)
+
   const sensorsBlockStyles = {
     backgroundColor: "#235352",
   }
 
+  useEffect(() => {
+    const fetchBuildings = async () => {
+      const response = await fetch(floorsAPI + "/" + params.number)
+      const json = await response.json()
+
+      if (response.ok) {
+        console.log(json)
+
+        setFloor(json)
+      } else {
+        //TODO: toast error?
+        console.log(response.status, response.text)
+      }
+    }
+
+    fetchBuildings()
+  }, [])
+
   return (
     <Layout>
       <FloorHeader
-        color={"#235352"}
-        floor={6}
-        name="ФКНФМ"
+        color={floor !== null ? floor.color : "#235352"}
+        floor={floor !== null ? floor.number : "0"}
+        name={floor !== null ? floor.faculty : "Faculty"}
+        // TODO: ADD LOGO TO DATABASE
         imageUrl="http://localhost:3000/img/logo.png"
       />
 
       <div className="plan">
         {/* TODO: pass color from fetched data */}
         <FloorMap
+          // TODO: ADD FLOOR PLAN FROM DATABASE
           url="http://localhost:3000/svg/mock-floorPlan.svg"
-          styles={{ color: "aqua" }}
+          styles={floor !== null ? floor.color : { color: "#000" }}
         />
       </div>
 
@@ -36,7 +65,7 @@ export default function FloorPage({ id }: { id: number }) {
         <div className="container">
           <div className="infoBox">
             <div className="infoboxContainer">
-              {/* TODO: parse data from server */}
+              {/* TODO: ADD FIELD TO SERVER AND parse data from server */}
               <FacultiesCard
                 params={{
                   icon: "fa-globe",

@@ -25,6 +25,7 @@ function App() {
           {/* TODO: add auth system */}
           <Route path="login" element={<LoginPage />} />
           <Route path="/building/:name" element={<BuildingPage />} />
+          <Route path="/floor/:number" element={<FloorPage />} />
         </Routes>
       </BrowserRouter>
       {/* <ErrorPage /> */}

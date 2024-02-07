@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 
 export default function BuildingItem({
   number,
@@ -9,7 +10,7 @@ export default function BuildingItem({
 }) {
   return (
     <li className="page-list__item">
-      <a href={"/floor-page/" + number} className="page-list__link">
+      <Link to={"/floor/" + number} className="page-list__link">
         <span className="page-list__property page-list__property_name">
           {number} Поверх -{" "}
           {faculties.map((faculty, index) => {
@@ -18,7 +19,7 @@ export default function BuildingItem({
               : `${faculty}, `
           })}
         </span>
-      </a>
+      </Link>
     </li>
   )
 }
