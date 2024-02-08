@@ -1,21 +1,17 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Layout from "../components/Layout/Layout"
 
 import "./roomPage.css"
+import { useParams } from "react-router-dom"
+
+const API_URL = process.env.REACT_APP_API_URL
+
+const roomsAPI = API_URL + `/api/rooms`
 
 export default function RoomPage() {
-  //TODO: fetch from server
-  const room: {
-    type: string
-    number: number
-    faculty?: string
-    floor: number
-    pulpits?: String[]
-    description: string
-    capacity: number
-    assistant: string
-    photo_links: String[]
-  } = {
+  const params = useParams()
+
+  const [room, setRoom] = useState({
     type: "room",
     number: 111,
     faculty: "ФКНФМ",
@@ -25,7 +21,47 @@ export default function RoomPage() {
     capacity: 100,
     assistant: "Іван Франко",
     photo_links: ["1680109934506.jpg"],
-  }
+  })
+
+  // TODO: fetch from server
+  // const room: {
+  //   type: string
+  //   number: number
+  //   faculty?: string
+  //   floor: number
+  //   pulpits?: String[]
+  //   description: string
+  //   capacity: number
+  //   assistant: string
+  //   photo_links: String[]
+  // } = {
+  //   type: "room",
+  //   number: 111,
+  //   faculty: "ФКНФМ",
+  //   floor: 1,
+  //   pulpits: ["КІПІЕК"],
+  //   description: "Hello, world",
+  //   capacity: 100,
+  //   assistant: "Іван Франко",
+  //   photo_links: ["1680109934506.jpg"],
+  // }
+
+  useEffect(() => {
+    const fetchRoom = async () => {
+      const response = await fetch(roomsAPI + "/" + params.number)
+      const json = await response.json()
+
+      if (response.ok) {
+        setRoom(json)
+      } else {
+        console.error("Fetch error:", response.status)
+      }
+    }
+
+    fetchRoom().catch((e) => {
+      console.error(e)
+    })
+  }, [])
 
   //TODO: FETCH FROM SERVER
   const temperatureValue = 0

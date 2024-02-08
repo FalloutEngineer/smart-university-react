@@ -26,6 +26,7 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="/building/:name" element={<BuildingPage />} />
           <Route path="/floor/:number" element={<FloorPage />} />
+          <Route path="/room/:number" element={<RoomPage />} />
         </Routes>
       </BrowserRouter>
       {/* <ErrorPage /> */}
