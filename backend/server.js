@@ -34,12 +34,14 @@ app.use(cookieParser())
 const buildingsRoute = require("./routes/api/buildings")
 const floorsRoute = require("./routes/api/floors")
 const roomsRoute = require("./routes/api/rooms")
+const facultiesRoute = require("./routes/api/faculties")
 
 //TODO: NEW ROUTES
 
 app.use("/api/buildings", buildingsRoute)
 app.use("/api/floors", floorsRoute)
 app.use("/api/rooms", roomsRoute)
+app.use("/api/faculties", facultiesRoute)
 
 const facultyRouter = require("./routes/faculties")
 app.use("/faculties", facultyRouter)

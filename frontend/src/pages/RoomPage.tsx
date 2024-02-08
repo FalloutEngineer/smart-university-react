@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom"
 const API_URL = process.env.REACT_APP_API_URL
 
 const roomsAPI = API_URL + `/api/rooms`
+const floorsAPI = API_URL + `/api/floors`
 
 export default function RoomPage() {
   const params = useParams()
@@ -23,28 +24,7 @@ export default function RoomPage() {
     photo_links: ["1680109934506.jpg"],
   })
 
-  // TODO: fetch from server
-  // const room: {
-  //   type: string
-  //   number: number
-  //   faculty?: string
-  //   floor: number
-  //   pulpits?: String[]
-  //   description: string
-  //   capacity: number
-  //   assistant: string
-  //   photo_links: String[]
-  // } = {
-  //   type: "room",
-  //   number: 111,
-  //   faculty: "ФКНФМ",
-  //   floor: 1,
-  //   pulpits: ["КІПІЕК"],
-  //   description: "Hello, world",
-  //   capacity: 100,
-  //   assistant: "Іван Франко",
-  //   photo_links: ["1680109934506.jpg"],
-  // }
+  const [floor, setFloor]: any[] = useState(null)
 
   useEffect(() => {
     const fetchRoom = async () => {
@@ -63,15 +43,32 @@ export default function RoomPage() {
     })
   }, [])
 
+  useEffect(() => {
+    const fetchFaculty = async () => {
+      const response = await fetch(floorsAPI + "/" + room.floor)
+      const json = await response.json()
+
+      if (response.ok) {
+        setFloor(json)
+        console.log(json)
+      } else {
+        console.error(response.status)
+      }
+    }
+
+    fetchFaculty()
+  }, [room])
+
   //TODO: FETCH FROM SERVER
   const temperatureValue = 0
   const co2Value = 1111
 
   //TODO: fetch from server
-  const floorColor = "#000"
   const floorHeaderStyles = {
     // <%if(floor.floorColor) { %><%-floor.floorColor%><% } else { %>#000<%}%
-    background: `linear-gradient(to right,rgba(0,0,0,0.4), rgba(255, 255, 255, 0.1)) ${floorColor}`,
+    background: `linear-gradient(to right,rgba(0,0,0,0.4), rgba(255, 255, 255, 0.1)) ${
+      floor ? floor.floorColor : "grey"
+    }`,
   }
 
   const photoStyles = {
