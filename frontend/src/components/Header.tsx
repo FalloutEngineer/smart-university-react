@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom"
 import { useLogout } from "../hooks/useLogout"
 
 import "./header.css"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 export default function Header({
   useDarkFont = false,
@@ -14,6 +15,7 @@ export default function Header({
   const [isScrolled, setIsScrolled] = useState(false)
 
   const [isOpened, setIsOpened] = useState(false)
+  const { user } = useAuthContext()
 
   function toggleMobileMenu() {
     setIsOpened((prevState) => !prevState)
@@ -109,9 +111,11 @@ export default function Header({
                     Будівлі
                   </NavLink>
                 </li>
-                <li className="nav-item">
-                  <button onClick={handleLogoutClick}>Вийти</button>
-                </li>
+                {user && (
+                  <li className="nav-item">
+                    <button onClick={handleLogoutClick}>Вийти</button>
+                  </li>
+                )}
               </ul>
             </div>
           </div>

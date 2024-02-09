@@ -4,12 +4,15 @@ import "./index.css"
 import App from "./App"
 import Head from "./components/Head"
 import AuthContextProvider from "./AuthContext/AuthContext"
+import { CookiesProvider } from "react-cookie"
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 root.render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <App />
-    </AuthContextProvider>
+    <CookiesProvider>
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
+    </CookiesProvider>
   </React.StrictMode>
 )
