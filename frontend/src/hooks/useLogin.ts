@@ -10,26 +10,30 @@ export const useLogin = () => {
   const [isLoading, setIsLoading] = useState(false)
   const { dispatch }: { dispatch: any } = useAuthContext()
 
-  const login = async (username: string, password: string) => {
+  const login = async (login: string, password: string) => {
     setIsLoading(true)
     setError(null)
 
     const response = await fetch(loginAPI, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ login, password }),
     })
 
     const json = await response.json()
+
+    console.log(json.token)
 
     if (!response.ok) {
       setIsLoading(false)
       setError(json.error)
     }
     if (response.ok) {
-      localStorage.setItem("user", JSON.stringify(json))
+      const token = json.token
 
-      dispatch({ type: "LOGIN", paload: json })
+      document.cookie = `token=${token};`
+
+      dispatch({ type: "LOGIN", payload: token })
 
       setIsLoading(false)
     }

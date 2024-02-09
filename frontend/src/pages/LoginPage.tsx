@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useLogin } from "../hooks/useLogin"
 import Layout from "../components/Layout/Layout"
 
 import "./login.css"
@@ -6,11 +7,12 @@ import "./login.css"
 export default function LoginPage() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const { login, error, isLoading } = useLogin()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    console.log(username, password)
+    await login(username, password)
   }
 
   return (
@@ -43,11 +45,14 @@ export default function LoginPage() {
             />
           </div>
           <input
+            disabled={isLoading}
             id="authorize-button"
             type="submit"
             className="login__submit"
             value="Увійти"
           />
+
+          {error && <div className="loginError">{error}</div>}
         </form>
       </div>
     </Layout>

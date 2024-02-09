@@ -75,10 +75,10 @@ app.use("/pulpit", viewPulpitRouter, express.static("required"))
 const viewBuildingRouter = require("./routes/building")
 app.use("/building", viewBuildingRouter, express.static("required"))
 
-const authRouter = require("./routes/auth")
+const authRouter = require("./routes/api/auth")
 const authMiddleware = require("./middleware/authMiddleware")
 const { log } = require("console")
-app.use("/auth", authRouter)
+app.use("/api/auth", authRouter)
 
 app.get("", (req, res) => {
   res.render("index", { currentPage: "main" })
