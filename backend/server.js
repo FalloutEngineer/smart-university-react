@@ -35,6 +35,7 @@ const buildingsRoute = require("./routes/api/buildings")
 const floorsRoute = require("./routes/api/floors")
 const roomsRoute = require("./routes/api/rooms")
 const facultiesRoute = require("./routes/api/faculties")
+// const loginRoute = require("./routes/api/auth")
 
 //TODO: NEW ROUTES
 
@@ -42,6 +43,7 @@ app.use("/api/buildings", buildingsRoute)
 app.use("/api/floors", floorsRoute)
 app.use("/api/rooms", roomsRoute)
 app.use("/api/faculties", facultiesRoute)
+// app.use("/api/login", loginRoute)
 
 const facultyRouter = require("./routes/faculties")
 app.use("/faculties", facultyRouter)
