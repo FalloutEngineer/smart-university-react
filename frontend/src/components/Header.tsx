@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
+import { NavLink } from "react-router-dom"
+import { useLogout } from "../hooks/useLogout"
 
 import "./header.css"
-import { NavLink } from "react-router-dom"
 
 export default function Header({
   useDarkFont = false,
 }: {
   useDarkFont?: boolean
 }) {
-  //TODO: get state from server
-  let currentPage: string = "main"
+  const { logout } = useLogout()
 
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -31,6 +31,10 @@ export default function Header({
       window.removeEventListener("scroll", handleScroll)
     }
   }, [])
+
+  const handleLogoutClick = () => {
+    logout()
+  }
 
   return (
     <header
@@ -104,6 +108,9 @@ export default function Header({
                   >
                     Будівлі
                   </NavLink>
+                </li>
+                <li className="nav-item">
+                  <button onClick={handleLogoutClick}>Вийти</button>
                 </li>
               </ul>
             </div>

@@ -23,7 +23,7 @@ function App() {
           <Route path="faculties" element={<Faculties />} />
           <Route path="buildings" element={<BuildingsPage />} />
           {/* TODO: add auth system */}
-          <Route path="login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/building/:name" element={<BuildingPage />} />
           <Route path="/floor/:number" element={<FloorPage />} />
           <Route path="/room/:number" element={<RoomPage />} />
