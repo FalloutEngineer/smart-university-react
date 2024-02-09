@@ -1,33 +1,45 @@
-import React from "react"
+import React, { useState } from "react"
 import Layout from "../components/Layout/Layout"
 
 import "./login.css"
 
 export default function LoginPage() {
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    console.log(username, password)
+  }
+
   return (
     <Layout headerless={true} footerless={true}>
       <div className="login__container">
-        {/* @submit.prevent="auth" */}
-        <form id="login-body" className="login__body">
+        <form id="login-body" className="login__body" onSubmit={handleSubmit}>
           <h2 className="login__heading">Увійти</h2>
           <div className="login__item">
             <label htmlFor="login">Логін</label>
-            {/* v-model="login" */}
             <input
               id="login"
               type="text"
               className="login__input login__login"
               placeholder="Логін"
+              onChange={(e) => {
+                setUsername(e.target.value)
+              }}
             />
           </div>
           <div className="login__item">
             <label htmlFor="password">Пароль</label>
-            {/* v-model="password" */}
             <input
               id="password"
               type="password"
               className="login__input login__password"
               placeholder="Пароль"
+              onChange={(e) => {
+                setPassword(e.target.value)
+              }}
             />
           </div>
           <input
