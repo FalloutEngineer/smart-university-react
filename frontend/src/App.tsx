@@ -14,6 +14,7 @@ import DashboardView from "./pages/DashboardView"
 import RoomPage from "./pages/RoomPage"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import { useAuthContext } from "./hooks/useAuthContext"
+import { ListTypeEnum } from "./enums"
 
 function App() {
   const { user } = useAuthContext()
@@ -39,7 +40,21 @@ function App() {
           <Route
             path="/room-list"
             element={
-              user ? <ListPage listType="room" /> : <Navigate to="/login" />
+              user ? (
+                <ListPage listType={ListTypeEnum.ROOM} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/floor-list"
+            element={
+              user ? (
+                <ListPage listType={ListTypeEnum.FLOOR} />
+              ) : (
+                <Navigate to="/login" />
+              )
             }
           />
         </Routes>

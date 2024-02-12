@@ -2,6 +2,7 @@ import React from "react"
 import DashListItem from "./DashListItem"
 import DashListRoom from "./DashListRoom"
 import { ListTypeEnum } from "../enums"
+import DashListFloor from "./DashListFloor"
 
 export default function DashListBody({
   listData,
@@ -17,6 +18,11 @@ export default function DashListBody({
         {listType === ListTypeEnum.ROOM
           ? listData.map((listItem) => {
               return <DashListRoom itemData={listItem} />
+            })
+          : ""}
+        {listType === ListTypeEnum.FLOOR
+          ? listData.map((listItem) => {
+              return <DashListFloor itemData={listItem} />
             })
           : ""}
         {/* TODO: listData.map... */}
