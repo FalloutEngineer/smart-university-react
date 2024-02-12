@@ -1,69 +1,40 @@
 import React from "react"
+import { NavLink } from "react-router-dom"
 
-export default function DashSidebar({ page }: { page: string }) {
+export default function DashSidebar({ page }: { page?: string }) {
   //TODO: change class on current
   return (
     <div className="dash-sidebar">
       <ul className="dash-sidebar__list">
         <li className="dash-sidebar__item">
-          <a
-            href="/manage"
-            className={
-              "dash-sidebar__link " + (page === "manage" ? "active" : "")
-            }
-          >
+          <NavLink to="/manage" className={"dash-sidebar__link "}>
             Створити
-          </a>
+          </NavLink>
         </li>
         <li className="dash-sidebar__item">
-          <a
-            href="/room-list"
-            className={
-              "dash-sidebar__link " + (page === "room-list" ? "active" : "")
-            }
-          >
+          <NavLink to="/room-list" className={"dash-sidebar__link "}>
             Список приміщень
-          </a>
+          </NavLink>
         </li>
         <li className="dash-sidebar__item">
-          <a
-            href="/floor-list"
-            className={
-              "dash-sidebar__link " + (page === "floor-list" ? "active" : "")
-            }
-          >
+          <NavLink to="/floor-list" className={"dash-sidebar__link "}>
             Список поверхів
-          </a>
+          </NavLink>
         </li>
         <li className="dash-sidebar__item">
-          <a
-            href="/faculty-list"
-            className={
-              "dash-sidebar__link " + (page === "faculty-list" ? "active" : "")
-            }
-          >
+          <NavLink to="/faculty-list" className={"dash-sidebar__link "}>
             Список факультетів
-          </a>
+          </NavLink>
         </li>
         <li className="dash-sidebar__item">
-          <a
-            href="/pulpit-list"
-            className={
-              "dash-sidebar__link " + (page === "pulpit-list" ? "active" : "")
-            }
-          >
+          <NavLink to="/pulpit-list" className={"dash-sidebar__link "}>
             Список кафедр
-          </a>
+          </NavLink>
         </li>
         <li className="dash-sidebar__item">
-          <a
-            href="/building-list"
-            className={
-              "dash-sidebar__link " + (page === "building-list" ? "active" : "")
-            }
-          >
+          <NavLink to="/building-list" className={"dash-sidebar__link "}>
             Список будівель
-          </a>
+          </NavLink>
         </li>
       </ul>
     </div>

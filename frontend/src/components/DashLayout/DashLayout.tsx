@@ -10,7 +10,7 @@ export default function DashLayout({ children }: { children?: any }) {
       <Header isDashboard={true} useDarkFont={true} />
       <div className="dash-container">
         <div className="dash-body">
-          <DashSidebar page="room-list" />
+          <DashSidebar />
           <div className="dash-board">
             <div className="dash-board__container">{children}</div>
           </div>
