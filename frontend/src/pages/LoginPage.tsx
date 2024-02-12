@@ -1,17 +1,27 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useLogin } from "../hooks/useLogin"
 import Layout from "../components/Layout/Layout"
 
 import "./login.css"
 import { useNavigate } from "react-router-dom"
+import { redirect } from "react-router-dom"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 export default function LoginPage() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
+  const { user } = useAuthContext()
+
   const navigate = useNavigate()
 
   const { login, error, isLoading } = useLogin()
+
+  useEffect(() => {
+    if (user) {
+      redirect("/")
+    }
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
