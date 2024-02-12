@@ -12,9 +12,12 @@ import ListPage from "./pages/ListPage"
 import Edit from "./pages/Edit"
 import DashboardView from "./pages/DashboardView"
 import RoomPage from "./pages/RoomPage"
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
+import { useAuthContext } from "./hooks/useAuthContext"
 
 function App() {
+  const { user } = useAuthContext()
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -22,11 +25,17 @@ function App() {
           <Route index element={<Home />} />
           <Route path="faculties" element={<Faculties />} />
           <Route path="buildings" element={<BuildingsPage />} />
-          {/* TODO: add auth system */}
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/login"
+            element={!user ? <LoginPage /> : <Navigate to="/" />}
+          />
           <Route path="/building/:name" element={<BuildingPage />} />
           <Route path="/floor/:number" element={<FloorPage />} />
           <Route path="/room/:number" element={<RoomPage />} />
+          <Route
+            path="/manage"
+            element={user ? <Manage /> : <Navigate to="/login" />}
+          />
         </Routes>
       </BrowserRouter>
       {/* <ErrorPage /> */}

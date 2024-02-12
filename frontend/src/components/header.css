@@ -11,6 +11,12 @@
 .menu-container {
 }
 
+.dash-header {
+  position: relative !important;
+  top: 0px !important;
+  left: 0px !important;
+}
+
 @media (max-width: 991px) {
   .navbar-nav {
     overflow: hidden;

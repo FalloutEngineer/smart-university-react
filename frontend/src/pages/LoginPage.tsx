@@ -4,23 +4,14 @@ import Layout from "../components/Layout/Layout"
 
 import "./login.css"
 import { useNavigate } from "react-router-dom"
-import { useAuthContext } from "../hooks/useAuthContext"
 
 export default function LoginPage() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
-  const { user } = useAuthContext()
-
   const navigate = useNavigate()
 
   const { login, error, isLoading } = useLogin()
-
-  useEffect(() => {
-    if (user) {
-      navigate("/")
-    }
-  }, [])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -29,6 +20,9 @@ export default function LoginPage() {
 
     if (loggedIn) {
       navigate(-1)
+    } else {
+      //TODO TOAST OR GOOD ERROR
+      console.log("Failed to login")
     }
   }
 

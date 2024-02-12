@@ -7,8 +7,10 @@ import { useAuthContext } from "../hooks/useAuthContext"
 
 export default function Header({
   useDarkFont = false,
+  isDashboard = false,
 }: {
   useDarkFont?: boolean
+  isDashboard?: boolean
 }) {
   const { logout } = useLogout()
 
@@ -44,7 +46,9 @@ export default function Header({
         "header navbar-fixed-top " +
         (useDarkFont ? "dark-font" : "") +
         " " +
-        (isScrolled ? "scrolled" : "")
+        (isScrolled ? "scrolled" : "") +
+        " " +
+        (isDashboard ? "dash-header" : "")
       }
     >
       <nav className="navbar" role="navigation">
@@ -89,7 +93,7 @@ export default function Header({
                 <li className="nav-item">
                   {/* TODO: AUTH SYSTEM */}
                   <NavLink
-                    to="/login"
+                    to="/manage"
                     className={"nav-item-child nav-item-hover"}
                   >
                     Керування
