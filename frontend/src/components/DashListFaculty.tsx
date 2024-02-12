@@ -10,11 +10,11 @@ export default function DashListFaculty({ itemData }: { itemData: any }) {
           {itemData.name}
         </span>
         <span className="dash-list__property dash-list__property_faculty">
-          {itemData.pulpits.length}
+          {itemData.pulpits && itemData.pulpits.length}
         </span>
         <span className="dash-list__property dash-list__property_pulpit"></span>
         <span className="dash-list__property dash-list__property_floor">
-          {itemData.floors.length}
+          {itemData.floors && itemData.floors.length}
         </span>
       </NavLink>
     </li>

@@ -14,7 +14,7 @@ export default function DashListPulpit({ itemData }: { itemData: any }) {
         </span>
         <span className="dash-list__property dash-list__property_pulpit"></span>
         <span className="dash-list__property dash-list__property_floor">
-          {itemData.rooms.length}
+          {itemData.rooms && itemData.rooms.length}
         </span>
       </NavLink>
     </li>
