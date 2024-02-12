@@ -3,16 +3,24 @@ import { useLogin } from "../hooks/useLogin"
 import Layout from "../components/Layout/Layout"
 
 import "./login.css"
+import { useNavigate } from "react-router-dom"
 
 export default function LoginPage() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+
+  const navigate = useNavigate()
+
   const { login, error, isLoading } = useLogin()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    await login(username, password)
+    const loggedIn = await login(username, password)
+
+    if (loggedIn) {
+      navigate(-1)
+    }
   }
 
   return (

@@ -4,8 +4,6 @@ import ImageSlider from "../components/ImageSlider"
 import MainHero from "../components/MainHero"
 import Corpus from "../components/Corpus"
 
-import { useAuthContext } from "../hooks/useAuthContext"
-
 import "./home.css"
 
 //TODO: CAROUSEL COMPONENT

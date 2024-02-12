@@ -27,6 +27,8 @@ export const useLogin = () => {
     if (!response.ok) {
       setIsLoading(false)
       setError(json.error)
+
+      return false
     }
     if (response.ok) {
       const token = json.token
@@ -36,7 +38,11 @@ export const useLogin = () => {
       dispatch({ type: "LOGIN", payload: token })
 
       setIsLoading(false)
+
+      return true
     }
+
+    return false
   }
 
   return { login, isLoading, error }
