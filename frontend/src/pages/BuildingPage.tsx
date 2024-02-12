@@ -39,33 +39,30 @@ export default function BuildingPage() {
     })
   }, [])
 
+  async function getBuildingPromise(id: any) {
+    return fetch(floorsAPI + "/" + id)
+  }
+
   useEffect(() => {
     const fetchFloors = async (IDs: any) => {
       console.log("IDs:", IDs)
 
-      setFloors([])
       if (IDs) {
-        IDs.forEach(async (id: any) => {
-          const response = await fetch(floorsAPI + "/" + id)
-          const json = await response.json()
-
-          if (response.ok) {
-            console.log(json)
-
-            setFloors((prevState: any) => {
-              return [...prevState, json]
-            })
-          } else {
-            //TODO: toast error?
-            console.log(response.status, response.text)
-          }
+        const idPromises = IDs.map((id: any) => {
+          return getBuildingPromise(id)
         })
-      } else {
-        console.log("floors IDs is empty")
+
+        const responses = await Promise.all(idPromises)
+
+        const jsons = await Promise.all(
+          responses.map((resp) => {
+            return resp.json()
+          })
+        )
+
+        setFloors([...jsons])
       }
     }
-
-    setFloors([])
 
     fetchFloors(building.floors)
   }, [building])
