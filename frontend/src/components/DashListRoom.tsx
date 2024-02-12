@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom"
 
 //TODO: interface
 export default function DashListRoom({ itemData }: { itemData: any }) {
-  console.log(itemData.pulpits)
   return (
     <li className="dash-list__item">
       <NavLink to={"./" + itemData.number} className="dash-list__link">

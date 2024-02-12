@@ -3,6 +3,7 @@ import DashListItem from "./DashListItem"
 import DashListRoom from "./DashListRoom"
 import { ListTypeEnum } from "../enums"
 import DashListFloor from "./DashListFloor"
+import DashListFaculty from "./DashListFaculty"
 
 export default function DashListBody({
   listData,
@@ -23,6 +24,11 @@ export default function DashListBody({
         {listType === ListTypeEnum.FLOOR
           ? listData.map((listItem) => {
               return <DashListFloor itemData={listItem} />
+            })
+          : ""}
+        {listType === ListTypeEnum.FACULTY
+          ? listData.map((listItem) => {
+              return <DashListFaculty itemData={listItem} />
             })
           : ""}
         {/* TODO: listData.map... */}

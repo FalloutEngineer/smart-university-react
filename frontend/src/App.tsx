@@ -57,6 +57,16 @@ function App() {
               )
             }
           />
+          <Route
+            path="/faculty-list"
+            element={
+              user ? (
+                <ListPage listType={ListTypeEnum.FACULTY} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
         </Routes>
       </BrowserRouter>
       {/* <ErrorPage /> */}

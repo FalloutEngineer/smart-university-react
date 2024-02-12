@@ -36,6 +36,8 @@ export default function ListPage({ listType }: { listType: ListTypeEnum }) {
 
     const json = await response.json()
 
+    console.log(json)
+
     setItems(json)
   }
 
@@ -48,7 +50,7 @@ export default function ListPage({ listType }: { listType: ListTypeEnum }) {
       case ListTypeEnum.FLOOR:
         fetchFloors()
         break
-      case ListTypeEnum.FACULTIES:
+      case ListTypeEnum.FACULTY:
         fetchFaculties()
         break
       default:
