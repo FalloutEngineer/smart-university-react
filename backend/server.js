@@ -14,9 +14,13 @@ const Building = require("./models/building")
 const Floor = require("./models/floor")
 const Room = require("./models/room")
 
+const requireAuth = require("./middleware/requireAuth.js")
+
 const cors = require("cors")
 
 app.use(cors())
+
+app.use(requireAuth)
 
 const db = mongoose.connection
 db.on("error", (error) => console.log(error))
