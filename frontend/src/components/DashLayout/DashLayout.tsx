@@ -1,6 +1,5 @@
 import React from "react"
 import DashSidebar from "../DashSidebar"
-import DashHeader from "../DashHeader"
 
 import "./dashLayout.css"
 import Header from "../Header"
