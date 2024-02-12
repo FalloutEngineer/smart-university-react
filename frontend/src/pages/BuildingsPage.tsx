@@ -11,6 +11,8 @@ const API_URL = process.env.REACT_APP_API_URL
 const buildingsAPI = API_URL + `/api/buildings`
 
 export default function BuildingsPage() {
+  //TODO: Use buildings context
+
   const slides = [{ url: process.env.PUBLIC_URL + "/img/4.jpg", caption: "" }]
 
   const [buildings, setBuildings] = useState([])

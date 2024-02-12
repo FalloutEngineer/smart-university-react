@@ -20,14 +20,14 @@ export default function AuthContextProvider({ children }: { children: any }) {
   })
   const [cookies, setCookie] = useCookies(["token"])
 
-  console.log("AuthContext state: ", state)
-
   useEffect(() => {
     const token = cookies.token
     if (token) {
       dispatch({ type: "LOGIN", payload: token })
     }
   }, [])
+
+  console.log("AuthContext state: ", state)
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>

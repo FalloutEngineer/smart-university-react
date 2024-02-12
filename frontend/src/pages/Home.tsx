@@ -2,9 +2,11 @@ import React from "react"
 import Layout from "../components/Layout/Layout"
 import ImageSlider from "../components/ImageSlider"
 import MainHero from "../components/MainHero"
+import Corpus from "../components/Corpus"
+
+import { useAuthContext } from "../hooks/useAuthContext"
 
 import "./home.css"
-import Corpus from "../components/Corpus"
 
 //TODO: CAROUSEL COMPONENT
 

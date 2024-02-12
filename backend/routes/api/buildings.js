@@ -1,6 +1,8 @@
 const express = require("express")
 const Building = require("../../models/building")
 
+const requireAuth = require("../../middleware/requireAuth.js")
+
 const router = express.Router()
 
 //get all

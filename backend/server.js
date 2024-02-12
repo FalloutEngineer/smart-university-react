@@ -20,8 +20,6 @@ const cors = require("cors")
 
 app.use(cors())
 
-app.use(requireAuth)
-
 const db = mongoose.connection
 db.on("error", (error) => console.log(error))
 db.once("open", () => console.log("Connected to database"))
