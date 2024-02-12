@@ -67,6 +67,16 @@ function App() {
               )
             }
           />
+          <Route
+            path="/pulpit-list"
+            element={
+              user ? (
+                <ListPage listType={ListTypeEnum.PULPIT} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
         </Routes>
       </BrowserRouter>
       {/* <ErrorPage /> */}

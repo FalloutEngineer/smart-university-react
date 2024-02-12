@@ -9,6 +9,7 @@ const API_URL = process.env.REACT_APP_API_URL
 const roomsAPI = API_URL + `/api/rooms`
 const floorsAPI = API_URL + `/api/floors`
 const facultiesAPI = API_URL + `/api/faculties`
+const pulpitsAPI = API_URL + `/api/pulpits`
 
 export default function ListPage({ listType }: { listType: ListTypeEnum }) {
   const listHeaderOptions = getListHeaderOptions(listType)
@@ -41,6 +42,16 @@ export default function ListPage({ listType }: { listType: ListTypeEnum }) {
     setItems(json)
   }
 
+  const fetchPulpits = async () => {
+    const response = await fetch(pulpitsAPI)
+
+    const json = await response.json()
+
+    console.log(json)
+
+    setItems(json)
+  }
+
   //fetch depending on type
   useLayoutEffect(() => {
     switch (listType) {
@@ -52,6 +63,9 @@ export default function ListPage({ listType }: { listType: ListTypeEnum }) {
         break
       case ListTypeEnum.FACULTY:
         fetchFaculties()
+        break
+      case ListTypeEnum.PULPIT:
+        fetchPulpits()
         break
       default:
         break
