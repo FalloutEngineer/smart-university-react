@@ -36,6 +36,12 @@ function App() {
             path="/manage"
             element={user ? <Manage /> : <Navigate to="/login" />}
           />
+          <Route
+            path="/room-list"
+            element={
+              user ? <ListPage listType="room" /> : <Navigate to="/login" />
+            }
+          />
         </Routes>
       </BrowserRouter>
       {/* <ErrorPage /> */}
