@@ -4,7 +4,6 @@ import Layout from "../components/Layout/Layout"
 
 import "./login.css"
 import { useNavigate } from "react-router-dom"
-import { redirect } from "react-router-dom"
 import { useAuthContext } from "../hooks/useAuthContext"
 
 export default function LoginPage() {
@@ -19,7 +18,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (user) {
-      redirect("/")
+      navigate("/")
     }
   }, [])
 
