@@ -10,6 +10,7 @@ const roomsAPI = API_URL + `/api/rooms`
 const floorsAPI = API_URL + `/api/floors`
 const facultiesAPI = API_URL + `/api/faculties`
 const pulpitsAPI = API_URL + `/api/pulpits`
+const buildingsAPI = API_URL + `/api/buildings`
 
 export default function ListPage({ listType }: { listType: ListTypeEnum }) {
   const listHeaderOptions = getListHeaderOptions(listType)
@@ -36,9 +37,6 @@ export default function ListPage({ listType }: { listType: ListTypeEnum }) {
     const response = await fetch(facultiesAPI)
 
     const json = await response.json()
-
-    console.log(json)
-
     setItems(json)
   }
 
@@ -47,7 +45,13 @@ export default function ListPage({ listType }: { listType: ListTypeEnum }) {
 
     const json = await response.json()
 
-    console.log(json)
+    setItems(json)
+  }
+
+  const fetchBuildings = async () => {
+    const response = await fetch(buildingsAPI)
+
+    const json = await response.json()
 
     setItems(json)
   }
@@ -67,12 +71,13 @@ export default function ListPage({ listType }: { listType: ListTypeEnum }) {
       case ListTypeEnum.PULPIT:
         fetchPulpits()
         break
+      case ListTypeEnum.BUILDING:
+        fetchBuildings()
+        break
       default:
         break
     }
   }, [listType])
-
-  console.log(items)
 
   function filter(name: string, value: any) {
     //TODO: filter changing

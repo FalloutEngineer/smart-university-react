@@ -77,6 +77,16 @@ function App() {
               )
             }
           />
+          <Route
+            path="/building-list"
+            element={
+              user ? (
+                <ListPage listType={ListTypeEnum.BUILDING} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
         </Routes>
       </BrowserRouter>
       {/* <ErrorPage /> */}

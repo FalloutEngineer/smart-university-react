@@ -3,4 +3,5 @@ export enum ListTypeEnum {
   FLOOR = "FLOOR",
   FACULTY = "FACULTY",
   PULPIT = "PULPIT",
+  BUILDING = "BUILDING",
 }
