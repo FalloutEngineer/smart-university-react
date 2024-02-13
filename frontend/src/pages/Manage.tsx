@@ -15,6 +15,7 @@ import { useAuthContext } from "../hooks/useAuthContext"
 import PulpitForm from "../components/ManageForms/PulpitForm"
 import RoomForm from "../components/ManageForms/RoomForm"
 import FloorForm from "../components/ManageForms/FloorForm"
+import BuildingForm from "../components/ManageForms/BuildingForm"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -178,7 +179,35 @@ export default function Manage() {
     }
   }
 
-  async function tryCreateBuilding(data: Building) {}
+  async function tryCreateBuilding(data: Building) {
+    if (data.name !== "") {
+      const formData = new FormData()
+
+      formData.append("name", data.name)
+      formData.append("svg", data.svg)
+      formData.append("floors[]", JSON.stringify([]))
+      formData.append("address", data.address)
+
+      await fetch(buildingsAPI, {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${user}`,
+        },
+        body: formData,
+      }).then(async (res) => {
+        const answer = await res.json()
+
+        if (!res.ok) {
+          //TODO: toast
+          alert(answer.message)
+        } else {
+          alert("Об'єкт успішно створено")
+        }
+      })
+    } else {
+      alert("Будь ласка заповніть всі поля")
+    }
+  }
 
   function handleError(error: any) {
     //TODO: toast
@@ -297,6 +326,9 @@ export default function Manage() {
           faculties={faculties}
           buildings={buildings}
         />
+      ) : null}
+      {selectedType === ListTypeEnum.BUILDING ? (
+        <BuildingForm createBuildingCallback={tryCreateBuilding} />
       ) : null}
     </DashLayout>
   )
