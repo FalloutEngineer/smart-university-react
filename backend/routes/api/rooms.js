@@ -1,6 +1,22 @@
 const express = require("express")
 const router = express.Router()
+const multer = require("multer")
 const Room = require("../../models/room")
+
+const requireAuth = require("../../middleware/requireAuth.js")
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./static/images")
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname))
+  },
+})
+
+const upload = multer({
+  storage: storage,
+})
 
 //get all
 router.get("/", async (req, res) => {
@@ -32,5 +48,68 @@ async function getRoom(req, res, next) {
   res.room = room
   next()
 }
+
+//create one
+router.post("/", requireAuth, upload.any("images"), async (req, res) => {
+  let isFacultyExists = await Faculty.exists({ name: req.body.faculty })
+  let isFloorValid = await Floor.exists({
+    number: req.body.floor,
+    faculty: req.body.faculty,
+  })
+
+  let pulpitsArray = []
+
+  for (const pulpit of req.body.pulpits) {
+    pulpitsArray.push(
+      null != (await Pulpit.exists({ name: pulpit, faculty: req.body.faculty }))
+    )
+  }
+
+  let isPulpitsValid = pulpitsArray.every((i) => i === true)
+
+  let images = req.files.map((file) => file.filename)
+
+  if (isFacultyExists && isFloorValid && isPulpitsValid) {
+    const room = new Room({
+      number: req.body.number,
+      floor: req.body.floor,
+      faculty: req.body.faculty,
+      capacity: req.body.capacity,
+      type: req.body.type,
+      photo_links: images[0] != "" ? images : [],
+      description: req.body.description,
+      assistant: req.body.assistant,
+      model: req.body.model,
+      pulpits: req.body.pulpits[0] != "" ? req.body.pulpits : [],
+      co2: req.body.co2[0] != "" ? h : [],
+      temperature: req.body.temperature[0] != "" ? req.body.temperature : [],
+      co2_history: req.body.co2_history[0] != "" ? req.body.co2_history : [],
+      temperature_history:
+        req.body.temperature_history[0] != ""
+          ? req.body.temperature_history
+          : [],
+    })
+
+    try {
+      const newRoom = await room.save()
+
+      const floorObj = await Floor.findOne({ number: req.body.floor })
+      floorObj.rooms.push(req.body.number)
+      const updatedFloor = await floorObj.save()
+
+      for (const pulpit of req.body.pulpits) {
+        const pulpitObj = await Pulpit.findOne({ name: pulpit })
+        pulpitObj.rooms.push(req.body.number)
+        const updatedPulpit = await pulpitObj.save()
+      }
+
+      res.status(201).json(newRoom)
+    } catch (err) {
+      res.status(400).json({ message: err.message })
+    }
+  } else {
+    res.status(400).json({ message: "Invalid floor, faculty or pulpit" })
+  }
+})
 
 module.exports = router
