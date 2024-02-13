@@ -1,7 +1,18 @@
-import React from "react"
+import React, { useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
+import { ListTypeEnum } from "../enums"
+
+import { ManageData } from "../manageTypes"
+
+const API_URL = process.env.REACT_APP_API_URL
 
 export default function Manage() {
+  const [selectedType, changeSelectedType] = useState(ListTypeEnum.ROOM)
+
+  function handleSubmit() {}
+
+  function sendPOST(data: ManageData) {}
+
   return (
     <DashLayout>
       <ul className="dash-board__list">
@@ -190,10 +201,6 @@ export default function Manage() {
       <button id="create" className="dash-button">
         Створити
       </button>
-
-      {/* TODO: */}
-      {/* <script src="js/auth.js"></script>
-    <script src="js/manage.js"></script> */}
     </DashLayout>
   )
 }

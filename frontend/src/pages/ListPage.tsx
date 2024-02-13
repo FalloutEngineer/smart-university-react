@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
 import DashListHeader from "../components/DashListHeader"
 import DashListBody from "../components/DashListBody"
@@ -57,7 +57,7 @@ export default function ListPage({ listType }: { listType: ListTypeEnum }) {
   }
 
   //fetch depending on type
-  useLayoutEffect(() => {
+  useEffect(() => {
     switch (listType) {
       case ListTypeEnum.ROOM:
         fetchRooms()
