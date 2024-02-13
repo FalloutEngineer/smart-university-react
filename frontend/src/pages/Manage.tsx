@@ -14,6 +14,7 @@ import FacultyForm from "../components/ManageForms/FacultyForm"
 import { useAuthContext } from "../hooks/useAuthContext"
 import PulpitForm from "../components/ManageForms/PulpitForm"
 import RoomForm from "../components/ManageForms/RoomForm"
+import FloorForm from "../components/ManageForms/FloorForm"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -21,6 +22,7 @@ const facultiesAPI = API_URL + "/api/faculties/"
 const pulpitsAPI = API_URL + "/api/pulpits/"
 const floorsAPI = API_URL + "/api/floors/"
 const roomsAPI = API_URL + "/api/rooms/"
+const buildingsAPI = API_URL + "/api/buildings/"
 
 export default function Manage() {
   const { user } = useAuthContext()
@@ -149,7 +151,32 @@ export default function Manage() {
     }
   }
 
-  async function tryCreateFloor(data: Floor) {}
+  async function tryCreateFloor(data: Floor) {
+    if (data.number !== null && data.faculty !== "" && data.building !== "") {
+      await fetch(floorsAPI, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user}`,
+        },
+        body: JSON.stringify({
+          ...data,
+          rooms: [],
+        }),
+      }).then(async (res) => {
+        const answer = await res.json()
+
+        if (!res.ok) {
+          //TODO: toast
+          alert(answer.message)
+        } else {
+          alert("Об'єкт успішно створено")
+        }
+      })
+    } else {
+      alert("Будь ласка заповніть всі поля")
+    }
+  }
 
   async function tryCreateBuilding(data: Building) {}
 
@@ -198,6 +225,31 @@ export default function Manage() {
       .then((data: any) => {
         setFloors(data)
       })
+    fetch(floorsAPI, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json()
+      })
+      .then((data: any) => {
+        setFloors(data)
+      })
+
+    fetch(buildingsAPI, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json()
+      })
+      .then((data: any) => {
+        setBuildings(data)
+      })
   }, [])
 
   return (
@@ -237,6 +289,13 @@ export default function Manage() {
           faculties={faculties}
           floors={floors}
           pulpits={pulpits}
+        />
+      ) : null}
+      {selectedType === ListTypeEnum.FLOOR ? (
+        <FloorForm
+          createFloorCallback={tryCreateFloor}
+          faculties={faculties}
+          buildings={buildings}
         />
       ) : null}
     </DashLayout>

@@ -1,6 +1,11 @@
 const express = require("express")
 const router = express.Router()
 const Floor = require("../../models/floor")
+const Room = require("../../models/room")
+const Faculty = require("../../models/faculty")
+const Building = require("../../models/building")
+
+const requireAuth = require("../../middleware/requireAuth.js")
 
 //get all
 router.get("/", async (req, res) => {
@@ -15,6 +20,53 @@ router.get("/", async (req, res) => {
 //get one
 router.get("/:number", getFloor, (req, res) => {
   res.json(res.floor)
+})
+
+//create one
+router.post("/", requireAuth, async (req, res) => {
+  let isFacultyExists = await Faculty.exists({ name: req.body.faculty })
+  let isBuildingExists = await Building.exists({ name: req.body.building })
+  let roomsArray = []
+
+  req.body.rooms.forEach((room) => {
+    roomsArray.push(Room.exists({ number: room }))
+  })
+
+  let isRoomsExists = roomsArray.every((i) => i === true)
+
+  if (isFacultyExists && isRoomsExists && isBuildingExists) {
+    const floor = new Floor({
+      number: req.body.number,
+      faculty: req.body.faculty,
+      rooms: req.body.rooms,
+      building: req.body.building,
+      temperatureSensorURL: req.body.temperatureSensorURL,
+      co2SensorURL: req.body.co2SensorURL,
+      floorColor: req.body.floorColor ?? "#ffffff",
+    })
+
+    try {
+      const newFloor = await floor.save()
+
+      const faculty = await Faculty.findOne({ name: req.body.faculty })
+      faculty.floors.push(req.body.number)
+      const updatedFaculty = await faculty.save()
+
+      const building = await Building.findOne({ name: req.body.building })
+      building.floors.push(req.body.number)
+      const updatedBuilding = await building.save()
+
+      res.status(201).json({
+        floor: newFloor,
+        faculty: updatedFaculty,
+        building: updatedBuilding,
+      })
+    } catch (err) {
+      res.status(400).json({ message: err.message })
+    }
+  } else {
+    res.status(400).json({ message: "Invalid building or faculty" })
+  }
 })
 
 async function getFloor(req, res, next) {
