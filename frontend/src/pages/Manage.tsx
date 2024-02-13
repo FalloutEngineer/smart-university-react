@@ -2,13 +2,22 @@ import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
 import { ListTypeEnum } from "../enums"
 
-import { Floor, ManageData } from "../manageTypes"
+import {
+  Building,
+  Faculty,
+  Floor,
+  ManageData,
+  Pulpit,
+  Room,
+} from "../manageTypes"
 import FacultyForm from "../components/ManageForms/FacultyForm"
 import { useAuthContext } from "../hooks/useAuthContext"
+import PulpitForm from "../components/ManageForms/PulpitForm"
 
 const API_URL = process.env.REACT_APP_API_URL
 
 const facultiesAPI = API_URL + "/api/faculties/"
+const pulpitsAPI = API_URL + "/api/pulpits/"
 
 export default function Manage() {
   const { user } = useAuthContext()
@@ -37,8 +46,37 @@ export default function Manage() {
 
   function sendPOST(data: ManageData) {}
 
-  async function tryCreateFaculty(data: Floor) {
-    fetch(facultiesAPI, {
+  function tryCreateFaculty(data: Faculty) {
+    if (data.name !== "") {
+      fetch(facultiesAPI, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user}`,
+        },
+        body: JSON.stringify({
+          ...data,
+          floors: [],
+          pulpits: [],
+        }),
+      }).then(async (res) => {
+        const answer = await res.json()
+
+        if (!res.ok) {
+          //TODO: toast
+          alert(answer.message)
+        } else {
+          alert("Об'єкт успішно створено")
+        }
+      })
+    } else {
+      //TODO: toast
+      alert("Будь ласка заповніть всі поля")
+    }
+  }
+
+  async function tryCreatePulpit(data: Pulpit) {
+    fetch(pulpitsAPI, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,8 +84,7 @@ export default function Manage() {
       },
       body: JSON.stringify({
         ...data,
-        floors: [],
-        pulpits: [],
+        rooms: [],
       }),
     }).then(async (res) => {
       const answer = await res.json()
@@ -61,6 +98,12 @@ export default function Manage() {
     })
   }
 
+  async function tryCreateRoom(data: Room) {}
+
+  async function tryCreateFloor(data: Floor) {}
+
+  async function tryCreateBuilding(data: Building) {}
+
   function handleError(error: any) {
     //TODO: toast
     console.log(error)
@@ -68,6 +111,55 @@ export default function Manage() {
 
   useEffect(() => {
     //TODO: fetch all data
+
+    fetch(facultiesAPI, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json()
+      })
+      .then((data: any) => {
+        setFaculties(data)
+      })
+    fetch("/pulpits/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json()
+      })
+      .then((data: any) => {
+        setPulpits(data)
+      })
+    fetch("/floors/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json()
+      })
+      .then((data: any) => {
+        setFloors(data)
+      })
+    fetch("/buildings/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json()
+      })
+      .then((data: any) => {
+        setBuildings(data)
+      })
   }, [])
 
   return (
@@ -94,6 +186,12 @@ export default function Manage() {
 
       {selectedType === ListTypeEnum.FACULTY ? (
         <FacultyForm createFacultyCallback={tryCreateFaculty} />
+      ) : null}
+      {selectedType === ListTypeEnum.PULPIT ? (
+        <PulpitForm
+          createPulpitCallback={tryCreatePulpit}
+          faculties={faculties}
+        />
       ) : null}
     </DashLayout>
   )
