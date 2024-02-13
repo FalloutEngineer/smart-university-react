@@ -20,6 +20,7 @@ const API_URL = process.env.REACT_APP_API_URL
 const facultiesAPI = API_URL + "/api/faculties/"
 const pulpitsAPI = API_URL + "/api/pulpits/"
 const floorsAPI = API_URL + "/api/floors/"
+const roomsAPI = API_URL + "/api/rooms/"
 
 export default function Manage() {
   const { user } = useAuthContext()
@@ -101,7 +102,51 @@ export default function Manage() {
   }
 
   async function tryCreateRoom(data: Room) {
-    console.log(data)
+    if (
+      data.number &&
+      data.faculty !== "" &&
+      data.floor &&
+      data.pulpit !== ""
+    ) {
+      const formData = new FormData()
+
+      formData.append("number", String(data.number))
+      formData.append("floor", data.floor)
+      formData.append("faculty", data.faculty)
+      formData.append("capacity", String(data.capacity))
+      formData.append("type", data.type)
+
+      for (let i = 0; i < data.images.length; i++) {
+        formData.append("images", data.images[i])
+      }
+
+      formData.append("description", data.description)
+      formData.append("assistant", data.assistant)
+      formData.append("pulpits[]", JSON.stringify([data.pulpit]))
+      formData.append("co2[]", JSON.stringify([]))
+      formData.append("temperature[]", JSON.stringify([]))
+      formData.append("co2_history[]", JSON.stringify([]))
+      formData.append("temperature_history[]", JSON.stringify([]))
+
+      await fetch(roomsAPI, {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${user}`,
+        },
+        body: formData,
+      }).then(async (res) => {
+        const answer = await res.json()
+
+        if (!res.ok) {
+          //TODO: toast
+          alert(answer.message)
+        } else {
+          alert("Об'єкт успішно створено")
+        }
+      })
+    } else {
+      alert("Будь ласка заповніть всі поля")
+    }
   }
 
   async function tryCreateFloor(data: Floor) {}

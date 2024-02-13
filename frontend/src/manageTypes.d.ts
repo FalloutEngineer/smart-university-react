@@ -17,7 +17,7 @@ export type Room = {
   type: RoomTypes
   description: string
   assistant: string
-  images: string
+  images: FileList
 }
 
 export type Pulpit = {

@@ -1,7 +1,12 @@
 const express = require("express")
 const router = express.Router()
 const multer = require("multer")
+const path = require("path")
+
 const Room = require("../../models/room")
+const Pulpit = require("../../models/pulpit")
+const Faculty = require("../../models/faculty")
+const Floor = require("../../models/floor")
 
 const requireAuth = require("../../middleware/requireAuth.js")
 
@@ -51,6 +56,34 @@ async function getRoom(req, res, next) {
 
 //create one
 router.post("/", requireAuth, upload.any("images"), async (req, res) => {
+  if (req.body.number) {
+    req.body.number = Number(req.body.number)
+  }
+
+  if (req.body.capacity) {
+    req.body.capacity = Number(req.body.capacity)
+  }
+
+  if (req.body.pulpits) {
+    req.body.pulpits = JSON.parse(req.body.pulpits)
+  }
+
+  if (req.body.co2) {
+    req.body.co2 = JSON.parse(req.body.co2)
+  }
+
+  if (req.body.temperature) {
+    req.body.temperature = JSON.parse(req.body.temperature)
+  }
+
+  if (req.body.co2_history) {
+    req.body.co2_history = JSON.parse(req.body.co2_history)
+  }
+
+  if (req.body.temperature_history) {
+    req.body.temperature_history = JSON.parse(req.body.temperature_history)
+  }
+
   let isFacultyExists = await Faculty.exists({ name: req.body.faculty })
   let isFloorValid = await Floor.exists({
     number: req.body.floor,
@@ -81,7 +114,7 @@ router.post("/", requireAuth, upload.any("images"), async (req, res) => {
       assistant: req.body.assistant,
       model: req.body.model,
       pulpits: req.body.pulpits[0] != "" ? req.body.pulpits : [],
-      co2: req.body.co2[0] != "" ? h : [],
+      co2: req.body.co2[0] != "" ? req.body.co2 : [],
       temperature: req.body.temperature[0] != "" ? req.body.temperature : [],
       co2_history: req.body.co2_history[0] != "" ? req.body.co2_history : [],
       temperature_history:

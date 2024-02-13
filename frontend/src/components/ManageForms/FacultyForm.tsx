@@ -25,10 +25,10 @@ export default function FacultyForm({
           </label>
           <input
             {...register("name")}
-            id="number"
+            id="text"
             className="dash-board__input"
             type="text"
-            defaultValue={0}
+            defaultValue={""}
           />
         </li>
       </ul>
