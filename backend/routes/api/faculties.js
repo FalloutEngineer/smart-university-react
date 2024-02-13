@@ -2,6 +2,8 @@ const express = require("express")
 const router = express.Router()
 const Faculty = require("../../models/faculty")
 
+const requireAuth = require("../../middleware/requireAuth.js")
+
 //get all
 router.get("/", async (req, res) => {
   try {
@@ -15,6 +17,22 @@ router.get("/", async (req, res) => {
 //get one
 router.get("/:id", getFaculty, (req, res) => {
   res.json(res.faculty)
+})
+
+//create one
+router.post("/", requireAuth, async (req, res) => {
+  const faculty = new Faculty({
+    name: req.body.name,
+    floors: req.body.floors || [],
+    pulpits: req.body.pulpits || [],
+  })
+
+  try {
+    const newFaculty = await faculty.save()
+    res.status(201).json(newFaculty)
+  } catch (err) {
+    res.status(400).json({ message: err.message })
+  }
 })
 
 async function getFaculty(req, res, next) {

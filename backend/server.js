@@ -14,8 +14,6 @@ const Building = require("./models/building")
 const Floor = require("./models/floor")
 const Room = require("./models/room")
 
-const requireAuth = require("./middleware/requireAuth.js")
-
 const cors = require("cors")
 
 app.use(cors())
