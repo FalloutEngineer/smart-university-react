@@ -13,11 +13,13 @@ import {
 import FacultyForm from "../components/ManageForms/FacultyForm"
 import { useAuthContext } from "../hooks/useAuthContext"
 import PulpitForm from "../components/ManageForms/PulpitForm"
+import RoomForm from "../components/ManageForms/RoomForm"
 
 const API_URL = process.env.REACT_APP_API_URL
 
 const facultiesAPI = API_URL + "/api/faculties/"
 const pulpitsAPI = API_URL + "/api/pulpits/"
+const floorsAPI = API_URL + "/api/floors/"
 
 export default function Manage() {
   const { user } = useAuthContext()
@@ -98,7 +100,9 @@ export default function Manage() {
     })
   }
 
-  async function tryCreateRoom(data: Room) {}
+  async function tryCreateRoom(data: Room) {
+    console.log(data)
+  }
 
   async function tryCreateFloor(data: Floor) {}
 
@@ -124,7 +128,7 @@ export default function Manage() {
       .then((data: any) => {
         setFaculties(data)
       })
-    fetch("/pulpits/", {
+    fetch(pulpitsAPI, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -136,7 +140,8 @@ export default function Manage() {
       .then((data: any) => {
         setPulpits(data)
       })
-    fetch("/floors/", {
+
+    fetch(floorsAPI, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -147,18 +152,6 @@ export default function Manage() {
       })
       .then((data: any) => {
         setFloors(data)
-      })
-    fetch("/buildings/", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json()
-      })
-      .then((data: any) => {
-        setBuildings(data)
       })
   }, [])
 
@@ -191,6 +184,14 @@ export default function Manage() {
         <PulpitForm
           createPulpitCallback={tryCreatePulpit}
           faculties={faculties}
+        />
+      ) : null}
+      {selectedType === ListTypeEnum.ROOM ? (
+        <RoomForm
+          createRoomCallback={tryCreateRoom}
+          faculties={faculties}
+          floors={floors}
+          pulpits={pulpits}
         />
       ) : null}
     </DashLayout>
