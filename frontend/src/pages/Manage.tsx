@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
 import { ListTypeEnum } from "../enums"
 
@@ -7,29 +7,57 @@ import { ManageData } from "../manageTypes"
 const API_URL = process.env.REACT_APP_API_URL
 
 export default function Manage() {
-  const [selectedType, changeSelectedType] = useState(ListTypeEnum.ROOM)
+  const [selectedType, changeSelectedType] = useState<ListTypeEnum>(
+    ListTypeEnum.ROOM
+  )
+
+  const [currentFloors, changeCurrentFloors] = useState([])
+  const [currentPulpits, changeCurrentPulpits] = useState([])
+
+  const [faculties, setFaculties] = useState([])
+  const [pulpits, setPulpits] = useState([])
+  const [floors, setFloors] = useState([])
+  const [buildings, setBuildings] = useState([])
+
+  function handleTypeChange(type: ListTypeEnum) {
+    changeSelectedType(type)
+  }
 
   function handleSubmit() {}
 
+  function handleFileUpload() {}
+
+  function handleSVGUpload() {}
+
   function sendPOST(data: ManageData) {}
+
+  useEffect(() => {
+    //TODO: fetch all data
+  }, [])
 
   return (
     <DashLayout>
-      <ul className="dash-board__list">
-        {/* v-cloak */}
+      <div className="formType">
         <li className="dash-board__item">
           <label htmlFor="type" className="dash-board__label">
             Що створити?
           </label>
-          {/* v-model="selectedType" @change="changeType($event)" */}
-          <select className="dash-select" name="type" id="type">
-            <option value="rooms">Приміщення</option>
-            <option value="pulpits">Кафедра</option>
-            <option value="faculties">Факультет</option>
-            <option value="floors">Поверх</option>
-            <option value="buildings">Будівля</option>
+          <select
+            className="dash-select"
+            name="type"
+            id="type"
+            onChange={(e) => handleTypeChange(e.target.value as ListTypeEnum)}
+          >
+            <option value={ListTypeEnum.ROOM}>Приміщення</option>
+            <option value={ListTypeEnum.PULPIT}>Кафедра</option>
+            <option value={ListTypeEnum.FACULTY}>Факультет</option>
+            <option value={ListTypeEnum.FLOOR}>Поверх</option>
+            <option value={ListTypeEnum.BUILDING}>Будівля</option>
           </select>
         </li>
+      </div>
+
+      <ul className="dash-board__list">
         {/* v-cloak :className="{hidden: buildingHidden}" */}
         <li id="building-item" className="dash-board__item">
           <label htmlFor="" className="dash-board__label">
