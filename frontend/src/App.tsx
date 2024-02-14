@@ -18,6 +18,7 @@ import { ItemTypeEnum } from "./enums"
 import DashPreview from "./pages/DashPreview/DashPreview"
 import DashPreviewBuilding from "./pages/DashPreview/DashPreviewBuilding"
 import DashPreviewPulpit from "./pages/DashPreview/DashPreviewPulpit"
+import DashPreviewFaculty from "./pages/DashPreview/DashPreviewFaculty"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -112,6 +113,19 @@ function App() {
                 <DashPreview
                   PreviewComponent={DashPreviewPulpit}
                   endpoint={API_URL + "/api/pulpits/"}
+                />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/faculty-list/:name"
+            element={
+              user ? (
+                <DashPreview
+                  PreviewComponent={DashPreviewFaculty}
+                  endpoint={API_URL + "/api/faculties/"}
                 />
               ) : (
                 <Navigate to="/login" />

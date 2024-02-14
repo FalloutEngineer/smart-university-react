@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 })
 
 //get one
-router.get("/:id", getFaculty, (req, res) => {
+router.get("/:name", getFaculty, (req, res) => {
   res.json(res.faculty)
 })
 
@@ -36,6 +36,8 @@ router.post("/", requireAuth, async (req, res) => {
 })
 
 async function getFaculty(req, res, next) {
+  let faculty
+  console.log(req.params)
   try {
     faculty = await Faculty.findOne({ name: req.params.name })
     if (faculty == null) {

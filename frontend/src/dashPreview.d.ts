@@ -15,6 +15,13 @@ export type PulpitData = {
   __v: number
 } | null
 
+export type FacultyData = {
+  id: string
+  name: string
+
+  __v: number
+} | null
+
 export interface DashPreview {
   name: string
   endpoint: string
