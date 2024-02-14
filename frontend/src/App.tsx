@@ -17,6 +17,7 @@ import { useAuthContext } from "./hooks/useAuthContext"
 import { ItemTypeEnum } from "./enums"
 import DashPreview from "./pages/DashPreview/DashPreview"
 import DashPreviewBuilding from "./pages/DashPreview/DashPreviewBuilding"
+import DashPreviewPulpit from "./pages/DashPreview/DashPreviewPulpit"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -98,6 +99,19 @@ function App() {
                 <DashPreview
                   PreviewComponent={DashPreviewBuilding}
                   endpoint={API_URL + "/api/buildings/"}
+                />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/pulpit-list/:name"
+            element={
+              user ? (
+                <DashPreview
+                  PreviewComponent={DashPreviewPulpit}
+                  endpoint={API_URL + "/api/pulpits/"}
                 />
               ) : (
                 <Navigate to="/login" />

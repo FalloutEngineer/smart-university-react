@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react"
-import { BuildingData } from "../../dashPreview"
+import { BuildingData, DashPreview } from "../../dashPreview"
 
-export default function DashPreviewBuilding({
-  name,
-  endpoint,
-}: {
-  name: string
-  endpoint: string
-}) {
+export default function DashPreviewBuilding({ name, endpoint }: DashPreview) {
   const [building, setBuilding] = useState<BuildingData>(null)
 
   useEffect(() => {

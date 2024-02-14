@@ -71,4 +71,30 @@ router.post("/", requireAuth, async (req, res) => {
   }
 })
 
+// delete one
+router.delete("/:name", requireAuth, getPulpit, async (req, res) => {
+  try {
+    await Faculty.updateOne(
+      { pulpits: res.pulpit.name },
+      {
+        $pullAll: {
+          pulpits: [res.pulpit.name],
+        },
+      }
+    )
+    await Room.updateMany(
+      { name: res.pulpit.faculty },
+      {
+        $pullAll: {
+          pulpits: [res.pulpit.name],
+        },
+      }
+    )
+    await res.pulpit.remove()
+    res.json({ message: "Deleted Pulpit" })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+
 module.exports = router

@@ -6231,3 +6231,7 @@ div#chartdiv {
 .nav-item-child:hover {
   text-decoration: none;
 }
+
+.dash-board__sub-value {
+  color: black;
+}

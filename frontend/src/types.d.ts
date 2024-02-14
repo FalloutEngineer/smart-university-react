@@ -25,4 +25,4 @@ export interface FacultyCardParams {
   }
 }
 
-export type DashPreviewComponent = DashPreviewBuilding
+export type DashPreviewComponent = DashPreviewBuilding | DashPreviewPulpit
