@@ -21,6 +21,7 @@ import DashPreviewPulpit from "./pages/DashPreview/DashPreviewPulpit"
 import DashPreviewFaculty from "./pages/DashPreview/DashPreviewFaculty"
 import DashPreviewFloor from "./pages/DashPreview/DashPreviewFloor"
 import DashPreviewRoom from "./pages/DashPreview/DashPreviewRoom"
+import DashEditRoom from "./pages/DashPreview/DashEditRoom"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -155,6 +156,16 @@ function App() {
                   PreviewComponent={DashPreviewRoom}
                   endpoint={API_URL + "/api/rooms/"}
                 />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/room-list/:name/edit"
+            element={
+              user ? (
+                <DashEditRoom endpoint={API_URL + "/api/rooms/"} />
               ) : (
                 <Navigate to="/login" />
               )

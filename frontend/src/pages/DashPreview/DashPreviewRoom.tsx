@@ -17,13 +17,9 @@ export default function DashPreviewRoom({ name, endpoint }: DashPreview) {
 
   return (
     <>
-      {/* <a
-        v-bind:href="<%= item.number %> + '/edit/'"
-        href="#"
-        className="dash-board__edit"
-      >
+      <NavLink className="dash-board__edit" to={`./edit`}>
         Редагувати
-      </a> */}
+      </NavLink>
       <ul className="dash-board__list">
         <li className="dash-board__item">
           <h3 className="dash-board__label">Номер:</h3>
