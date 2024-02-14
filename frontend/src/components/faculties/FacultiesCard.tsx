@@ -1,7 +1,7 @@
 import React from "react"
 
 import "./facultiesCard.css"
-import { FacultyCardParams } from "../types"
+import { FacultyCardParams } from "../../types"
 
 export default function FacultiesCard({
   params,

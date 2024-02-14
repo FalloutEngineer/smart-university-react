@@ -1,9 +1,9 @@
 import React from "react"
 import Layout from "../components/Layout/Layout"
-import ImageSlider from "../components/ImageSlider"
-import FacultiesHero from "../components/FacultiesHero"
-import FacultiesGrid from "../components/FacultiesGrid"
-import FacultiesCard from "../components/FacultiesCard"
+import ImageSlider from "../components/ImageSlider/ImageSlider"
+import FacultiesHero from "../components/faculties/FacultiesHero"
+import FacultiesGrid from "../components/faculties/FacultiesGrid"
+import FacultiesCard from "../components/faculties/FacultiesCard"
 
 export default function Faculties() {
   const slides = [{ url: process.env.PUBLIC_URL + "/img/4.jpg", caption: "" }]

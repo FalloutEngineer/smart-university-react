@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
-import DashListHeader from "../components/DashListHeader"
-import DashListBody from "../components/DashListBody"
+import DashListHeader from "../components/DashList/DashListHeader"
+import DashListBody from "../components/DashList/DashListBody"
 import { ListTypeEnum } from "../enums"
 
 const API_URL = process.env.REACT_APP_API_URL

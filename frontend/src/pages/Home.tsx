@@ -1,6 +1,6 @@
 import React from "react"
 import Layout from "../components/Layout/Layout"
-import ImageSlider from "../components/ImageSlider"
+import ImageSlider from "../components/ImageSlider/ImageSlider"
 import MainHero from "../components/MainHero"
 import Corpus from "../components/Corpus"
 

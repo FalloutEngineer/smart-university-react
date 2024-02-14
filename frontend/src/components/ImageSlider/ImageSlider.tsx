@@ -4,7 +4,7 @@ import "./imageSlider.css"
 
 import { Slide } from "react-slideshow-image"
 import "react-slideshow-image/dist/styles.css"
-import { SliderParams } from "../types"
+import { SliderParams } from "../../types"
 
 export default function ImageSlider({
   slides,

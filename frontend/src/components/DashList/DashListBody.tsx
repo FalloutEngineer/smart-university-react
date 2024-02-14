@@ -1,7 +1,7 @@
 import React from "react"
 import DashListItem from "./DashListItem"
 import DashListRoom from "./DashListRoom"
-import { ListTypeEnum } from "../enums"
+import { ListTypeEnum } from "../../enums"
 import DashListFloor from "./DashListFloor"
 import DashListFaculty from "./DashListFaculty"
 import DashListPulpit from "./DashListPulpit"

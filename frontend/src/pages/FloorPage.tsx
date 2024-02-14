@@ -7,7 +7,7 @@ import AirQuality from "../components/AirQuality"
 import AirStatus from "../components/AirStatus"
 import FloorMap from "../components/FloorMap"
 import FloorHeader from "../components/FloorHeader"
-import FacultiesCard from "../components/FacultiesCard"
+import FacultiesCard from "../components/faculties/FacultiesCard"
 import { useParams } from "react-router-dom"
 
 const API_URL = process.env.REACT_APP_API_URL
