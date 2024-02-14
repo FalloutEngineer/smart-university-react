@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from "react"
+import { BuildingData } from "../../dashPreview"
 
-type BuildingData = {
-  _id: string
+export default function DashPreviewBuilding({
+  name,
+  endpoint,
+}: {
   name: string
-  floors?: number[]
-  svg?: string
-  address?: string
-  __v: number
-} | null
-
-const API_URL = process.env.REACT_APP_API_URL
-
-const buildingsAPI = API_URL + `/api/buildings/`
-
-export default function DashPreviewBuilding({ name }: { name: string }) {
+  endpoint: string
+}) {
   const [building, setBuilding] = useState<BuildingData>(null)
 
   useEffect(() => {
-    fetch(buildingsAPI + name)
+    fetch(endpoint + name)
       .then((res) => {
         return res.json()
       })

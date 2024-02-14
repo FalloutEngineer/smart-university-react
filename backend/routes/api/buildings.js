@@ -101,4 +101,20 @@ router.post("/", requireAuth, upload.single("svg"), async (req, res) => {
   }
 })
 
+router.delete("/:name", requireAuth, getBuilding, async (req, res) => {
+  try {
+    if (res.building.svg) {
+      const address = path.resolve("./static/svg/" + res.building.svg)
+      if (fs.existsSync(address)) {
+        fs.unlinkSync(address)
+      }
+    }
+
+    await res.building.remove()
+    res.json({ message: "Deleted Building" })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+
 module.exports = router
