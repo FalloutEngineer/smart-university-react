@@ -37,13 +37,17 @@ export type RoomData = {
   id: string
   number: number
   floor: number
-  capacity: number
   faculty: string
+  capacity: number
   type: string
+  photo_links: string[]
   description: string
   assistant: string
   pulpits: any
-  photo_links: string[]
+  co2?: string[]
+  temperature?: string[]
+  co2_history?: string[]
+  temperature_history?: string[]
   __v: number
 } | null
 

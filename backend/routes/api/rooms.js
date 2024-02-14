@@ -40,6 +40,7 @@ router.get("/:number", getRoom, (req, res) => {
 })
 
 async function getRoom(req, res, next) {
+  let room
   try {
     room = await Room.findOne({
       number: req.params.number,
@@ -189,6 +190,9 @@ router.patch(
   async (req, res) => {
     let isFacultyExists = true
     let isFloorExists = true
+
+    if (req.body.floor) req.body.floor = Number(req.body.floor)
+    if (req.body.pulpits) req.body.pulpits = JSON.parse(req.body.pulpits[0])
 
     if (req.body.floor != [] && req.body.floor) {
       isFloorExists = await Floor.exists({ number: req.body.floor })

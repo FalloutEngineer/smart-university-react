@@ -135,11 +135,11 @@ export default function RoomForm({
             Тип приміщення
           </label>
           <select
-            {...register("roomType")}
+            {...register("type")}
             className="dash-select"
             name="roomType"
             id="roomTypes"
-            value={roomTypes[0]}
+            defaultValue={roomTypes[0]}
           >
             {roomTypes.map((roomType: string, index: number) => {
               return <option value={roomType}>{roomType}</option>
