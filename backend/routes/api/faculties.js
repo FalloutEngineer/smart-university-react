@@ -35,9 +35,18 @@ router.post("/", requireAuth, async (req, res) => {
   }
 })
 
+// delete one
+router.delete("/:name", requireAuth, getFaculty, async (req, res) => {
+  try {
+    await res.faculty.remove()
+    res.json({ message: "Faculty successfull deleted" })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+
 async function getFaculty(req, res, next) {
   let faculty
-  console.log(req.params)
   try {
     faculty = await Faculty.findOne({ name: req.params.name })
     if (faculty == null) {

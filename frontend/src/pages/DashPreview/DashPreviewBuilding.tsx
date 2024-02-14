@@ -26,7 +26,11 @@ export default function DashPreviewBuilding({ name, endpoint }: DashPreview) {
           <h3 className="dash-board__label">Поверхи:</h3>
           <div className="dash-board__value">
             {building.floors.map((floor) => {
-              return <NavLink to={`/floor-list/${floor}`}>{floor}</NavLink>
+              return (
+                <p>
+                  <NavLink to={`/floor-list/${floor}`}>{floor}</NavLink>
+                </p>
+              )
             })}
           </div>
         </li>

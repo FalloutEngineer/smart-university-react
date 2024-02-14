@@ -18,7 +18,8 @@ export type PulpitData = {
 export type FacultyData = {
   id: string
   name: string
-
+  floors: number[]
+  pulpits: string[]
   __v: number
 } | null
 
