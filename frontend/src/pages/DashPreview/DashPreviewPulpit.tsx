@@ -23,7 +23,11 @@ export default function DashPreviewPulpit({ name, endpoint }: DashPreview) {
       </li>
       <li className="dash-board__item">
         <h3 className="dash-board__label">Факультет:</h3>
-        <div className="dash-board__value">{pulpit?.faculty}</div>
+        <div className="dash-board__value">
+          <NavLink to={`/faculty-list/${pulpit?.faculty}`}>
+            {pulpit?.faculty}
+          </NavLink>
+        </div>
       </li>
       <li
         v-cloak

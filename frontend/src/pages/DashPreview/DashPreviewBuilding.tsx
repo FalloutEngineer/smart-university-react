@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { BuildingData, DashPreview } from "../../dashPreview"
+import { NavLink } from "react-router-dom"
 
 export default function DashPreviewBuilding({ name, endpoint }: DashPreview) {
   const [building, setBuilding] = useState<BuildingData>(null)
@@ -23,7 +24,11 @@ export default function DashPreviewBuilding({ name, endpoint }: DashPreview) {
       {building?.floors && building?.floors.length > 0 && (
         <li className="dash-board__item">
           <h3 className="dash-board__label">Поверхи:</h3>
-          <div className="dash-board__value">{building.floors}</div>
+          <div className="dash-board__value">
+            {building.floors.map((floor) => {
+              return <NavLink to={`/floor-list/${floor}`}>{floor}</NavLink>
+            })}
+          </div>
         </li>
       )}
       {building?.address && (
