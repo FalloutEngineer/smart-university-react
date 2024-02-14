@@ -6,8 +6,6 @@ const jwt = require("jsonwebtoken")
 const User = require("../../models/user.js")
 const { secret } = require("../../config.js")
 
-const authMiddleware = require("../../middleware/authMiddleware")
-
 const generateAccessToken = (id) => {
   const payload = {
     id,
