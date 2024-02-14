@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
-import { ListTypeEnum } from "../enums"
+import { ItemTypeEnum } from "../enums"
 
 import {
   Building,
@@ -28,8 +28,8 @@ const buildingsAPI = API_URL + "/api/buildings/"
 export default function Manage() {
   const { user } = useAuthContext()
 
-  const [selectedType, changeSelectedType] = useState<ListTypeEnum>(
-    ListTypeEnum.ROOM
+  const [selectedType, changeSelectedType] = useState<ItemTypeEnum>(
+    ItemTypeEnum.ROOM
   )
 
   const [currentFloors, changeCurrentFloors] = useState([])
@@ -40,17 +40,9 @@ export default function Manage() {
   const [floors, setFloors] = useState([])
   const [buildings, setBuildings] = useState([])
 
-  function handleTypeChange(type: ListTypeEnum) {
+  function handleTypeChange(type: ItemTypeEnum) {
     changeSelectedType(type)
   }
-
-  function handleSubmit() {}
-
-  function handleFileUpload() {}
-
-  function handleSVGUpload() {}
-
-  function sendPOST(data: ManageData) {}
 
   function tryCreateFaculty(data: Faculty) {
     if (data.name !== "") {
@@ -292,27 +284,27 @@ export default function Manage() {
             className="dash-select"
             name="type"
             id="type"
-            onChange={(e) => handleTypeChange(e.target.value as ListTypeEnum)}
+            onChange={(e) => handleTypeChange(e.target.value as ItemTypeEnum)}
           >
-            <option value={ListTypeEnum.ROOM}>Приміщення</option>
-            <option value={ListTypeEnum.PULPIT}>Кафедра</option>
-            <option value={ListTypeEnum.FACULTY}>Факультет</option>
-            <option value={ListTypeEnum.FLOOR}>Поверх</option>
-            <option value={ListTypeEnum.BUILDING}>Будівля</option>
+            <option value={ItemTypeEnum.ROOM}>Приміщення</option>
+            <option value={ItemTypeEnum.PULPIT}>Кафедра</option>
+            <option value={ItemTypeEnum.FACULTY}>Факультет</option>
+            <option value={ItemTypeEnum.FLOOR}>Поверх</option>
+            <option value={ItemTypeEnum.BUILDING}>Будівля</option>
           </select>
         </li>
       </div>
 
-      {selectedType === ListTypeEnum.FACULTY ? (
+      {selectedType === ItemTypeEnum.FACULTY ? (
         <FacultyForm createFacultyCallback={tryCreateFaculty} />
       ) : null}
-      {selectedType === ListTypeEnum.PULPIT ? (
+      {selectedType === ItemTypeEnum.PULPIT ? (
         <PulpitForm
           createPulpitCallback={tryCreatePulpit}
           faculties={faculties}
         />
       ) : null}
-      {selectedType === ListTypeEnum.ROOM ? (
+      {selectedType === ItemTypeEnum.ROOM ? (
         <RoomForm
           createRoomCallback={tryCreateRoom}
           faculties={faculties}
@@ -320,14 +312,14 @@ export default function Manage() {
           pulpits={pulpits}
         />
       ) : null}
-      {selectedType === ListTypeEnum.FLOOR ? (
+      {selectedType === ItemTypeEnum.FLOOR ? (
         <FloorForm
           createFloorCallback={tryCreateFloor}
           faculties={faculties}
           buildings={buildings}
         />
       ) : null}
-      {selectedType === ListTypeEnum.BUILDING ? (
+      {selectedType === ItemTypeEnum.BUILDING ? (
         <BuildingForm createBuildingCallback={tryCreateBuilding} />
       ) : null}
     </DashLayout>

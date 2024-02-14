@@ -1,7 +1,7 @@
 import React from "react"
 import DashListItem from "./DashListItem"
 import DashListRoom from "./DashListRoom"
-import { ListTypeEnum } from "../../enums"
+import { ItemTypeEnum } from "../../enums"
 import DashListFloor from "./DashListFloor"
 import DashListFaculty from "./DashListFaculty"
 import DashListPulpit from "./DashListPulpit"
@@ -12,33 +12,33 @@ export default function DashListBody({
   listType,
 }: {
   listData: any[]
-  listType: ListTypeEnum
+  listType: ItemTypeEnum
 }) {
   //TODO: Generate list by data
   return (
     <div className="dash-list__container">
       <ul className="dash-list">
-        {listType === ListTypeEnum.ROOM
+        {listType === ItemTypeEnum.ROOM
           ? listData.map((listItem) => {
               return <DashListRoom itemData={listItem} />
             })
           : ""}
-        {listType === ListTypeEnum.FLOOR
+        {listType === ItemTypeEnum.FLOOR
           ? listData.map((listItem) => {
               return <DashListFloor itemData={listItem} />
             })
           : ""}
-        {listType === ListTypeEnum.FACULTY
+        {listType === ItemTypeEnum.FACULTY
           ? listData.map((listItem) => {
               return <DashListFaculty itemData={listItem} />
             })
           : ""}
-        {listType === ListTypeEnum.PULPIT
+        {listType === ItemTypeEnum.PULPIT
           ? listData.map((listItem) => {
               return <DashListPulpit itemData={listItem} />
             })
           : ""}
-        {listType === ListTypeEnum.BUILDING
+        {listType === ItemTypeEnum.BUILDING
           ? listData.map((listItem) => {
               return <DashListBuilding itemData={listItem} />
             })

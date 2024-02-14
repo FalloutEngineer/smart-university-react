@@ -24,3 +24,5 @@ export interface FacultyCardParams {
     external: number
   }
 }
+
+export type DashPreviewComponent = DashPreviewBuilding

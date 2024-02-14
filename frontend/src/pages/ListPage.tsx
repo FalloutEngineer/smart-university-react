@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
 import DashListHeader from "../components/DashList/DashListHeader"
 import DashListBody from "../components/DashList/DashListBody"
-import { ListTypeEnum } from "../enums"
+import { ItemTypeEnum } from "../enums"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -12,7 +12,7 @@ const facultiesAPI = API_URL + `/api/faculties`
 const pulpitsAPI = API_URL + `/api/pulpits`
 const buildingsAPI = API_URL + `/api/buildings`
 
-export default function ListPage({ listType }: { listType: ListTypeEnum }) {
+export default function ListPage({ listType }: { listType: ItemTypeEnum }) {
   const listHeaderOptions = getListHeaderOptions(listType)
 
   const [items, setItems] = useState(null)
@@ -59,19 +59,19 @@ export default function ListPage({ listType }: { listType: ListTypeEnum }) {
   //fetch depending on type
   useEffect(() => {
     switch (listType) {
-      case ListTypeEnum.ROOM:
+      case ItemTypeEnum.ROOM:
         fetchRooms()
         break
-      case ListTypeEnum.FLOOR:
+      case ItemTypeEnum.FLOOR:
         fetchFloors()
         break
-      case ListTypeEnum.FACULTY:
+      case ItemTypeEnum.FACULTY:
         fetchFaculties()
         break
-      case ListTypeEnum.PULPIT:
+      case ItemTypeEnum.PULPIT:
         fetchPulpits()
         break
-      case ListTypeEnum.BUILDING:
+      case ItemTypeEnum.BUILDING:
         fetchBuildings()
         break
       default:

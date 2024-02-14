@@ -14,7 +14,9 @@ import DashboardView from "./pages/DashboardView"
 import RoomPage from "./pages/RoomPage"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import { useAuthContext } from "./hooks/useAuthContext"
-import { ListTypeEnum } from "./enums"
+import { ItemTypeEnum } from "./enums"
+import DashPreview from "./pages/DashPreview/DashPreview"
+import DashPreviewBuilding from "./pages/DashPreview/DashPreviewBuilding"
 
 function App() {
   const { user } = useAuthContext()
@@ -41,7 +43,7 @@ function App() {
             path="/room-list"
             element={
               user ? (
-                <ListPage listType={ListTypeEnum.ROOM} />
+                <ListPage listType={ItemTypeEnum.ROOM} />
               ) : (
                 <Navigate to="/login" />
               )
@@ -51,7 +53,7 @@ function App() {
             path="/floor-list"
             element={
               user ? (
-                <ListPage listType={ListTypeEnum.FLOOR} />
+                <ListPage listType={ItemTypeEnum.FLOOR} />
               ) : (
                 <Navigate to="/login" />
               )
@@ -61,7 +63,7 @@ function App() {
             path="/faculty-list"
             element={
               user ? (
-                <ListPage listType={ListTypeEnum.FACULTY} />
+                <ListPage listType={ItemTypeEnum.FACULTY} />
               ) : (
                 <Navigate to="/login" />
               )
@@ -71,7 +73,7 @@ function App() {
             path="/pulpit-list"
             element={
               user ? (
-                <ListPage listType={ListTypeEnum.PULPIT} />
+                <ListPage listType={ItemTypeEnum.PULPIT} />
               ) : (
                 <Navigate to="/login" />
               )
@@ -81,7 +83,17 @@ function App() {
             path="/building-list"
             element={
               user ? (
-                <ListPage listType={ListTypeEnum.BUILDING} />
+                <ListPage listType={ItemTypeEnum.BUILDING} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/building-list/:name"
+            element={
+              user ? (
+                <DashPreview PreviewComponent={DashPreviewBuilding} />
               ) : (
                 <Navigate to="/login" />
               )

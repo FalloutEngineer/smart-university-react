@@ -1,4 +1,4 @@
-export enum ListTypeEnum {
+export enum ItemTypeEnum {
   ROOM = "ROOM",
   FLOOR = "FLOOR",
   FACULTY = "FACULTY",
