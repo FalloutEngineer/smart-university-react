@@ -23,6 +23,13 @@ export type FacultyData = {
   __v: number
 } | null
 
+export type FloorData = {
+  id: string
+  number: number
+
+  __v: number
+} | null
+
 export interface DashPreview {
   name: string
   endpoint: string

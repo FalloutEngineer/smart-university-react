@@ -69,6 +69,32 @@ router.post("/", requireAuth, async (req, res) => {
   }
 })
 
+// delete one
+router.delete("/:number", requireAuth, getFloor, async (req, res) => {
+  try {
+    await Faculty.updateOne(
+      { name: res.floor.faculty },
+      {
+        $pullAll: {
+          floors: [res.floor.number],
+        },
+      }
+    )
+    await Building.updateOne(
+      { name: res.floor.building },
+      {
+        $pullAll: {
+          floors: [res.floor.number],
+        },
+      }
+    )
+    await res.floor.remove()
+    res.json({ message: "Deleted Floor" })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+
 async function getFloor(req, res, next) {
   let floor
   try {

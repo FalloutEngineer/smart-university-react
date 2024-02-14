@@ -19,6 +19,7 @@ import DashPreview from "./pages/DashPreview/DashPreview"
 import DashPreviewBuilding from "./pages/DashPreview/DashPreviewBuilding"
 import DashPreviewPulpit from "./pages/DashPreview/DashPreviewPulpit"
 import DashPreviewFaculty from "./pages/DashPreview/DashPreviewFaculty"
+import DashPreviewFloor from "./pages/DashPreview/DashPreviewFloor"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -126,6 +127,19 @@ function App() {
                 <DashPreview
                   PreviewComponent={DashPreviewFaculty}
                   endpoint={API_URL + "/api/faculties/"}
+                />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/floor-list/:name"
+            element={
+              user ? (
+                <DashPreview
+                  PreviewComponent={DashPreviewFloor}
+                  endpoint={API_URL + "/api/floors/"}
                 />
               ) : (
                 <Navigate to="/login" />
