@@ -26,7 +26,10 @@ export type FacultyData = {
 export type FloorData = {
   id: string
   number: number
-
+  faculty: string
+  building: string
+  rooms: number[]
+  floorColor: string
   __v: number
 } | null
 
