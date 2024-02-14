@@ -33,6 +33,13 @@ export type FloorData = {
   __v: number
 } | null
 
+export type RoomData = {
+  id: string
+  number: number
+
+  __v: number
+} | null
+
 export interface DashPreview {
   name: string
   endpoint: string

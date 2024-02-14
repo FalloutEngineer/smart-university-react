@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const multer = require("multer")
 const path = require("path")
+const fs = require("fs")
 
 const Room = require("../../models/room")
 const Pulpit = require("../../models/pulpit")
@@ -142,6 +143,40 @@ router.post("/", requireAuth, upload.any("images"), async (req, res) => {
     }
   } else {
     res.status(400).json({ message: "Invalid floor, faculty or pulpit" })
+  }
+})
+
+// delete one
+router.delete("/:number", requireAuth, getRoom, async (req, res) => {
+  try {
+    await Floor.updateOne(
+      { rooms: res.room.number },
+      {
+        $pullAll: {
+          rooms: [res.room.number],
+        },
+      }
+    )
+    await Pulpit.updateMany(
+      { rooms: res.room.number },
+      {
+        $pullAll: {
+          rooms: [res.room.number],
+        },
+      }
+    )
+
+    res.room.photo_links.forEach((link) => {
+      const address = path.resolve("./static/images/" + link)
+      if (fs.existsSync(address)) {
+        fs.unlinkSync(address)
+      }
+    })
+
+    await res.room.remove()
+    res.json({ message: "Deleted Room" })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
   }
 })
 
