@@ -14,7 +14,7 @@ export default function Header({
 }) {
   const { logout } = useLogout()
 
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(window.pageYOffset !== 0)
 
   const [isOpened, setIsOpened] = useState(false)
   const { user } = useAuthContext()
@@ -81,7 +81,6 @@ export default function Header({
             </div>
           </div>
 
-          {/* <div className="collapse navbar-collapse nav-collapse"> */}
           <div className={"headerMenu " + (!isOpened ? "collapsed" : "")}>
             <div className="menu-container">
               <ul className="navbar-nav navbar-nav-right">
@@ -91,7 +90,6 @@ export default function Header({
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  {/* TODO: AUTH SYSTEM */}
                   <NavLink
                     to="/manage"
                     className={"nav-item-child nav-item-hover"}
