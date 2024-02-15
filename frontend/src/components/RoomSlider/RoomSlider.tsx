@@ -1,39 +1,19 @@
 import React from "react"
 
-import "./imageSlider.css"
-
 import { Slide } from "react-slideshow-image"
 import "react-slideshow-image/dist/styles.css"
-import { SliderParams } from "../../types"
 
-export default function ImageSlider({
-  slides,
-  sliderParams = {
-    isAutoplay: false,
-    isInfinite: false,
-  },
-}: {
-  slides: any
-  sliderParams?: SliderParams
-}) {
-  const divStyle = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundPosition: "center",
-    backgroundSize: "cover",
-    height: "100vh",
-    minHeight: "600px",
-  }
+import styles from "./roomSlider.module.css"
 
+export default function RoomSlider({ slides }: { slides: string[] }) {
   const useIndicators = slides.length > 1
 
   const sliderPropsTemplate = {
     duration: 3000,
-    autoplay: sliderParams.isAutoplay,
+    autoplay: false,
     transitionDuration: 500,
     arrows: false,
-    infinite: sliderParams.isInfinite,
+    infinite: false,
     easing: "ease",
   }
 
@@ -51,17 +31,22 @@ export default function ImageSlider({
   }
 
   return (
-    <div className="slide-container">
+    <div className={styles.slideContainer}>
       <Slide {...sliderProperties}>
         {slides.map((slideImage: any, index: number) => {
           return (
             <div key={index}>
-              <div
+              {/* <div
                 style={{
                   ...divStyle,
-                  backgroundImage: `url(${slideImage.url})`,
+                  backgroundImage: `url("/images/${slideImage}")`,
                 }}
-              ></div>
+              ></div> */}
+              <img
+                alt="Приміщення"
+                className={styles.imgStyle}
+                src={`/images/${slideImage}`}
+              />
             </div>
           )
         })}

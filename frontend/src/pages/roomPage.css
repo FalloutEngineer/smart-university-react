@@ -8,3 +8,135 @@
 .roomPulpit {
   color: black !important;
 }
+
+.roomHeadingContainer {
+  min-height: 300px;
+  height: 60vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.roomHeading {
+  display: flex;
+}
+
+.roomBody {
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  background-color: rgb(48, 46, 51);
+}
+
+.roomUpper {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+
+  gap: 15px;
+}
+
+.main-info {
+  background-color: white;
+  border-radius: 5px;
+
+  list-style: none;
+
+  padding: 25px 15px;
+  margin-bottom: 0;
+
+  min-width: 30%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.info__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info__item-name {
+  margin-bottom: 7px;
+}
+
+.info__item-value {
+  font-size: 18px;
+  line-height: 18px;
+}
+
+.roomContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 15px;
+}
+
+.roomDescription {
+  background-color: white;
+  border-radius: 5px;
+  padding: 25px;
+  max-width: 65%;
+  width: 100%;
+}
+
+.roomLower {
+  display: flex;
+  gap: 15px;
+
+  justify-content: space-between;
+
+  max-width: 100%;
+  width: 100%;
+}
+
+.secondaryInfo__wraper {
+  display: flex;
+
+  max-width: 35%;
+  width: 100%;
+}
+
+.secondaryInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: white;
+
+  border-radius: 5px;
+
+  padding: 25px 15px;
+
+  width: 100%;
+  height: 100%;
+
+  gap: 20px;
+}
+
+@media (max-width: 992px) {
+  .roomUpper {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 610px) {
+  .roomLower {
+    flex-direction: column;
+  }
+  .secondaryInfo__wraper {
+    max-width: 100%;
+  }
+
+  .roomDescription {
+    max-width: 100%;
+  }
+}
