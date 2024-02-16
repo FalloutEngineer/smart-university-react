@@ -22,49 +22,7 @@ import {
 const API_URL = process.env.REACT_APP_API_URL
 
 const floorsAPI = API_URL + `/api/floors`
-
-const data = [
-  {
-    name: "101 Кабінет",
-    Місць: 50,
-  },
-  {
-    name: "102 Кабінет",
-    Місць: 20,
-  },
-  {
-    name: "103 Кабінет",
-    Місць: 12,
-  },
-  {
-    name: "104 Кабінет",
-    Місць: 30,
-  },
-  {
-    name: "105 Кабінет",
-    Місць: 21,
-  },
-  {
-    name: "106 Кабінет",
-    Місць: 5,
-  },
-  {
-    name: "107 Кабінет",
-    Місць: 14,
-  },
-  {
-    name: "108 Кабінет",
-    Місць: 22,
-  },
-  {
-    name: "109 Кабінет",
-    Місць: 33,
-  },
-  {
-    name: "110 Кабінет",
-    Місць: 7,
-  },
-]
+const roomsAPI = API_URL + `/api/rooms`
 
 export default function FloorPage() {
   const params = useParams()
@@ -72,6 +30,8 @@ export default function FloorPage() {
   const [floor, setFloor]: any[] = useState(null)
 
   const [windowSize, setSize] = useState([0, 0])
+
+  const [rooms, setRooms]: any[] = useState([])
 
   let color
 
@@ -86,7 +46,7 @@ export default function FloorPage() {
   }
 
   useEffect(() => {
-    const fetchBuildings = async () => {
+    const fetchFloors = async () => {
       const response = await fetch(floorsAPI + "/" + params.number)
       const json = await response.json()
 
@@ -100,7 +60,7 @@ export default function FloorPage() {
       }
     }
 
-    fetchBuildings()
+    fetchFloors()
   }, [])
 
   useEffect(() => {
@@ -112,6 +72,35 @@ export default function FloorPage() {
     updateSize()
     return () => window.removeEventListener("resize", updateSize)
   }, [])
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      const promiseArray: any = []
+
+      floor.rooms.forEach((room: string) => {
+        const response = fetch(roomsAPI + "/" + room)
+        promiseArray.push(response)
+      })
+
+      const responses = await Promise.all(promiseArray)
+
+      const values = await Promise.all(
+        responses.map((response) => response.json())
+      )
+
+      const readyRooms = values.map((room) => {
+        return {
+          number: `${room.type} ${room.number}`,
+          Місць: room.capacity,
+        }
+      })
+      setRooms(readyRooms)
+    }
+
+    if (floor && floor.rooms) {
+      fetchRooms()
+    }
+  }, [floor])
 
   return (
     <Layout>
@@ -173,31 +162,33 @@ export default function FloorPage() {
           </div>
         </div>
       </div>
-      <div className="facultyChart">
-        <BarChart
-          //TODO: change width on resize
-          width={windowSize[0] - (windowSize[0] / 100) * 15}
-          height={windowSize[0] / 4}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
+      {rooms.length > 0 && (
+        <div className="facultyChart">
+          <BarChart
+            //TODO: change width on resize
+            width={windowSize[0] - (windowSize[0] / 100) * 15}
+            height={windowSize[0] / 4}
+            data={rooms}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="number" />
+            <YAxis />
+            <Tooltip />
 
-          <Bar
-            dataKey="Місць"
-            fill={color}
-            activeBar={<Rectangle fill="white" stroke={color} />}
-          />
-        </BarChart>
-      </div>
+            <Bar
+              dataKey="Місць"
+              fill={color}
+              activeBar={<Rectangle fill="white" stroke={color} />}
+            />
+          </BarChart>
+        </div>
+      )}
     </Layout>
   )
 }
