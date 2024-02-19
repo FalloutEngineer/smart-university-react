@@ -34,16 +34,9 @@ export default function FloorPage() {
 
   const [rooms, setRooms]: any[] = useState([])
 
-  let color
-
-  if (floor && floor.floorColor) {
-    color = floor.color
-  } else {
-    color = "#000"
-  }
-
+  let color = "#000"
   const sensorsBlockStyles = {
-    backgroundColor: color,
+    backgroundColor: floor.floorColor,
   }
 
   useEffect(() => {
@@ -110,7 +103,7 @@ export default function FloorPage() {
   return (
     <Layout>
       <FloorHeader
-        color={floor !== null ? floor.color : "#235352"}
+        color={floor !== null ? floor.floorColor : "#235352"}
         floor={floor !== null ? floor.number : "0"}
         name={floor !== null ? floor.faculty : "Faculty"}
         // TODO: ADD LOGO TO DATABASE
@@ -122,7 +115,7 @@ export default function FloorPage() {
         <FloorMap
           // TODO: ADD FLOOR PLAN FROM DATABASE
           url="http://localhost:3000/svg/mock-floorPlan.svg"
-          styles={floor !== null ? floor.color : { color: "#000" }}
+          styles={floor !== null ? floor.floorColor : { color: "#000" }}
         />
       </div>
 
@@ -202,7 +195,7 @@ export default function FloorPage() {
 
             <Bar
               dataKey="Місць"
-              fill={color}
+              fill={floor.floorColor}
               activeBar={<Rectangle fill="white" stroke={color} />}
             />
           </BarChart>
