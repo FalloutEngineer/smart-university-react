@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import Layout from "../components/Layout/Layout"
 
 import "./roomPage.css"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import RoomSlider from "../components/RoomSlider/RoomSlider"
 
 const API_URL = process.env.REACT_APP_API_URL
@@ -79,25 +79,20 @@ export default function RoomPage() {
     height: "auto",
   }
 
+  function toFloorPage() {}
+
   return (
     <Layout>
       <div className="floor-header" style={floorHeaderStyles}>
         <div className="floor-header__darker">
-          <div className="roomHeadingContainer container">
-            <h2 className="roomHeading">{room.type + " " + room.number}</h2>
-
-            {room.faculty ? (
-              <h3 className="roomHeading">
-                {room.floor} Поверх - {room.faculty.toUpperCase()}
-              </h3>
-            ) : (
-              <h3 className="roomHeading">{room.floor} Поверх</h3>
-            )}
-          </div>
+          <div className="roomHeadingContainer container"></div>
         </div>
       </div>
       <div className="roomBody">
         <div className="roomContainer container">
+          <Link to={`/floor/${room.floor}`} className="roomToFaculty">
+            На сторінку поверха
+          </Link>
           <div className="roomUpper">
             <RoomSlider slides={room.photo_links} />
 
