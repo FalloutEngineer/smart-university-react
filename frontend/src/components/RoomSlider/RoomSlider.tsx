@@ -5,6 +5,8 @@ import "react-slideshow-image/dist/styles.css"
 
 import styles from "./roomSlider.module.css"
 
+const BACKEND_URL = process.env.REACT_APP_API_URL
+
 export default function RoomSlider({ slides }: { slides: string[] }) {
   const useIndicators = slides.length > 1
 
@@ -45,7 +47,7 @@ export default function RoomSlider({ slides }: { slides: string[] }) {
               <img
                 alt="Приміщення"
                 className={styles.imgStyle}
-                src={`/images/${slideImage}`}
+                src={`${BACKEND_URL}/images/${slideImage}`}
               />
             </div>
           )

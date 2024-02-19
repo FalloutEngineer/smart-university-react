@@ -18,6 +18,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
+import { Link } from "react-router-dom"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -170,15 +171,15 @@ export default function FloorPage() {
           Список всіх приміщень поверха:
         </h2>
         <ul className="facultyRooms__list">
-          <li className="facultyRooms__item">
-            <a href="#">Аудиторія 111</a>
-          </li>
-          <li className="facultyRooms__item">
-            <a href="#">Лабораторія 112</a>
-          </li>
-          <li className="facultyRooms__item">
-            <a href="#">Комп'ютерна лабораторія 113</a>
-          </li>
+          {rooms.map((room: any) => {
+            return (
+              <li className="facultyRooms__item">
+                <Link to={`../room/${room.number}`}>
+                  {room.type} {room.number}
+                </Link>
+              </li>
+            )
+          })}
         </ul>
       </div>
       {rooms.length > 0 && (

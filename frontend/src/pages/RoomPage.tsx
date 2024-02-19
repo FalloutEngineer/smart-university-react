@@ -40,6 +40,8 @@ export default function RoomPage() {
       }
     }
 
+    console.log(room)
+
     fetchRoom().catch((e) => {
       console.error(e)
     })
@@ -97,17 +99,7 @@ export default function RoomPage() {
       <div className="roomBody">
         <div className="roomContainer container">
           <div className="roomUpper">
-            {/* <RoomSlider slides={room.photo_links} /> /images/1680458075128.jpg */}
-            <RoomSlider
-              slides={[
-                "1680458075128.jpg",
-                "1680458075128.jpg",
-                "1680458075128.jpg",
-                "1680458075128.jpg",
-                "1680458075128.jpg",
-                "1680458075128.jpg",
-              ]}
-            />
+            <RoomSlider slides={room.photo_links} />
 
             <ul className="main-info">
               <li className="info__item">
