@@ -12,6 +12,7 @@
     "@types/react-dom": "^18.2.18",
     "@types/react-router-dom": "^5.3.3",
     "dotenv": "^16.4.1",
+    "query-string": "^8.2.0",
     "react": "^18.2.0",
     "react-cookie": "^7.0.2",
     "react-dom": "^18.2.0",

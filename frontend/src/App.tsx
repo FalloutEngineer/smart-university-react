@@ -43,7 +43,13 @@ function App() {
           <Route path="/room/:number" element={<RoomPage />} />
           <Route
             path="/manage"
-            element={user ? <Manage /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                <Manage />
+              ) : (
+                <Navigate to={`/login?redirectTo=/manage`} replace={true} />
+              )
+            }
           />
           <Route
             path="/room-list"

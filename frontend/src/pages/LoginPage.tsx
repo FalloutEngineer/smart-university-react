@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { useLogin } from "../hooks/useLogin"
 import Layout from "../components/Layout/Layout"
+import queryString from "query-string"
 
 import "./login.css"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 export default function LoginPage() {
   const [username, setUsername] = useState("")
@@ -13,13 +14,23 @@ export default function LoginPage() {
 
   const { login, error, isLoading } = useLogin()
 
+  const location = useLocation()
+
+  const { redirectTo } = queryString.parse(location.search)
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     const loggedIn = await login(username, password)
 
     if (loggedIn) {
-      navigate(-1)
+      if (redirectTo && redirectTo !== "") {
+        console.log("first: ", redirectTo)
+        navigate(`../${redirectTo}`)
+      } else {
+        console.log("second: ", redirectTo)
+        navigate(-1)
+      }
     } else {
       //TODO TOAST OR GOOD ERROR
       console.log("Failed to login")
