@@ -34,8 +34,10 @@ export default function FloorPage() {
 
   const [rooms, setRooms]: any[] = useState([])
 
+  const [color, setColor] = useState("#000")
+
   const sensorsBlockStyles = {
-    backgroundColor: floor.floorColor,
+    backgroundColor: color,
   }
 
   useEffect(() => {
@@ -44,9 +46,10 @@ export default function FloorPage() {
       const json = await response.json()
 
       if (response.ok) {
-        console.log(json)
-
         setFloor(json)
+        if (floor && floor.floorColor && floor.floorColor !== "") {
+          setColor(floor.floorColor)
+        }
       } else {
         //TODO: toast error?
         console.log(response.status, response.text)
@@ -102,7 +105,7 @@ export default function FloorPage() {
   return (
     <Layout>
       <FloorHeader
-        color={floor !== null ? floor.floorColor : "#235352"}
+        color={color}
         floor={floor !== null ? floor.number : "0"}
         name={floor !== null ? floor.faculty : "Faculty"}
         // TODO: ADD LOGO TO DATABASE
@@ -114,7 +117,7 @@ export default function FloorPage() {
         <FloorMap
           // TODO: ADD FLOOR PLAN FROM DATABASE
           url="http://localhost:3000/svg/mock-floorPlan.svg"
-          styles={floor !== null ? floor.floorColor : { color: "#000" }}
+          styles={color}
         />
       </div>
 
@@ -159,14 +162,15 @@ export default function FloorPage() {
         </div>
       </div>
       <div className="facultyRooms container">
-        <h2 className="facultyRooms__heading">
-          Список всіх приміщень поверха:
-        </h2>
+        <h2 className="facultyRooms__heading">Список всіх приміщень поверха</h2>
         <ul className="facultyRooms__list">
           {rooms.map((room: any) => {
             return (
               <li className="facultyRooms__item">
-                <Link to={`../room/${room.number}`}>
+                <Link
+                  className="facultyRooms__itemLink"
+                  to={`../room/${room.number}`}
+                >
                   {room.type} {room.number}
                 </Link>
               </li>
@@ -194,8 +198,8 @@ export default function FloorPage() {
 
             <Bar
               dataKey="Місць"
-              fill={floor.floorColor}
-              activeBar={<Rectangle fill="white" stroke={floor.floorColor} />}
+              fill={color}
+              activeBar={<Rectangle fill="white" stroke={color} />}
             />
           </BarChart>
         </div>

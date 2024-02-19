@@ -105,3 +105,61 @@
 
   padding: 30px 0px;
 }
+
+.facultyRooms {
+  padding: 30px 0px;
+}
+
+.facultyRooms__heading {
+}
+
+.facultyRooms__list {
+  list-style: none;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+
+  max-width: 600px;
+  width: 100%;
+
+  padding: 0;
+}
+
+.facultyRooms__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  border-bottom: 1px solid rgb(189, 189, 189);
+}
+
+.facultyRooms__item:last-child {
+  border-bottom: none;
+}
+
+.facultyRooms__itemLink {
+  background-color: white;
+  color: black;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  box-sizing: border-box;
+  padding: 6px 8px;
+}
+
+.facultyRooms__itemLink:hover {
+  background-color: #17bed2;
+  color: white;
+}
