@@ -88,9 +88,13 @@ export default function FloorPage() {
         responses.map((response) => response.json())
       )
 
+      console.log(values)
+
       const readyRooms = values.map((room) => {
         return {
-          number: `${room.type} ${room.number}`,
+          chartName: `${room.type} ${room.number}`,
+          number: room.number,
+          type: room.type,
           Місць: room.capacity,
         }
       })
@@ -121,7 +125,6 @@ export default function FloorPage() {
         />
       </div>
 
-      {/* style="	background: <%-floor.floorColor%>;" */}
       <div className="ui-60" style={sensorsBlockStyles}>
         <div className="container">
           <div className="infoBox">
@@ -162,10 +165,25 @@ export default function FloorPage() {
           </div>
         </div>
       </div>
+      <div className="facultyRooms container">
+        <h2 className="facultyRooms__heading">
+          Список всіх приміщень поверха:
+        </h2>
+        <ul className="facultyRooms__list">
+          <li className="facultyRooms__item">
+            <a href="#">Аудиторія 111</a>
+          </li>
+          <li className="facultyRooms__item">
+            <a href="#">Лабораторія 112</a>
+          </li>
+          <li className="facultyRooms__item">
+            <a href="#">Комп'ютерна лабораторія 113</a>
+          </li>
+        </ul>
+      </div>
       {rooms.length > 0 && (
-        <div className="facultyChart">
+        <div className="facultyChart ui-60">
           <BarChart
-            //TODO: change width on resize
             width={windowSize[0] - (windowSize[0] / 100) * 15}
             height={windowSize[0] / 4}
             data={rooms}
@@ -177,7 +195,7 @@ export default function FloorPage() {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="number" />
+            <XAxis dataKey="chartName" />
             <YAxis />
             <Tooltip />
 

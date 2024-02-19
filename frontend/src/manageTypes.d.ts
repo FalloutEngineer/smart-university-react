@@ -14,7 +14,7 @@ export type Room = {
   pulpit: string
   number: number
   capacity: number
-  type: RoomTypes
+  roomType: RoomTypes
   description: string
   assistant: string
   images: FileList

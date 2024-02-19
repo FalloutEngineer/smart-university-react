@@ -25,7 +25,7 @@ export default function DashEditRoom({ endpoint }: { endpoint: string }) {
     defaultValues: {
       number: room?.number,
       capacity: room?.capacity,
-      type: room?.type,
+      roomType: room?.type,
       description: room?.description,
       assistant: room?.assistant,
       images: room?.photo_links,
@@ -54,7 +54,7 @@ export default function DashEditRoom({ endpoint }: { endpoint: string }) {
       formData.append("number", String(data.number))
 
       formData.append("capacity", String(data.capacity))
-      formData.append("type", data.type)
+      formData.append("type", data.roomType)
 
       formData.append("floor", String(room.floor))
       formData.append("faculty", room.faculty)
@@ -133,11 +133,11 @@ export default function DashEditRoom({ endpoint }: { endpoint: string }) {
               Тип
             </label>
             <select
-              {...register("type")}
+              {...register("roomType")}
               className="dash-select"
               name="roomType"
               id="roomTypes"
-              value={room?.type}
+              defaultValue={room?.type}
             >
               {roomTypes.map((roomType: string, index: number) => {
                 return <option value={roomType}>{roomType}</option>

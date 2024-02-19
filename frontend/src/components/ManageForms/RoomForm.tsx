@@ -42,6 +42,7 @@ export default function RoomForm({
 
   const onSubmit = (data: any) => {
     createRoomCallback(data)
+    console.log(data)
   }
 
   return (
@@ -135,13 +136,16 @@ export default function RoomForm({
             Тип приміщення
           </label>
           <select
-            {...register("type")}
+            {...register("roomType")}
             className="dash-select"
             name="roomType"
             id="roomTypes"
-            defaultValue={roomTypes[0]}
           >
-            {roomTypes.map((roomType: string, index: number) => {
+            <option hidden disabled selected value={""}>
+              {" "}
+              -- Оберіть варіант --{" "}
+            </option>
+            {roomTypes.map((roomType: string) => {
               return <option value={roomType}>{roomType}</option>
             })}
           </select>

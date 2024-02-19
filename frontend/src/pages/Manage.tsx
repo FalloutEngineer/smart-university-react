@@ -109,7 +109,7 @@ export default function Manage() {
       formData.append("floor", data.floor)
       formData.append("faculty", data.faculty)
       formData.append("capacity", String(data.capacity))
-      formData.append("type", data.type)
+      formData.append("type", data.roomType)
 
       for (let i = 0; i < data.images.length; i++) {
         formData.append("images", data.images[i])
