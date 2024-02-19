@@ -40,6 +40,10 @@ export default function FloorPage() {
     backgroundColor: color,
   }
 
+  const fillColor = {
+    color: color,
+  }
+
   useEffect(() => {
     const fetchFloors = async () => {
       const response = await fetch(floorsAPI + "/" + params.number)
@@ -60,7 +64,7 @@ export default function FloorPage() {
     if (floor && floor.floorColor) {
       setColor(floor.floorColor)
     }
-  }, [floor])
+  }, [JSON.stringify(floor)])
 
   useEffect(() => {
     function updateSize() {
@@ -120,7 +124,7 @@ export default function FloorPage() {
         <FloorMap
           // TODO: ADD FLOOR PLAN FROM DATABASE
           url="http://localhost:3000/svg/mock-floorPlan.svg"
-          styles={color}
+          styles={fillColor}
         />
       </div>
 
