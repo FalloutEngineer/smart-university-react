@@ -47,9 +47,6 @@ export default function FloorPage() {
 
       if (response.ok) {
         setFloor(json)
-        if (floor && floor.floorColor && floor.floorColor !== "") {
-          setColor(floor.floorColor)
-        }
       } else {
         //TODO: toast error?
         console.log(response.status, response.text)
@@ -57,7 +54,13 @@ export default function FloorPage() {
     }
 
     fetchFloors()
-  }, [])
+  }, [JSON.stringify(floor)])
+
+  useEffect(() => {
+    if (floor && floor.floorColor) {
+      setColor(floor.floorColor)
+    }
+  }, [floor])
 
   useEffect(() => {
     function updateSize() {
@@ -100,7 +103,7 @@ export default function FloorPage() {
     if (floor && floor.rooms) {
       fetchRooms()
     }
-  }, [floor])
+  }, [JSON.stringify(floor)])
 
   return (
     <Layout>
