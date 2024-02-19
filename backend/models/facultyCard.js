@@ -1,47 +1,47 @@
 const mongoose = require("mongoose")
 
-const facultySchema = new mongoose.Schema({
+const facultyCardSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
     unique: true,
   },
   area: {
-    type: [Number],
+    type: Number,
     required: false,
   },
   pulpits: {
-    type: [Number],
+    type: Number,
     required: false,
   },
   rooms: {
-    type: [Number],
+    type: Number,
     required: false,
   },
   bachelorFull: {
-    type: [Number],
+    type: Number,
     required: false,
   },
   bachelorPart: {
-    type: [Number],
+    type: Number,
     required: false,
   },
   masterFull: {
-    type: [Number],
+    type: Number,
     required: false,
   },
   masterPart: {
-    type: [Number],
+    type: Number,
     required: false,
   },
   phdFull: {
-    type: [Number],
+    type: Number,
     required: false,
   },
   phdPart: {
-    type: [Number],
+    type: Number,
     required: false,
   },
 })
 
-module.exports = mongoose.model("Faculty", facultySchema)
+module.exports = mongoose.model("FacultyCard", facultyCardSchema)
