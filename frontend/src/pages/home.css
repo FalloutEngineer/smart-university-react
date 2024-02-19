@@ -23,19 +23,19 @@
 
 @media (max-width: 991px) {
   .corpuses {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr !important;
   }
 }
 
 @media (max-width: 991px) {
   .corpuses {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr !important;
   }
 }
 
 @media (max-width: 420px) {
   .corpuses {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
 }
 
