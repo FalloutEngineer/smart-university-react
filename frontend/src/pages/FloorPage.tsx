@@ -34,7 +34,6 @@ export default function FloorPage() {
 
   const [rooms, setRooms]: any[] = useState([])
 
-  let color = "#000"
   const sensorsBlockStyles = {
     backgroundColor: floor.floorColor,
   }
@@ -196,7 +195,7 @@ export default function FloorPage() {
             <Bar
               dataKey="Місць"
               fill={floor.floorColor}
-              activeBar={<Rectangle fill="white" stroke={color} />}
+              activeBar={<Rectangle fill="white" stroke={floor.floorColor} />}
             />
           </BarChart>
         </div>
