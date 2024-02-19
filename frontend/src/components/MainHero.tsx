@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react"
 
 import styles from "./hero.module.css"
+import { Link } from "react-router-dom"
 
 export default function MainHero() {
   return (
@@ -12,9 +13,9 @@ export default function MainHero() {
             Державного Університету
           </h1>
         </div>
-        <a href="1building.html" className="button-outline">
+        <Link to="/buildings" className="button-outline">
           Дивитися
-        </a>
+        </Link>
       </div>
     </div>
   )
