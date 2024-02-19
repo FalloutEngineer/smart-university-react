@@ -15,6 +15,12 @@ const buildingsAPI = API_URL + `/api/buildings`
 export default function Home() {
   const [buildings, setBuildings]: any[] = useState([])
 
+  const corpusesStyle = {
+    gridTemplateColumns: `repeat(${
+      buildings.length > 4 ? 4 : buildings.length
+    }, 1fr)`,
+  }
+
   useEffect(() => {
     const fetchBuildings = async () => {
       const response = await fetch(buildingsAPI)
@@ -60,7 +66,10 @@ export default function Home() {
 
       <div className="bg-color-sky-light" data-auto-height="true">
         <div className="content-lg container">
-          <div className="row row-space-1 margin-b-2 corpuses">
+          <div
+            className="row row-space-1 margin-b-2 corpuses"
+            style={corpusesStyle}
+          >
             {buildings.map((building: any) => {
               return (
                 <Corpus
