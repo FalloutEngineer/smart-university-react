@@ -10,8 +10,6 @@ const API_URL = process.env.REACT_APP_API_URL
 const facultiesPageAPI = API_URL + `/api/facultiesPage`
 
 export default function Faculties() {
-  const [publicUrl, setPublicUrl] = useState(process.env.PUBLIC_URL)
-
   const [facultyPage, setFacultyPage] = useState({
     heading: `ФАКУЛЬТЕТИ`,
     description: `При ХДУ існує 9 факультетів. Якщо ви уважно вивчите спеціалізації та наукові напрямки різних факультетів, то знайдете багато спільного.
@@ -57,8 +55,6 @@ export default function Faculties() {
     fetchFacultiesPage()
   }, [])
 
-  console.log(slides)
-
   const sliderWrapperStyles = {
     width: "100vw",
     minHeight: "600px",
@@ -76,7 +72,10 @@ export default function Faculties() {
             isInfinite: false,
           }}
         />
-        <FacultiesHero />
+        <FacultiesHero
+          heading={facultyPage.heading}
+          text={facultyPage.description}
+        />
       </div>
 
       <FacultiesGrid>
