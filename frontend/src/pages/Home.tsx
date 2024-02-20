@@ -10,8 +10,6 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const buildingsAPI = API_URL + `/api/buildings`
 
-//TODO: CAROUSEL COMPONENT
-
 export default function Home() {
   const [buildings, setBuildings]: any[] = useState([])
 
@@ -78,14 +76,6 @@ export default function Home() {
                 />
               )
             })}
-            {/* <Corpus
-              heading={"Головний корпус"}
-              icon={"/img/icon.png"}
-              link={"/"}
-            />
-            <Corpus heading={"2 корпус"} link={"/"} />
-            <Corpus heading={"5 корпус"} link={"/"} />
-            <Corpus heading={"6 корпус"} link={"/"} /> */}
           </div>
         </div>
       </div>
