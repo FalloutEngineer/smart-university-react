@@ -34,6 +34,7 @@ const facultiesRoute = require("./routes/api/faculties")
 const pulpitsRoute = require("./routes/api/pulpits")
 
 const homePageRoute = require("./routes/api/homePage.js")
+const facultiesPageRoute = require("./routes/api/facultiesPage.js")
 
 app.use("/api/buildings", buildingsRoute)
 app.use("/api/floors", floorsRoute)
@@ -42,6 +43,7 @@ app.use("/api/faculties", facultiesRoute)
 app.use("/api/pulpits", pulpitsRoute)
 
 app.use("/api/homePage", homePageRoute)
+app.use("/api/facultiesPage", facultiesPageRoute)
 
 const authRouter = require("./routes/api/auth")
 app.use("/api/auth", authRouter)

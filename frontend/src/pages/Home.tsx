@@ -75,8 +75,6 @@ export default function Home() {
         })
       : [{ url: process.env.PUBLIC_URL + "/img/1.jpg", caption: "" }]
 
-  console.log(slides)
-
   const sliderWrapperStyles = {
     width: "100vw",
     minHeight: "600px",

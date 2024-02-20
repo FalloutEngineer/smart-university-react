@@ -63,7 +63,7 @@ router.patch("/", requireAuth, async (req, res) => {
       res.status(400).json({ message: err.message })
     }
   } else {
-    res.status(400).json({ message: "Invalid floor, faculty or pulpit" })
+    res.status(400).json({ message: "Something went wrong" })
   }
 })
 

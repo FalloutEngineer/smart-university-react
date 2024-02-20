@@ -6,6 +6,8 @@ import { Slide } from "react-slideshow-image"
 import "react-slideshow-image/dist/styles.css"
 import { SliderParams } from "../../types"
 
+const API_URL = process.env.REACT_APP_API_URL
+
 export default function ImageSlider({
   slides,
   sliderParams = {
@@ -59,7 +61,7 @@ export default function ImageSlider({
               <div
                 style={{
                   ...divStyle,
-                  backgroundImage: `url(${slideImage.url})`,
+                  backgroundImage: `url(${API_URL + "/" + slideImage.url})`,
                 }}
               ></div>
             </div>
