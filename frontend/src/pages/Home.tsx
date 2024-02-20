@@ -90,7 +90,10 @@ export default function Home() {
       <div style={sliderWrapperStyles} className="slider-wrapper">
         <ImageSlider
           slides={slides}
-          sliderParams={{ isAutoplay: true, isInfinite: true }}
+          sliderParams={{
+            isAutoplay: slides.length > 1,
+            isInfinite: slides.length > 1,
+          }}
         />
         <MainHero heading={home.heading} buttonLink={home.buttonLink} />
       </div>
