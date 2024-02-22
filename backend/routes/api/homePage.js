@@ -57,41 +57,63 @@ router.post("/", requireAuth, upload.any("images"), async (req, res) => {
 })
 
 //update one
-router.patch("/", requireAuth, upload.any("images"), async (req, res) => {
-  const isHomePageExists = await HomePage.exists({})
+router.patch(
+  "/",
+  requireAuth,
+  upload.any("images"),
+  getHome,
+  async (req, res) => {
+    const isHomePageExists = await HomePage.exists({})
 
-  if (isHomePageExists) {
-    const homePages = await HomePage.find()
+    if (isHomePageExists) {
+      const homePages = await HomePage.find()
 
-    if (req.body.heading) {
-      homePages[0].heading = req.body.heading
-    }
-    if (req.body.buttonLink) {
-      homePages[0].buttonLink = req.body.buttonLink
-    }
-
-    const images = req.files.map((file) => file.filename)
-
-    res.room.images.forEach((link) => {
-      const address = path.resolve("./static/images/" + link)
-      if (fs.existsSync(address)) {
-        fs.unlinkSync(address)
+      if (req.body.heading) {
+        homePages[0].heading = req.body.heading
       }
-    })
+      if (req.body.buttonLink) {
+        homePages[0].buttonLink = req.body.buttonLink
+      }
 
-    if (req.body.images != null) {
-      res.room.images = images
-    }
+      const images = req.files.map((file) => "/images/home/" + file.filename)
 
-    try {
-      const updatedHomePage = await homePages[0].save()
-      res.json(updatedHomePage)
-    } catch (err) {
-      res.status(400).json({ message: err.message })
+      homePages[0].images.forEach((link) => {
+        const address = path.resolve("./static/images/home/" + link)
+        if (fs.existsSync(address)) {
+          fs.unlinkSync(address)
+        }
+      })
+
+      if (images != null) {
+        homePages[0].images = images
+      }
+
+      try {
+        const updatedHomePage = await homePages[0].save()
+        res.json(updatedHomePage)
+      } catch (err) {
+        res.status(400).json({ message: err.message })
+      }
+    } else {
+      res.status(400).json({ message: "Something went wrong" })
     }
-  } else {
-    res.status(400).json({ message: "Something went wrong" })
   }
-})
+)
+
+async function getHome(req, res, next) {
+  let page
+  try {
+    page = await HomePage.findOne({})
+    console.log(page)
+    if (page === null) {
+      return res.status(404).json({ message: "Can't find page" })
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message })
+  }
+
+  res.page = page
+  next()
+}
 
 module.exports = router
