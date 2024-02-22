@@ -1,8 +1,25 @@
 const express = require("express")
 const router = express.Router()
+const multer = require("multer")
+const path = require("path")
+const fs = require("fs")
+
 const HomePage = require("../../models/homePage")
 
 const requireAuth = require("../../middleware/requireAuth.js")
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./static/images/home")
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname))
+  },
+})
+
+const upload = multer({
+  storage: storage,
+})
 
 //get
 router.get("/", async (req, res) => {
@@ -15,14 +32,14 @@ router.get("/", async (req, res) => {
 })
 
 //create one
-router.post("/", requireAuth, async (req, res) => {
+router.post("/", requireAuth, upload.any("images"), async (req, res) => {
   const isHomePageExists = await HomePage.exists({})
 
   if (!isHomePageExists) {
     const homePage = new HomePage({
       heading: req.body.heading,
       buttonLink: req.body.buttonLink,
-      images: req.body.images,
+      images: images[0] != "" ? images : [],
     })
 
     try {
@@ -40,7 +57,7 @@ router.post("/", requireAuth, async (req, res) => {
 })
 
 //update one
-router.patch("/", requireAuth, async (req, res) => {
+router.patch("/", requireAuth, upload.any("images"), async (req, res) => {
   const isHomePageExists = await HomePage.exists({})
 
   if (isHomePageExists) {
@@ -52,8 +69,18 @@ router.patch("/", requireAuth, async (req, res) => {
     if (req.body.buttonLink) {
       homePages[0].buttonLink = req.body.buttonLink
     }
-    if (req.body.images) {
-      homePages[0].images = req.body.images
+
+    const images = req.files.map((file) => file.filename)
+
+    res.room.images.forEach((link) => {
+      const address = path.resolve("./static/images/" + link)
+      if (fs.existsSync(address)) {
+        fs.unlinkSync(address)
+      }
+    })
+
+    if (req.body.images != null) {
+      res.room.images = images
     }
 
     try {
