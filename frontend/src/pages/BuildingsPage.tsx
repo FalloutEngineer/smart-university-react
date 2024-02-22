@@ -10,10 +10,51 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const buildingsAPI = API_URL + `/api/buildings`
 
+const buildingsPageAPI = API_URL + `/api/buildingsPage`
+
 export default function BuildingsPage() {
   //TODO: Use buildings context
 
-  const slides = [{ url: process.env.PUBLIC_URL + "/img/4.jpg", caption: "" }]
+  const [buildingPage, setBuildingPage] = useState({
+    heading: `БУДІВЛІ`,
+    description: `На даній сторінкі розміщений список з посиланнями на існуючі будівлі університету.`,
+    images: ["/img/4.jpg"],
+  })
+
+  const [slides, setSlides] = useState([{ url: "/img/1.jpg", caption: "" }])
+
+  useEffect(() => {
+    const fetchBuildingsPage = async () => {
+      const response = await fetch(buildingsPageAPI)
+
+      try {
+        const json = await response.json()
+
+        if (response.ok) {
+          console.log("buildings: ", json)
+
+          setBuildingPage(json)
+
+          const readyImages =
+            json.images.length > 0
+              ? json.images.map((image: string) => {
+                  return { url: image, caption: "" }
+                })
+              : [{ url: "/img/1.jpg", caption: "" }]
+
+          setSlides(readyImages)
+
+          console.log(slides)
+        } else {
+          console.error(response.status, response.text)
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    }
+
+    fetchBuildingsPage()
+  }, [])
 
   const [buildings, setBuildings] = useState([])
 
@@ -46,7 +87,10 @@ export default function BuildingsPage() {
           slides={slides}
           sliderParams={{ isInfinite: false, isAutoplay: false }}
         />
-        <BuildingsHero />
+        <BuildingsHero
+          heading={buildingPage.heading}
+          description={buildingPage.description}
+        />
       </div>
 
       <div className="page-list__container">

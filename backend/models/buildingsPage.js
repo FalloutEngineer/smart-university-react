@@ -7,7 +7,7 @@ const buildingsPageSchema = new mongoose.Schema(
       required: true,
       unique: false,
     },
-    buttonLink: {
+    description: {
       type: String,
       required: false,
     },
