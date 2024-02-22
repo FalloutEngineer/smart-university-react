@@ -21,6 +21,8 @@ import DashPreviewFaculty from "./pages/DashPreview/DashPreviewFaculty"
 import DashPreviewFloor from "./pages/DashPreview/DashPreviewFloor"
 import DashPreviewRoom from "./pages/DashPreview/DashPreviewRoom"
 import DashEditRoom from "./pages/DashPreview/DashEditRoom"
+import ManagePages from "./pages/ManagePages"
+import EditHome from "./pages/EditPages/EditHome"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -175,6 +177,14 @@ function App() {
                 <Navigate to="/login" />
               )
             }
+          />
+          <Route
+            path="/managePages"
+            element={user ? <ManagePages /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/editHome"
+            element={user ? <EditHome /> : <Navigate to="/login" />}
           />
         </Routes>
       </BrowserRouter>

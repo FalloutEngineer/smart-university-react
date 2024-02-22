@@ -36,6 +36,11 @@ export default function DashSidebar({ page }: { page?: string }) {
             Список будівель
           </NavLink>
         </li>
+        <li className="dash-sidebar__item">
+          <NavLink to="/managePages" className={"dash-sidebar__link "}>
+            Список сторінок
+          </NavLink>
+        </li>
       </ul>
     </div>
   )
