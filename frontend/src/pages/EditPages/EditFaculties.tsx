@@ -2,16 +2,15 @@ import React, { useEffect, useState } from "react"
 import DashLayout from "../../components/DashLayout/DashLayout"
 
 import styles from "./editPage.module.css"
-
-import { useForm } from "react-hook-form"
 import { useAuthContext } from "../../hooks/useAuthContext"
 import { useNavigate } from "react-router-dom"
+import { useForm } from "react-hook-form"
 
 const API_URL = process.env.REACT_APP_API_URL
 
-const buildingsPageAPI = API_URL + `/api/homePage`
+const facultiesPageAPI = API_URL + `/api/facultiesPage`
 
-export default function EditHome() {
+export default function EditFaculties() {
   const { user } = useAuthContext()
   const navigate = useNavigate()
   const [page, setPage]: any = useState(null)
@@ -19,37 +18,39 @@ export default function EditHome() {
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       heading: page?.heading,
-      buttonLink: page?.buttonLink,
+      description: page?.description,
       images: page?.images,
     },
   })
 
-  async function getHomePage() {
-    return fetch(buildingsPageAPI)
+  async function getFacultiesPage() {
+    return fetch(facultiesPageAPI)
       .then((res) => {
         return res.json()
       })
       .then((data) => {
         setPage(data)
+        console.log(data)
+
         reset()
       })
   }
 
   useEffect(() => {
-    getHomePage()
+    getFacultiesPage()
   }, [])
 
-  async function tryEditHome(data: any) {
-    if (data.heading || data.images || data.buttonLink) {
+  async function tryEditFaculties(data: any) {
+    if (data.heading || data.images || data.description) {
       const formData = new FormData()
 
       formData.append("heading", String(data.heading))
-      formData.append("buttonLink", data.buttonLink)
+      formData.append("description", data.description)
       for (let i = 0; i < data.images.length; i++) {
         formData.append("images", data.images[i])
       }
 
-      await fetch(buildingsPageAPI, {
+      await fetch(facultiesPageAPI, {
         method: "PATCH",
         headers: {
           authorization: `Bearer ${user}`,
@@ -71,7 +72,7 @@ export default function EditHome() {
   }
 
   const onSubmit = (data: any) => {
-    tryEditHome(data)
+    tryEditFaculties(data)
   }
 
   return (
@@ -91,13 +92,13 @@ export default function EditHome() {
           </li>
           <li className="dash-board__item">
             <label htmlFor="number" className="dash-board__label">
-              Посилання кнопки
+              Опис
             </label>
-            <input
+            <textarea
               id="text"
               className={styles.textArea}
-              defaultValue={page?.buttonLink}
-              {...register("buttonLink")}
+              defaultValue={page?.description}
+              {...register("description")}
             />
           </li>
           <li id="images-item" className="dash-board__item">
