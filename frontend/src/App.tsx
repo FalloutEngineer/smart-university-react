@@ -24,6 +24,7 @@ import DashEditRoom from "./pages/DashPreview/DashEditRoom"
 import ManagePages from "./pages/ManagePages"
 import EditHome from "./pages/EditPages/EditHome"
 import EditFaculties from "./pages/EditPages/EditFaculties"
+import EditBuildings from "./pages/EditPages/EditBuildings"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -190,6 +191,10 @@ function App() {
           <Route
             path="/editFaculties"
             element={user ? <EditFaculties /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/editBuildings"
+            element={user ? <EditBuildings /> : <Navigate to="/login" />}
           />
         </Routes>
       </BrowserRouter>

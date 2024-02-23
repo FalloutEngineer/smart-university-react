@@ -8,12 +8,25 @@ import { useForm } from "react-hook-form"
 
 const API_URL = process.env.REACT_APP_API_URL
 
-const facultiesPageAPI = API_URL + `/api/facultiesPage`
+const buildingsPageAPI = API_URL + `/api/buildingsPage`
 
-export default function EditFaculties() {
+export default function EditBuildings() {
   const { user } = useAuthContext()
   const navigate = useNavigate()
   const [page, setPage]: any = useState(null)
+
+  async function getBuildingsPage() {
+    return fetch(buildingsPageAPI)
+      .then((res) => {
+        return res.json()
+      })
+      .then((data) => {
+        setPage(data)
+        console.log(data)
+
+        reset()
+      })
+  }
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -23,22 +36,7 @@ export default function EditFaculties() {
     },
   })
 
-  async function getFacultiesPage() {
-    return fetch(facultiesPageAPI)
-      .then((res) => {
-        return res.json()
-      })
-      .then((data) => {
-        setPage(data)
-        reset()
-      })
-  }
-
-  useEffect(() => {
-    getFacultiesPage()
-  }, [])
-
-  async function tryEditFaculties(data: any) {
+  async function tryEditBuildings(data: any) {
     if (data.heading || data.images || data.description) {
       const formData = new FormData()
 
@@ -48,7 +46,7 @@ export default function EditFaculties() {
         formData.append("images", data.images[i])
       }
 
-      await fetch(facultiesPageAPI, {
+      await fetch(buildingsPageAPI, {
         method: "PATCH",
         headers: {
           authorization: `Bearer ${user}`,
@@ -69,8 +67,12 @@ export default function EditFaculties() {
     }
   }
 
+  useEffect(() => {
+    getBuildingsPage()
+  }, [])
+
   const onSubmit = (data: any) => {
-    tryEditFaculties(data)
+    tryEditBuildings(data)
   }
 
   return (
