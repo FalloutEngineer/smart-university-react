@@ -62,7 +62,7 @@ export default function EditHome() {
           alert(answer.message)
         } else {
           alert("Об'єкт успішно змінено")
-          navigate("/room-list/")
+          navigate("/managePages")
         }
       })
     } else {
