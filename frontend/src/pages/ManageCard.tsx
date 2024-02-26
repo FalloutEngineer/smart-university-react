@@ -1,20 +1,6 @@
 import React from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
 
-// name: req.body.name,
-// icon: req.body.icon,
-// area: req.body.area,
-// color: req.body.color,
-// seats: req.body.seats,
-// pulpits: req.body.pulpits,
-// cards: req.body.cards,
-// bachelorFull: req.body.bachelorFull,
-// bachelorPart: req.body.bachelorPart,
-// masterFull: req.body.masterFull,
-// masterPart: req.body.masterPart,
-// phdFull: req.body.phdFull,
-// phdPart: req.body.phdPart,
-
 import styles from "./EditPages/editPage.module.css"
 
 const API_URL = process.env.REACT_APP_API_URL
