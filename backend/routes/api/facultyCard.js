@@ -65,7 +65,7 @@ router.delete("/:number", requireAuth, getCard, async (req, res) => {
 async function getCard(req, res, next) {
   let card
   try {
-    card = await Card.findOne({
+    card = await FacultyCard.findOne({
       name: req.params.name,
     })
     if (card == null) {
