@@ -31,7 +31,7 @@ router.post("/", requireAuth, async (req, res) => {
       color: req.body.color,
       seats: req.body.seats,
       pulpits: req.body.pulpits,
-      rooms: req.body.rooms,
+      cards: req.body.cards,
       bachelorFull: req.body.bachelorFull,
       bachelorPart: req.body.bachelorPart,
       masterFull: req.body.masterFull,
@@ -56,6 +56,53 @@ router.post("/", requireAuth, async (req, res) => {
 })
 
 // edit one
+router.patch("/:name", requireAuth, getCard, async (req, res) => {
+  if (req.body.name != null) {
+    res.card.name = req.body.name
+  }
+  if (req.body.icon != null) {
+    res.card.icon = req.body.icon
+  }
+  if (req.body.area != null) {
+    res.card.area = req.body.area
+  }
+  if (req.body.color != null) {
+    res.card.color = req.body.color
+  }
+  if (req.body.seats != null) {
+    res.card.seats = req.body.seats
+  }
+  if (req.body.pulpits != null) {
+    res.card.pulpits = req.body.pulpits
+  }
+  if (req.body.cards != null) {
+    res.card.cards = req.body.cards
+  }
+  if (req.body.bachelorFull != null) {
+    res.card.bachelorFull = req.body.bachelorFull
+  }
+  if (req.body.bachelorPart != null) {
+    res.card.bachelorPart = req.body.bachelorPart
+  }
+  if (req.body.masterFull != null) {
+    res.card.masterFull = req.body.masterFull
+  }
+  if (req.body.masterPart != null) {
+    res.card.masterPart = req.body.masterPart
+  }
+  if (req.body.phdFull != null) {
+    res.card.phdFull = req.body.phdFull
+  }
+  if (req.body.phdPart != null) {
+    res.card.phdPart = req.body.phdPart
+  }
+  try {
+    const updatedCard = await res.card.save()
+    res.json(updatedCard)
+  } catch (err) {
+    res.status(400).json({ message: err.message })
+  }
+})
 
 // delete one
 router.delete("/:name", requireAuth, getCard, async (req, res) => {
