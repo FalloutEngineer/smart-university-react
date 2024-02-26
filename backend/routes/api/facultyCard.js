@@ -55,8 +55,10 @@ router.post("/", requireAuth, async (req, res) => {
   }
 })
 
+// edit one
+
 // delete one
-router.delete("/:number", requireAuth, getCard, async (req, res) => {
+router.delete("/:name", requireAuth, getCard, async (req, res) => {
   try {
     await res.card.remove()
     res.json({ message: "Deleted Card" })
