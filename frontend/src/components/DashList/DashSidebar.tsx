@@ -8,7 +8,12 @@ export default function DashSidebar({ page }: { page?: string }) {
       <ul className="dash-sidebar__list">
         <li className="dash-sidebar__item">
           <NavLink to="/manage" className={"dash-sidebar__link "}>
-            Створити
+            Створити об'єкт університета
+          </NavLink>
+        </li>
+        <li className="dash-sidebar__item">
+          <NavLink to="/manageCard" className={"dash-sidebar__link "}>
+            Створити картку
           </NavLink>
         </li>
         <li className="dash-sidebar__item">
