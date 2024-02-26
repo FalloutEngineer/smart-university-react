@@ -133,7 +133,7 @@ export default function FloorPage() {
           <div className="infoBox">
             <div className="infoboxContainer">
               {/* TODO: ADD FIELD TO SERVER AND parse data from server */}
-              <FacultiesCard
+              {/* <FacultiesCard
                 params={{
                   icon: "fa-globe",
                   name: "Факультет біології, географії та екології",
@@ -155,7 +155,7 @@ export default function FloorPage() {
                     external: 3,
                   },
                 }}
-              />
+              /> */}
             </div>
 
             {/* TODO: Pass data from server (sensor), pass link instean values, so items would change separetely from parent */}

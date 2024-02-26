@@ -9,6 +9,8 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const facultiesPageAPI = API_URL + `/api/facultiesPage`
 
+const cardsAPI = API_URL + "/api/facultyCard"
+
 export default function Faculties() {
   const [facultyPage, setFacultyPage] = useState({
     heading: `ФАКУЛЬТЕТИ`,
@@ -20,6 +22,8 @@ export default function Faculties() {
   })
 
   const [slides, setSlides] = useState([{ url: "/img/1.jpg", caption: "" }])
+
+  const [cards, setCards] = useState([])
 
   useEffect(() => {
     const fetchFacultiesPage = async () => {
@@ -55,6 +59,25 @@ export default function Faculties() {
     fetchFacultiesPage()
   }, [])
 
+  useEffect(() => {
+    const fetchCards = async () => {
+      try {
+        const response = await fetch(cardsAPI)
+
+        const data = await response.json()
+
+        setCards(data)
+
+        console.log("cards: ", cards)
+      } catch (e) {
+        //TODO: TOAST?
+        console.error(e)
+      }
+    }
+
+    fetchCards()
+  }, [])
+
   const sliderWrapperStyles = {
     width: "100vw",
     minHeight: "600px",
@@ -80,132 +103,9 @@ export default function Faculties() {
 
       <FacultiesGrid>
         {/* TODO: Auto generate from array, todotodo: generate from array that returns from server*/}
-        <FacultiesCard
-          params={{
-            icon: "fa-globe",
-            name: "Факультет біології, географії та екології",
-            color: "#53A306",
-            area: "1319.1 м²",
-            cathedras: "3",
-            rooms: "24",
-            numberOfSeats: "418",
-            bachelors: {
-              fullTime: 156,
-              external: 33,
-            },
-            masters: {
-              fullTime: 49,
-              external: 17,
-            },
-            phd: {
-              fullTime: 7,
-              external: 3,
-            },
-          }}
-        />
-        <FacultiesCard
-          params={{
-            icon: "fa-globe",
-            name: "Факультет біології, географії та екології",
-            color: "#53A306",
-            area: "1319.1 м²",
-            cathedras: "3",
-            rooms: "24",
-            numberOfSeats: "418",
-            bachelors: {
-              fullTime: 156,
-              external: 33,
-            },
-            masters: {
-              fullTime: 49,
-              external: 17,
-            },
-            phd: {
-              fullTime: 7,
-              external: 3,
-            },
-          }}
-        />
-        <FacultiesCard
-          params={{
-            icon: "fa-globe",
-            name: "Факультет біології, географії та екології",
-            color: "#53A306",
-            area: "1319.1 м²",
-            cathedras: "3",
-            rooms: "24",
-            numberOfSeats: "418",
-            bachelors: {
-              fullTime: 156,
-              external: 33,
-            },
-            masters: {
-              fullTime: 49,
-              external: 17,
-            },
-            phd: {
-              fullTime: 7,
-              external: 3,
-            },
-          }}
-        />
-        <FacultiesCard
-          params={{
-            icon: "fa-globe",
-            name: "Факультет біології, географії та екології",
-            color: "#53A306",
-            area: "1319.1 м²",
-            cathedras: "3",
-            rooms: "24",
-            numberOfSeats: "418",
-            bachelors: {
-              fullTime: 156,
-              external: 33,
-            },
-            masters: {
-              fullTime: 49,
-              external: 17,
-            },
-            phd: {
-              fullTime: 7,
-              external: 3,
-            },
-          }}
-        />
-        <FacultiesCard
-          params={{
-            icon: "fa-globe",
-            name: "Факультет біології, географії та екології",
-            color: "#53A306",
-            area: "1319.1 м²",
-            cathedras: "3",
-            rooms: "24",
-            numberOfSeats: "418",
-            bachelors: {
-              fullTime: 156,
-              external: 33,
-            },
-            masters: {
-              fullTime: 49,
-              external: 17,
-            },
-            phd: {
-              fullTime: 7,
-              external: 3,
-            },
-          }}
-        />
-        <FacultiesCard
-          params={{
-            icon: "fa-globe",
-            name: "Факультет біології, географії та екології",
-            color: "#53A306",
-            area: "1319.1 м²",
-            cathedras: "3",
-            rooms: "24",
-            numberOfSeats: "418",
-          }}
-        />
+        {cards.map((card) => {
+          return <FacultiesCard params={card} />
+        })}
       </FacultiesGrid>
     </Layout>
   )

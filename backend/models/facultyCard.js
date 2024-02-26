@@ -6,6 +6,18 @@ const facultyCardSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  icon: {
+    type: String,
+    required: false,
+  },
+  seats: {
+    type: Number,
+    required: false,
+  },
+  color: {
+    type: String,
+    required: true,
+  },
   area: {
     type: Number,
     required: false,

@@ -21,12 +21,15 @@ router.get("/:name", getCard, (req, res) => {
 
 //create one
 router.post("/", requireAuth, async (req, res) => {
-  const isFacultyCardExists = await FacultyCard.exists({})
+  const isFacultyCardExists = await FacultyCard.exists({ name: req.body.name })
 
   if (!isFacultyCardExists) {
     const facultyCard = new FacultyCard({
       name: req.body.name,
+      icon: req.body.icon,
       area: req.body.area,
+      color: req.body.color,
+      seats: req.body.seats,
       pulpits: req.body.pulpits,
       rooms: req.body.rooms,
       bachelorFull: req.body.bachelorFull,
@@ -48,7 +51,7 @@ router.post("/", requireAuth, async (req, res) => {
       res.status(400).json({ message: err.message })
     }
   } else {
-    res.status(400).json({ message: "Something went wrong" })
+    res.status(400).json({ message: "Faculty already exists" })
   }
 })
 

@@ -21,32 +21,35 @@ export default function FacultiesCard({
       <div className="facultyCard__body">
         <h4 className="facultyCard__heading">{params.name}</h4>
         {params.area && <p>Загальна площа - {params.area}</p>}
-        {params.cathedras && <p>Кількість кафедр - {params.cathedras}</p>}
+        {params.pulpits && <p>Кількість кафедр - {params.pulpits}</p>}
         {params.rooms && <p>Загальна кількість аудиторій - {params.rooms}</p>}
-        {params.numberOfSeats && (
-          <p>Загальна кількість посадкових місць - {params.numberOfSeats}</p>
+        {params.seats && (
+          <p>Загальна кількість посадкових місць - {params.seats}</p>
         )}
         <br />
-        {(params.bachelors || params.masters || params.phd) && (
+        {(params.bachelorFull ||
+          params.bachelorPart ||
+          params.masterFull ||
+          params.masterPart ||
+          params.phdFull ||
+          params.phdPart) && (
           <p className="facultyCard__bold">
             Контингент здобувачів вищої освіти:
           </p>
         )}
-        {params.bachelors && (
+        {(params.bachelorFull || params.bachelorPart) && (
           <p>
-            Бакалавр (денна/заочна): {params.bachelors?.fullTime}/
-            {params.bachelors?.external}
+            Бакалавр (денна/заочна): {params.bachelorFull}/{params.bachelorPart}
           </p>
         )}
-        {params.masters && (
+        {(params.masterFull || params.masterPart) && (
           <p>
-            Магістр (денна/заочна): {params.masters?.fullTime}/
-            {params.masters?.external}
+            Магістр (денна/заочна): {params.masterFull}/{params.masterPart}
           </p>
         )}
-        {params.phd && (
+        {(params.phdFull || params.phdPart) && (
           <p>
-            PhD (денна/заочна): {params.phd?.fullTime}/{params.phd?.external}
+            PhD (денна/заочна): {params.phdFull}/{params.phdPart}
           </p>
         )}
       </div>
