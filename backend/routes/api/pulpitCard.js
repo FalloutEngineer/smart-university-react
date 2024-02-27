@@ -1,13 +1,13 @@
 const express = require("express")
 const router = express.Router()
-const FacultyCard = require("../../models/facultyCard")
+const PulpitCard = require("../../models/pulpitCard")
 
 const requireAuth = require("../../middleware/requireAuth.js")
 
 //get all
 router.get("/", async (req, res) => {
   try {
-    const cards = await FacultyCard.find()
+    const cards = await PulpitCard.find()
     res.json(cards)
   } catch (err) {
     res.status().json({ message: err.message })
@@ -21,10 +21,10 @@ router.get("/:name", getCard, (req, res) => {
 
 //create one
 router.post("/", requireAuth, async (req, res) => {
-  const isFacultyCardExists = await FacultyCard.exists({ name: req.body.name })
+  const isPulpitCardExists = await PulpitCard.exists({ name: req.body.name })
 
-  if (!isFacultyCardExists) {
-    const facultyCard = new FacultyCard({
+  if (!isPulpitCardExists) {
+    const facultyCard = new PulpitCard({
       name: req.body.name,
       icon: req.body.icon,
       area: req.body.area,
@@ -41,11 +41,11 @@ router.post("/", requireAuth, async (req, res) => {
     })
 
     try {
-      const newFacultyCard = await facultyCard.save()
+      const newPulpitCard = await facultyCard.save()
 
       res.status(201).json({
-        message: `Successfuly created faculty card!`,
-        page: newFacultyCard,
+        message: `Successfuly created pulpit card!`,
+        page: newPulpitCard,
       })
     } catch (err) {
       res.status(400).json({ message: err.message })
@@ -117,7 +117,7 @@ router.delete("/:name", requireAuth, getCard, async (req, res) => {
 async function getCard(req, res, next) {
   let card
   try {
-    card = await FacultyCard.findOne({
+    card = await PulpitCard.findOne({
       name: req.params.name,
     })
     if (card == null) {

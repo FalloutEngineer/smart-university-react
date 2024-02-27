@@ -38,6 +38,7 @@ const facultiesPageRoute = require("./routes/api/facultiesPage.js")
 const buildingsPageRoute = require("./routes/api/buildingsPage.js")
 
 const facultyCardRoute = require("./routes/api/facultyCard.js")
+const pulpitCardRoute = require("./routes/api/pulpitCard.js")
 
 app.use("/api/buildings", buildingsRoute)
 app.use("/api/floors", floorsRoute)
@@ -50,6 +51,7 @@ app.use("/api/facultiesPage", facultiesPageRoute)
 app.use("/api/buildingsPage", buildingsPageRoute)
 
 app.use("/api/facultyCard", facultyCardRoute)
+app.use("/api/pulpitCard", pulpitCardRoute)
 
 const authRouter = require("./routes/api/auth")
 app.use("/api/auth", authRouter)
