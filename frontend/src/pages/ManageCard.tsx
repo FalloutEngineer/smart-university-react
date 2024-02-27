@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import DashLayout from "../components/DashLayout/DashLayout"
 
 import styles from "./EditPages/editPage.module.css"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -11,11 +12,13 @@ const facultiesAPI = API_URL + "/api/faculties/"
 const facultyCardsAPI = API_URL + "/api/facultyCard/"
 
 export default function ManageCard() {
+  const { user } = useAuthContext()
+
   const [faculties, setFaculties] = useState([])
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      faculty: "",
+      name: "",
       icon: "fa-globe",
       seats: 0,
       color: "#000",
@@ -49,8 +52,26 @@ export default function ManageCard() {
     fetchFaculties()
   }, [])
 
-  function tryCreateFacultyCard(data: any) {
-    console.log(data)
+  async function tryCreateFacultyCard(data: any) {
+    fetch(facultyCardsAPI, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${user}`,
+      },
+      body: JSON.stringify({
+        ...data,
+      }),
+    }).then(async (res) => {
+      const answer = await res.json()
+
+      if (!res.ok) {
+        //TODO: toast
+        alert(answer.message)
+      } else {
+        alert("Об'єкт успішно створено")
+      }
+    })
   }
 
   return (
@@ -64,7 +85,7 @@ export default function ManageCard() {
             <label htmlFor="faculty" className="dash-board__label">
               Назва
             </label>
-            <select id="faculty" {...register("faculty")}>
+            <select id="faculty" {...register("name")}>
               <option value="" disabled selected hidden>
                 ---Оберіть факультет---
               </option>
@@ -96,7 +117,7 @@ export default function ManageCard() {
               {...register("color")}
             />
           </li>
-          <li className="dash-seats">
+          <li className="dash-board__item">
             <label htmlFor="capacity" className="dash-board__label">
               Кількість місць
             </label>
