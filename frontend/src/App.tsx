@@ -198,7 +198,7 @@ function App() {
             element={user ? <EditBuildings /> : <Navigate to="/login" />}
           />
           <Route
-            path="/manageCard"
+            path="/manageFacultyCard"
             element={user ? <ManageCard /> : <Navigate to="/login" />}
           />
         </Routes>
