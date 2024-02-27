@@ -12,23 +12,13 @@ export default function DashSidebar({ page }: { page?: string }) {
           </NavLink>
         </li>
         <li className="dash-sidebar__item">
-          <NavLink to="/manageFacultyCard" className={"dash-sidebar__link "}>
-            Створити картку факультета
+          <NavLink to="/manageCard" className={"dash-sidebar__link "}>
+            Створити картку
           </NavLink>
         </li>
         <li className="dash-sidebar__item">
-          <NavLink to="/facultyCards" className={"dash-sidebar__link "}>
-            Список Карток факультетів
-          </NavLink>
-        </li>
-        <li className="dash-sidebar__item">
-          <NavLink to="/managePulpitCard" className={"dash-sidebar__link "}>
-            Створити картку кафедри
-          </NavLink>
-        </li>
-        <li className="dash-sidebar__item">
-          <NavLink to="/pulpitCards" className={"dash-sidebar__link "}>
-            Список Карток кафедр
+          <NavLink to="/cards" className={"dash-sidebar__link "}>
+            Список карток
           </NavLink>
         </li>
         <li className="dash-sidebar__item">

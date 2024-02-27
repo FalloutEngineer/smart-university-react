@@ -9,12 +9,17 @@ import { useAuthContext } from "../hooks/useAuthContext"
 const API_URL = process.env.REACT_APP_API_URL
 
 const facultiesAPI = API_URL + "/api/faculties/"
+const pulpitsAPI = API_URL + "/api/pulpits/"
 const facultyCardsAPI = API_URL + "/api/facultyCard/"
 
 export default function ManageCard() {
   const { user } = useAuthContext()
 
+  const [cardState, setCardState] = useState("faculty")
+
   const [faculties, setFaculties] = useState([])
+
+  const [pulpits, setPulpits] = useState([])
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -52,6 +57,24 @@ export default function ManageCard() {
     fetchFaculties()
   }, [])
 
+  useEffect(() => {
+    const fetchPulpits = async () => {
+      try {
+        const response = await fetch(pulpitsAPI)
+        const data = await response.json()
+
+        setPulpits(
+          data.map((pulpit: any) => {
+            return pulpit.name
+          })
+        )
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    fetchPulpits()
+  }, [])
+
   async function tryCreateFacultyCard(data: any) {
     fetch(facultyCardsAPI, {
       method: "POST",
@@ -74,6 +97,14 @@ export default function ManageCard() {
     })
   }
 
+  function onSubmit(data: any) {}
+
+  function onTypeChange(e: any) {
+    const value = e.target.value
+
+    setCardState(value)
+  }
+
   return (
     <DashLayout>
       <form
@@ -83,17 +114,43 @@ export default function ManageCard() {
         <ul className={styles?.list}>
           <li className="dash-board__item">
             <label htmlFor="faculty" className="dash-board__label">
-              Назва
+              Тип картки
             </label>
-            <select id="faculty" {...register("name")}>
-              <option value="" disabled selected hidden>
-                ---Оберіть факультет---
-              </option>
-              {faculties.map((faculty) => {
-                return <option value={faculty}>{faculty}</option>
-              })}
+            <select id="type" defaultValue={"faculty"} onChange={onTypeChange}>
+              <option value="faculty">Факультет</option>
+              <option value="pulpit">Кафедра</option>
             </select>
           </li>
+          {cardState === "faculty" && (
+            <li className="dash-board__item">
+              <label htmlFor="faculty" className="dash-board__label">
+                Назва
+              </label>
+              <select id="faculty" {...register("name")}>
+                <option value="" disabled selected hidden>
+                  ---Оберіть факультет---
+                </option>
+                {faculties.map((faculty) => {
+                  return <option value={faculty}>{faculty}</option>
+                })}
+              </select>
+            </li>
+          )}
+          {cardState === "pulpit" && (
+            <li className="dash-board__item">
+              <label htmlFor="pulpit" className="dash-board__label">
+                Назва
+              </label>
+              <select id="pulpit" {...register("name")}>
+                <option value="" disabled selected hidden>
+                  ---Оберіть кафедру---
+                </option>
+                {pulpits.map((pulpit) => {
+                  return <option value={pulpit}>{pulpit}</option>
+                })}
+              </select>
+            </li>
+          )}
           <li className="dash-board__item">
             {/* ДРОПДАУН АБО ПОСИЛАННЯ НА ФАЙЛ АБО ДОКИ */}
             <label htmlFor="icon" className="dash-board__label">
