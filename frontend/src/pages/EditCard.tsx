@@ -5,23 +5,22 @@ import DashLayout from "../components/DashLayout/DashLayout"
 
 import styles from "./EditPages/editPage.module.css"
 import { useAuthContext } from "../hooks/useAuthContext"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 const API_URL = process.env.REACT_APP_API_URL
 
 const facultyCardsAPI = API_URL + "/api/facultyCard/"
-const pulpitCardAPI = API_URL + "/api/facultyCard/"
+const pulpitCardAPI = API_URL + "/api/pulpitCard/"
 
 export default function EditCardPage() {
   const { user } = useAuthContext()
+  const navigate = useNavigate()
 
   const params = useParams()
 
-  const cardState = params.type
+  const [card, setCard]: any = useState(null)
 
-  const [card, setCard]: any = useState([])
-
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       name: card?.name,
       icon: card?.icon,
@@ -44,6 +43,7 @@ export default function EditCardPage() {
     const data = await response.json()
 
     setCard(data)
+    reset()
   }
 
   useEffect(() => {
@@ -73,11 +73,14 @@ export default function EditCardPage() {
         alert(answer.message)
       } else {
         alert("Об'єкт успішно змінено")
+        navigate("/cards/")
       }
     })
   }
 
   function onSubmit(data: any) {
+    console.log(data)
+
     if (params.type === "faculty") {
       tryEditCard(data, facultyCardsAPI)
     }
@@ -98,8 +101,8 @@ export default function EditCardPage() {
             <input
               id="icon"
               className={styles.textArea}
-              defaultValue={card.icon}
               {...register("icon")}
+              defaultValue={card?.icon}
             />
           </li>
           <li className="dash-board__item">
@@ -110,8 +113,8 @@ export default function EditCardPage() {
               id="color"
               type="color"
               className={styles.textArea}
-              defaultValue={card.color}
               {...register("color")}
+              defaultValue={card?.color}
             />
           </li>
           <li className="dash-board__item">
@@ -122,9 +125,9 @@ export default function EditCardPage() {
               id="seats"
               type="number"
               className={styles.textArea}
-              defaultValue={card.seats}
               min={0}
               {...register("seats")}
+              defaultValue={card?.seats}
             />
           </li>
           <li className="dash-board__item">
@@ -135,9 +138,9 @@ export default function EditCardPage() {
               id="area"
               type="number"
               className={styles.textArea}
-              defaultValue={card.area}
               min={0}
               {...register("area")}
+              defaultValue={card?.area}
             />
           </li>
           <li className="dash-board__item">
@@ -148,9 +151,9 @@ export default function EditCardPage() {
               id="pulpits"
               type="number"
               className={styles.textArea}
-              defaultValue={card.pulpits}
               min={0}
               {...register("pulpits")}
+              defaultValue={card?.pulpits}
             />
           </li>
           <li className="dash-board__item">
@@ -161,9 +164,9 @@ export default function EditCardPage() {
               id="rooms"
               type="number"
               className={styles.textArea}
-              defaultValue={card.rooms}
               min={0}
               {...register("rooms")}
+              defaultValue={card?.rooms}
             />
           </li>
           <li className="dash-board__item">
@@ -174,9 +177,9 @@ export default function EditCardPage() {
               id="bachelorFull"
               type="number"
               className={styles.textArea}
-              defaultValue={card.bachelorFull}
               min={0}
               {...register("bachelorFull")}
+              defaultValue={card?.bachelorFull}
             />
           </li>
           <li className="dash-board__item">
@@ -187,9 +190,9 @@ export default function EditCardPage() {
               id="bachelorPart"
               type="number"
               className={styles.textArea}
-              defaultValue={card.bachelorPart}
               min={0}
               {...register("bachelorPart")}
+              defaultValue={card?.bachelorPart}
             />
           </li>
           <li className="dash-board__item">
@@ -200,9 +203,9 @@ export default function EditCardPage() {
               id="masterFull"
               type="number"
               className={styles.textArea}
-              defaultValue={card.masterFull}
               min={0}
               {...register("masterFull")}
+              defaultValue={card?.masterFull}
             />
           </li>
           <li className="dash-board__item">
@@ -213,9 +216,9 @@ export default function EditCardPage() {
               id="masterPart"
               type="number"
               className={styles.textArea}
-              defaultValue={card.masterPart}
               min={0}
               {...register("masterPart")}
+              defaultValue={card?.masterPart}
             />
           </li>
           <li className="dash-board__item">
@@ -226,9 +229,9 @@ export default function EditCardPage() {
               id="phdFull"
               type="number"
               className={styles.textArea}
-              defaultValue={card.phdFull}
               min={0}
               {...register("phdFull")}
+              defaultValue={card?.phdFull}
             />
           </li>
           <li className="dash-board__item">
@@ -239,9 +242,9 @@ export default function EditCardPage() {
               id="phdPart"
               type="number"
               className={styles.textArea}
-              defaultValue={card.phdPart}
               min={0}
               {...register("phdPart")}
+              defaultValue={card?.phdPart}
             />
           </li>
         </ul>
