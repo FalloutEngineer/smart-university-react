@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
 
 //get one
 router.get("/:name", getCard, (req, res) => {
-  res.json(res.floor)
+  res.json(res.card)
 })
 
 //create one

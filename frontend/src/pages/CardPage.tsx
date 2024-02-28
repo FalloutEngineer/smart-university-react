@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
 import { useParams } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -8,7 +9,7 @@ const facultyCardsAPI = API_URL + `/api/facultyCard`
 const pulpitCardsAPI = API_URL + `/api/pulpitCard`
 
 export default function CardPage() {
-  const [cardData, setCardData] = useState(null)
+  const [cardData, setCardData]: any = useState(null)
 
   const params = useParams()
 
@@ -18,6 +19,7 @@ export default function CardPage() {
       const data = await response.json()
 
       setCardData(data)
+      console.log(data)
     } catch (e) {
       //TODO: TOAST?
       console.error(e)
@@ -25,13 +27,13 @@ export default function CardPage() {
   }
 
   useEffect(() => {
-    if (params.name === "faculty") {
+    if (params.type === "faculty") {
       trySetCard(facultyCardsAPI)
     }
-    if (params.name === "pulpit") {
+    if (params.type === "pulpit") {
       trySetCard(pulpitCardsAPI)
     }
-  })
+  }, [])
 
   async function tryDeleteCard(uri: string) {
     try {
@@ -45,10 +47,10 @@ export default function CardPage() {
   }
 
   function onDeleteClick() {
-    if (params.name === "faculty") {
+    if (params.type === "faculty") {
       tryDeleteCard(facultyCardsAPI)
     }
-    if (params.name === "pulpit") {
+    if (params.type === "pulpit") {
       tryDeleteCard(pulpitCardsAPI)
     }
   }
@@ -62,6 +64,40 @@ export default function CardPage() {
       >
         Видалити
       </button>
+
+      <NavLink to={"./edit"}>Редагувати</NavLink>
+
+      <ul className="dash-board__list">
+        <li className="dash-board__item">
+          <h3 className="dash-board__label">Назва:</h3>
+          <div className="dash-board__value">{cardData?.name}</div>
+        </li>
+        <li className="dash-board__item">
+          <h3 className="dash-board__label">Іконка:</h3>
+          {cardData?.icon}
+        </li>
+        <li className="dash-board__item">
+          <h3 className="dash-board__label">Кількість місць:</h3>
+          <div className="dash-board__value">{cardData?.seats}</div>
+        </li>
+        <li className="dash-board__item">
+          <h3 className="dash-board__label">Площа:</h3>
+          <div className="dash-board__value">{cardData?.area}</div>
+        </li>
+        <li className="dash-board__item">
+          <h3 className="dash-board__label">Кількість місць:</h3>
+          <div className="dash-board__value">{cardData?.icon}</div>
+        </li>
+        <li className="dash-board__item">
+          <h3 className="dash-board__label">Колір:</h3>
+          <div
+            className="dash-board__value"
+            style={{ backgroundColor: cardData?.color }}
+          >
+            {cardData?.color}
+          </div>
+        </li>
+      </ul>
     </DashLayout>
   )
 }
