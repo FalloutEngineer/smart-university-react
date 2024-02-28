@@ -26,6 +26,8 @@ import EditHome from "./pages/EditPages/EditHome"
 import EditFaculties from "./pages/EditPages/EditFaculties"
 import EditBuildings from "./pages/EditPages/EditBuildings"
 import ManageCard from "./pages/ManageCard"
+import Cards from "./pages/Cards"
+import CardPage from "./pages/CardPage"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -200,6 +202,14 @@ function App() {
           <Route
             path="/manageCard"
             element={user ? <ManageCard /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/cards"
+            element={user ? <Cards /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/cards/:type/:name"
+            element={user ? <CardPage /> : <Navigate to="/login" />}
           />
         </Routes>
       </BrowserRouter>
