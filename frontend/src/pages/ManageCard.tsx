@@ -10,7 +10,9 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const facultiesAPI = API_URL + "/api/faculties/"
 const pulpitsAPI = API_URL + "/api/pulpits/"
+
 const facultyCardsAPI = API_URL + "/api/facultyCard/"
+const pulpitCardsAPI = API_URL + "/api/pulpitCard/"
 
 export default function ManageCard() {
   const { user } = useAuthContext()
@@ -75,8 +77,8 @@ export default function ManageCard() {
     fetchPulpits()
   }, [])
 
-  async function tryCreateFacultyCard(data: any) {
-    fetch(facultyCardsAPI, {
+  async function tryCreateCard(data: any, uri: string) {
+    fetch(uri, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -97,7 +99,14 @@ export default function ManageCard() {
     })
   }
 
-  function onSubmit(data: any) {}
+  function onSubmit(data: any) {
+    if (cardState === "faculty") {
+      tryCreateCard(data, facultyCardsAPI)
+    }
+    if (cardState === "pulpit") {
+      tryCreateCard(data, pulpitCardsAPI)
+    }
+  }
 
   function onTypeChange(e: any) {
     const value = e.target.value
@@ -110,7 +119,7 @@ export default function ManageCard() {
       <form
         className={styles.form}
         //TODO: FACULTY OR PULPIT !!!!!!!!!!!!!!!!!
-        onSubmit={handleSubmit(tryCreateFacultyCard)}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <ul className={styles?.list}>
           <li className="dash-board__item">
