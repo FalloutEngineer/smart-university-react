@@ -56,7 +56,7 @@ export default function EditCardPage() {
   }, [])
 
   async function tryEditCard(data: any, uri: string) {
-    fetch(uri, {
+    fetch(uri + params.name, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
