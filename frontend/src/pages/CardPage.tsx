@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { NavLink } from "react-router-dom"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -9,7 +10,9 @@ const facultyCardsAPI = API_URL + `/api/facultyCard`
 const pulpitCardsAPI = API_URL + `/api/pulpitCard`
 
 export default function CardPage() {
+  const { user } = useAuthContext()
   const [cardData, setCardData]: any = useState(null)
+  const navigate = useNavigate()
 
   const params = useParams()
 
@@ -37,10 +40,17 @@ export default function CardPage() {
 
   async function tryDeleteCard(uri: string) {
     try {
-      const response = await fetch(uri + "/" + params.name)
+      const response = await fetch(uri + "/" + params.name, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user}`,
+        },
+      })
       const data = await response.json()
 
-      alert(data)
+      alert(data.message)
+      navigate("/cards/")
     } catch (e) {
       alert(e)
     }
