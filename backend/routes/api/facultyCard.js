@@ -31,7 +31,7 @@ router.post("/", requireAuth, async (req, res) => {
       color: req.body.color,
       seats: req.body.seats,
       pulpits: req.body.pulpits,
-      cards: req.body.cards,
+      rooms: req.body.rooms,
       bachelorFull: req.body.bachelorFull,
       bachelorPart: req.body.bachelorPart,
       masterFull: req.body.masterFull,
@@ -78,6 +78,11 @@ router.patch("/:name", requireAuth, getCard, async (req, res) => {
   if (req.body.cards != null) {
     res.card.cards = req.body.cards
   }
+
+  if (req.body.rooms != null) {
+    res.card.rooms = req.body.rooms
+  }
+
   if (req.body.bachelorFull != null) {
     res.card.bachelorFull = req.body.bachelorFull
   }

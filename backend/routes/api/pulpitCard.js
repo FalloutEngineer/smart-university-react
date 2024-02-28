@@ -31,7 +31,7 @@ router.post("/", requireAuth, async (req, res) => {
       color: req.body.color,
       seats: req.body.seats,
       pulpits: req.body.pulpits,
-      cards: req.body.cards,
+      rooms: req.body.rooms,
       bachelorFull: req.body.bachelorFull,
       bachelorPart: req.body.bachelorPart,
       masterFull: req.body.masterFull,
