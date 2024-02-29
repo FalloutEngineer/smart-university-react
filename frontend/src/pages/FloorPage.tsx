@@ -39,7 +39,7 @@ export default function FloorPage() {
 
   const [color, setColor] = useState("#000")
 
-  const [floorCard, setFloorCard]: any = useState(null)
+  const [facultyCard, setFacultyCard]: any = useState(null)
   const [pulpitCards, setPulpitCards]: any[] = useState([])
 
   const sensorsBlockStyles = {
@@ -121,7 +121,7 @@ export default function FloorPage() {
       const data = await response.json()
       console.log(floor.faculty)
 
-      setFloorCard(data)
+      setFacultyCard(data)
     }
     if (floor && floor.faculty) {
       fetchFacultyCards()
@@ -151,31 +151,7 @@ export default function FloorPage() {
         <div className="container">
           <div className="infoBox">
             <div className="infoboxContainer">
-              <FacultiesCard params={floorCard} />
-              {/* TODO: ADD FIELD TO SERVER AND parse data from server */}
-              {/* <FacultiesCard
-                params={{
-                  icon: "fa-globe",
-                  name: "Факультет біології, географії та екології",
-                  color: "#53A306",
-                  area: "1319.1 м²",
-                  cathedras: "3",
-                  rooms: "24",
-                  numberOfSeats: "418",
-                  bachelors: {
-                    fullTime: 156,
-                    external: 33,
-                  },
-                  masters: {
-                    fullTime: 49,
-                    external: 17,
-                  },
-                  phd: {
-                    fullTime: 7,
-                    external: 3,
-                  },
-                }}
-              /> */}
+              <FacultiesCard params={facultyCard} />
             </div>
 
             {/* TODO: Pass data from server (sensor), pass link instean values, so items would change separetely from parent */}
