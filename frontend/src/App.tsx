@@ -29,6 +29,7 @@ import ManageCard from "./pages/ManageCard"
 import Cards from "./pages/Cards"
 import CardPage from "./pages/CardPage"
 import EditCardPage from "./pages/EditCard"
+import DamageList from "./pages/DamageList"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -215,6 +216,10 @@ function App() {
           <Route
             path="/cards/:type/:name/edit"
             element={user ? <EditCardPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/damage/"
+            element={user ? <DamageList /> : <Navigate to="/login" />}
           />
         </Routes>
       </BrowserRouter>
