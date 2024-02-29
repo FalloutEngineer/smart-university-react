@@ -3,7 +3,7 @@ import Layout from "../components/Layout/Layout"
 import ImageSlider from "../components/ImageSlider/ImageSlider"
 import FacultiesHero from "../components/faculties/FacultiesHero"
 import FacultiesGrid from "../components/faculties/FacultiesGrid"
-import FacultiesCard from "../components/faculties/FacultiesCard"
+import FacultiesCard from "../components/faculties/Card"
 
 const API_URL = process.env.REACT_APP_API_URL
 

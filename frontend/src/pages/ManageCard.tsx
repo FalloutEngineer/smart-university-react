@@ -116,11 +116,7 @@ export default function ManageCard() {
 
   return (
     <DashLayout>
-      <form
-        className={styles.form}
-        //TODO: FACULTY OR PULPIT !!!!!!!!!!!!!!!!!
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <ul className={styles?.list}>
           <li className="dash-board__item">
             <label htmlFor="faculty" className="dash-board__label">

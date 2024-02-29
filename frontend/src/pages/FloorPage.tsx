@@ -7,7 +7,7 @@ import AirQuality from "../components/AirQuality"
 import AirStatus from "../components/AirStatus"
 import FloorMap from "../components/FloorMap"
 import FloorHeader from "../components/FloorHeader"
-import FacultiesCard from "../components/faculties/FacultiesCard"
+import FacultiesCard from "../components/faculties/Card"
 import { useParams } from "react-router-dom"
 import {
   Bar,
@@ -25,6 +25,9 @@ const API_URL = process.env.REACT_APP_API_URL
 const floorsAPI = API_URL + `/api/floors`
 const roomsAPI = API_URL + `/api/rooms`
 
+const facultyCardApi = API_URL + `/api/facultyCard`
+const pulpitCardApi = API_URL + `/api/pulpitCard`
+
 export default function FloorPage() {
   const params = useParams()
 
@@ -35,6 +38,9 @@ export default function FloorPage() {
   const [rooms, setRooms]: any[] = useState([])
 
   const [color, setColor] = useState("#000")
+
+  const [floorCard, setFloorCard]: any = useState(null)
+  const [pulpitCards, setPulpitCards]: any[] = useState([])
 
   const sensorsBlockStyles = {
     backgroundColor: color,
@@ -109,6 +115,19 @@ export default function FloorPage() {
     }
   }, [JSON.stringify(floor)])
 
+  useEffect(() => {
+    async function fetchFacultyCards() {
+      const response = await fetch(facultyCardApi + "/" + floor.faculty)
+      const data = await response.json()
+      console.log(floor.faculty)
+
+      setFloorCard(data)
+    }
+    if (floor && floor.faculty) {
+      fetchFacultyCards()
+    }
+  }, [JSON.stringify(floor)])
+
   return (
     <Layout>
       <FloorHeader
@@ -132,6 +151,7 @@ export default function FloorPage() {
         <div className="container">
           <div className="infoBox">
             <div className="infoboxContainer">
+              <FacultiesCard params={floorCard} />
               {/* TODO: ADD FIELD TO SERVER AND parse data from server */}
               {/* <FacultiesCard
                 params={{

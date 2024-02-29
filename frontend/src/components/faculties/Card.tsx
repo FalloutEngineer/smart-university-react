@@ -3,23 +3,19 @@ import React from "react"
 import "./facultiesCard.css"
 import { FacultyCardParams } from "../../types"
 
-export default function FacultiesCard({
-  params,
-}: {
-  params: FacultyCardParams
-}) {
+export default function Card({ params }: { params: FacultyCardParams }) {
   const colorStyle = {
     backgroundColor: params.color,
   }
 
   return (
-    <div className="facultyCard">
-      <div style={colorStyle} className="facultyCard__circle">
-        <i className={"fas " + params.icon + " fa-w-16 facultyCard__icon"}></i>
+    <div className="card">
+      <div style={colorStyle} className="card__circle">
+        <i className={"fas " + params.icon + " fa-w-16 card__icon"}></i>
       </div>
 
-      <div className="facultyCard__body">
-        <h4 className="facultyCard__heading">{params.name}</h4>
+      <div className="card__body">
+        <h4 className="card__heading">{params.name}</h4>
         {params.area && <p>Загальна площа - {params.area}</p>}
         {params.pulpits && <p>Кількість кафедр - {params.pulpits}</p>}
         {params.rooms && <p>Загальна кількість аудиторій - {params.rooms}</p>}
@@ -33,9 +29,7 @@ export default function FacultiesCard({
           params.masterPart ||
           params.phdFull ||
           params.phdPart) && (
-          <p className="facultyCard__bold">
-            Контингент здобувачів вищої освіти:
-          </p>
+          <p className="card__bold">Контингент здобувачів вищої освіти:</p>
         )}
         {(params.bachelorFull || params.bachelorPart) && (
           <p>
