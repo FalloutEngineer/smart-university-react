@@ -7,7 +7,7 @@ import AirQuality from "../components/AirQuality"
 import AirStatus from "../components/AirStatus"
 import FloorMap from "../components/FloorMap"
 import FloorHeader from "../components/FloorHeader"
-import FacultiesCard from "../components/faculties/Card"
+import Card from "../components/faculties/Card"
 import { useParams } from "react-router-dom"
 import {
   Bar,
@@ -33,6 +33,7 @@ export default function FloorPage() {
   const params = useParams()
 
   const [floor, setFloor]: any[] = useState(null)
+  const [faculty, setFaculty]: any[] = useState(null)
 
   const [windowSize, setSize] = useState([0, 0])
 
@@ -121,7 +122,7 @@ export default function FloorPage() {
       const response = await fetch(facultiesAPI + "/" + floor.faculty)
       const data = await response.json()
 
-      console.log("faculty: ", data)
+      setFaculty(data)
     }
 
     if (floor && floor.faculty) {
@@ -137,10 +138,29 @@ export default function FloorPage() {
 
       setFacultyCard(data)
     }
+
     if (floor && floor.faculty) {
       fetchFacultyCards()
     }
   }, [JSON.stringify(floor)])
+
+  useEffect(() => {
+    async function fetchPulpitCard(name: string) {
+      const response = await fetch(pulpitCardApi + "/" + name)
+      const data = await response.json()
+
+      setPulpitCards((prevData: any[]) => {
+        return [...prevData, data]
+      })
+    }
+
+    if (faculty && faculty.pulpits.length !== 0) {
+      setPulpitCards([])
+      faculty.pulpits.forEach((pulpit: string) => {
+        fetchPulpitCard(pulpit)
+      })
+    }
+  }, [JSON.stringify(faculty)])
 
   return (
     <Layout>
@@ -165,7 +185,10 @@ export default function FloorPage() {
         <div className="container">
           <div className="infoBox">
             <div className="infoboxContainer">
-              {facultyCard !== null && <FacultiesCard params={facultyCard} />}
+              {facultyCard !== null && <Card params={facultyCard} />}
+              {pulpitCards.map((card: any) => {
+                return <Card params={card} />
+              })}
             </div>
 
             {/* TODO: Pass data from server (sensor), pass link instean values, so items would change separetely from parent */}
