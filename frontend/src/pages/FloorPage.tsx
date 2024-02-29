@@ -24,6 +24,7 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const floorsAPI = API_URL + `/api/floors`
 const roomsAPI = API_URL + `/api/rooms`
+const facultiesAPI = API_URL + "/api/faculties"
 
 const facultyCardApi = API_URL + `/api/facultyCard`
 const pulpitCardApi = API_URL + `/api/pulpitCard`
@@ -116,6 +117,19 @@ export default function FloorPage() {
   }, [JSON.stringify(floor)])
 
   useEffect(() => {
+    async function fetchFaculty() {
+      const response = await fetch(facultiesAPI + "/" + floor.faculty)
+      const data = await response.json()
+
+      console.log("faculty: ", data)
+    }
+
+    if (floor && floor.faculty) {
+      fetchFaculty()
+    }
+  }, [JSON.stringify(floor)])
+
+  useEffect(() => {
     async function fetchFacultyCards() {
       const response = await fetch(facultyCardApi + "/" + floor.faculty)
       const data = await response.json()
@@ -151,7 +165,7 @@ export default function FloorPage() {
         <div className="container">
           <div className="infoBox">
             <div className="infoboxContainer">
-              <FacultiesCard params={facultyCard} />
+              {facultyCard !== null && <FacultiesCard params={facultyCard} />}
             </div>
 
             {/* TODO: Pass data from server (sensor), pass link instean values, so items would change separetely from parent */}
