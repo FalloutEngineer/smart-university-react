@@ -30,6 +30,9 @@ import Cards from "./pages/Cards"
 import CardPage from "./pages/CardPage"
 import EditCardPage from "./pages/EditCard"
 import DamageList from "./pages/DamageList"
+import DamagePage from "./pages/DamagePage"
+import CreateDamagePost from "./pages/CreateDamagePost"
+import EditDamagePost from "./pages/EditDamagePost"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -218,8 +221,20 @@ function App() {
             element={user ? <EditCardPage /> : <Navigate to="/login" />}
           />
           <Route
-            path="/damage/"
+            path="/damage"
             element={user ? <DamageList /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/damage/:name"
+            element={user ? <DamagePage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/damage/:name/edit"
+            element={user ? <EditDamagePost /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/createDamagePost"
+            element={user ? <CreateDamagePost /> : <Navigate to="/login" />}
           />
         </Routes>
       </BrowserRouter>

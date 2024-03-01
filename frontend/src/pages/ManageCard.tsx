@@ -181,7 +181,7 @@ export default function ManageCard() {
             />
           </li>
           <li className="dash-board__item">
-            <label htmlFor="capacity" className="dash-board__label">
+            <label htmlFor="seats" className="dash-board__label">
               Кількість місць
             </label>
             <input

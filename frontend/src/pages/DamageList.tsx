@@ -11,6 +11,7 @@ export default function DamageList() {
 
   return (
     <DashLayout>
+      {/* //TODO: Власний фільтр */}
       <DashListHeader options={listHeaderOptions} filterCallback={filter} />
       <div className="damage-header">
         <div className="totalDamage">Загально збитків: 7000 грн.</div>
@@ -24,10 +25,11 @@ export default function DamageList() {
           <div className="filteredDamageCount">6000 грн.</div>
         </div>
       </div>
+      <NavLink to={"../createDamagePost"}>Створити запис про збитки</NavLink>
       <div className="dash-list__container">
         <ul className="dash-list">
           <li className="dash-list__item">
-            <NavLink to={"./damage/1"} className="dash-list__link">
+            <NavLink to={"./1"} className="dash-list__link">
               <span className="dash-list__property dash-list__property_name">
                 Головний корпус
               </span>
@@ -36,7 +38,7 @@ export default function DamageList() {
             </NavLink>
           </li>
           <li className="dash-list__item">
-            <NavLink to={"./damage/1"} className="dash-list__link">
+            <NavLink to={"./1"} className="dash-list__link">
               <span className="dash-list__property dash-list__property_name">
                 5 корпус
               </span>
@@ -45,7 +47,7 @@ export default function DamageList() {
             </NavLink>
           </li>
           <li className="dash-list__item">
-            <NavLink to={"./damage/1"} className="dash-list__link">
+            <NavLink to={"./1"} className="dash-list__link">
               <span className="dash-list__property dash-list__property_name">
                 Головний корпус
               </span>
