@@ -92,39 +92,22 @@ router.post("/", requireAuth, upload.any("images"), async (req, res) => {
   }
 })
 
-// // delete one
-// router.delete("/:number", requireAuth, getRoom, async (req, res) => {
-//   try {
-//     await Floor.updateOne(
-//       { rooms: res.room.number },
-//       {
-//         $pullAll: {
-//           rooms: [res.room.number],
-//         },
-//       }
-//     )
-//     await Pulpit.updateMany(
-//       { rooms: res.room.number },
-//       {
-//         $pullAll: {
-//           rooms: [res.room.number],
-//         },
-//       }
-//     )
+// delete one
+router.delete("/:name", requireAuth, getDamage, async (req, res) => {
+  try {
+    res.damage.photo_links.forEach((link) => {
+      const address = path.resolve("./static/images/damage" + link)
+      if (fs.existsSync(address)) {
+        fs.unlinkSync(address)
+      }
+    })
 
-//     res.room.photo_links.forEach((link) => {
-//       const address = path.resolve("./static/images/" + link)
-//       if (fs.existsSync(address)) {
-//         fs.unlinkSync(address)
-//       }
-//     })
-
-//     await res.room.remove()
-//     res.json({ message: "Deleted Room" })
-//   } catch (err) {
-//     res.status(500).json({ message: err.message })
-//   }
-// })
+    await res.damage.remove()
+    res.json({ message: "Deleted Damage post" })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
 
 // //update one
 router.patch(
@@ -150,7 +133,7 @@ router.patch(
     }
 
     res.damage.photo_links.forEach((link) => {
-      const address = path.resolve("./static/images/" + link)
+      const address = path.resolve("./static/images/damage/" + link)
       if (fs.existsSync(address)) {
         fs.unlinkSync(address)
       }
