@@ -10,9 +10,13 @@ const damagePostSchema = new mongoose.Schema({
     type: [String],
     required: false,
   },
-  corpus: {
+  status: {
     type: String,
-    required: false,
+    required: true,
+  },
+  building: {
+    type: String,
+    required: true,
   },
   location: {
     type: String,
@@ -23,8 +27,8 @@ const damagePostSchema = new mongoose.Schema({
     required: false,
   },
   sum: {
-    type: String,
-    required: false,
+    type: Number,
+    required: true,
   },
 })
 

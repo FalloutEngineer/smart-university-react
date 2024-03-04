@@ -40,6 +40,8 @@ const buildingsPageRoute = require("./routes/api/buildingsPage.js")
 const facultyCardRoute = require("./routes/api/facultyCard.js")
 const pulpitCardRoute = require("./routes/api/pulpitCard.js")
 
+const damagePost = require("./routes/api/damagePost.js")
+
 app.use("/api/buildings", buildingsRoute)
 app.use("/api/floors", floorsRoute)
 app.use("/api/rooms", roomsRoute)
@@ -52,6 +54,8 @@ app.use("/api/buildingsPage", buildingsPageRoute)
 
 app.use("/api/facultyCard", facultyCardRoute)
 app.use("/api/pulpitCard", pulpitCardRoute)
+
+app.use("/api/damagePost", damagePost)
 
 const authRouter = require("./routes/api/auth")
 app.use("/api/auth", authRouter)
