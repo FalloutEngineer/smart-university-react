@@ -8,12 +8,47 @@ import "./damageList.css"
 const API_URL = process.env.REACT_APP_API_URL
 
 const damageAPI = API_URL + "/api/damagePost/"
+const buildingsAPI = API_URL + "/api/buildings"
 
 export default function DamageList() {
   const [listHeaderOptions, setListHeaderOptions] = useState(null)
   const [filter, setFilter] = useState(null)
 
   const [posts, setPosts] = useState([])
+
+  const [buildings, setBuildings] = useState([])
+
+  const [selectedBuilding, setSelectedBuilding] = useState("")
+
+  const totalDamage = posts.reduce((accumulator: number, post: any) => {
+    return accumulator + post.sum
+  }, 0)
+
+  const totalDamageByBuilding = posts.reduce(
+    (accumulator: number, post: any) => {
+      if (post.building === selectedBuilding) {
+        return accumulator + post.sum
+      }
+      return accumulator
+    },
+    0
+  )
+
+  async function getBuildings() {
+    try {
+      const response = await fetch(buildingsAPI)
+      const data = await response.json()
+
+      setBuildings(data)
+    } catch (e) {
+      //TODO: toast?
+      console.error(e)
+    }
+  }
+
+  useEffect(() => {
+    getBuildings()
+  }, [])
 
   useEffect(() => {
     const getPosts = async () => {
@@ -36,15 +71,28 @@ export default function DamageList() {
       {/* //TODO: Власний фільтр */}
       <DashListHeader options={listHeaderOptions} filterCallback={filter} />
       <div className="damage-header">
-        <div className="totalDamage">Загально збитків: 7000 грн.</div>
+        <div className="totalDamage">Загально збитків: {totalDamage} грн.</div>
         <div className="filteredDamage">
           Сума збитків в:
-          <select>
-            <option value="Головний корпус">Головний корпус</option>
-            <option value="2 корпус">2 корпус</option>
-            <option value="5 корпус">5 корпус</option>
+          <select
+            className="dash-select"
+            name="building"
+            id="buildings"
+            onChange={(e) => {
+              setSelectedBuilding(e.target.value)
+            }}
+          >
+            <option hidden disabled selected value={""}>
+              {" "}
+              -- Оберіть будівлю --{" "}
+            </option>
+            {buildings.map((building: any) => {
+              return <option value={building.name}>{building.name}</option>
+            })}
           </select>
-          <div className="filteredDamageCount">6000 грн.</div>
+          <div className="filteredDamageCount">
+            {totalDamageByBuilding} грн.
+          </div>
         </div>
       </div>
       <NavLink to={"../createDamagePost"}>Створити запис про збитки</NavLink>
