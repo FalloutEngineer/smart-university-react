@@ -1,12 +1,32 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
-import { NavLink } from "react-router-dom"
+import { NavLink, useParams } from "react-router-dom"
 
 const API_URL = process.env.REACT_APP_API_URL
 
-const damagePostsAPI = API_URL + "/api/damage"
+const damagePostsAPI = API_URL + "/api/damagePost/"
 
 export default function DamagePage() {
+  const params = useParams()
+
+  const [damage, setDamage] = useState(null)
+
+  useEffect(() => {
+    const fetchDamage = async () => {
+      try {
+        const response = await fetch(damagePostsAPI + params.name)
+        const data = await response.json()
+
+        console.log(data)
+      } catch (e) {
+        //TODO: toast?
+        console.error(e)
+      }
+    }
+
+    fetchDamage()
+  }, [])
+
   function tryDeletePost() {
     console.log("lorem ipsum")
   }

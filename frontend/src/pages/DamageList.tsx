@@ -1,13 +1,35 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
 import DashListHeader from "../components/DashList/DashListHeader"
 import { NavLink } from "react-router-dom"
 
 import "./damageList.css"
 
+const API_URL = process.env.REACT_APP_API_URL
+
+const damageAPI = API_URL + "/api/damagePost/"
+
 export default function DamageList() {
   const [listHeaderOptions, setListHeaderOptions] = useState(null)
   const [filter, setFilter] = useState(null)
+
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    const getPosts = async () => {
+      try {
+        const response = await fetch(damageAPI)
+        const data = await response.json()
+
+        setPosts(data)
+      } catch (e) {
+        //TODO: toast?
+        console.error(e)
+      }
+    }
+
+    getPosts()
+  }, [])
 
   return (
     <DashLayout>
@@ -28,33 +50,19 @@ export default function DamageList() {
       <NavLink to={"../createDamagePost"}>Створити запис про збитки</NavLink>
       <div className="dash-list__container">
         <ul className="dash-list">
-          <li className="dash-list__item">
-            <NavLink to={"./1"} className="dash-list__link">
-              <span className="dash-list__property dash-list__property_name">
-                Головний корпус
-              </span>
-              <span className="dash-list__property">Вікно</span>
-              <span className="dash-list__property">1000 грн.</span>
-            </NavLink>
-          </li>
-          <li className="dash-list__item">
-            <NavLink to={"./1"} className="dash-list__link">
-              <span className="dash-list__property dash-list__property_name">
-                5 корпус
-              </span>
-              <span className="dash-list__property">Вікно</span>
-              <span className="dash-list__property">1000 грн.</span>
-            </NavLink>
-          </li>
-          <li className="dash-list__item">
-            <NavLink to={"./1"} className="dash-list__link">
-              <span className="dash-list__property dash-list__property_name">
-                Головний корпус
-              </span>
-              <span className="dash-list__property">Двері</span>
-              <span className="dash-list__property">5000 грн.</span>
-            </NavLink>
-          </li>
+          {posts.map((post: any) => {
+            return (
+              <li className="dash-list__item">
+                <NavLink to={"./" + post.name} className="dash-list__link">
+                  <span className="dash-list__property dash-list__property_name">
+                    {post.building}
+                  </span>
+                  <span className="dash-list__property">{post.name}</span>
+                  <span className="dash-list__property">{post.sum} грн.</span>
+                </NavLink>
+              </li>
+            )
+          })}
         </ul>
       </div>
     </DashLayout>
