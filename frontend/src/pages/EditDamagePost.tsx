@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom"
 const API_URL = process.env.REACT_APP_API_URL
 
 const damagePostsAPI = API_URL + "/api/damagePost/"
+const buildingsAPI = API_URL + "/api/buildings"
 
 export default function EditDamagePost() {
   const { user } = useAuthContext()
@@ -16,6 +17,8 @@ export default function EditDamagePost() {
   const params = useParams()
 
   const [damage, setDamage]: any = useState(null)
+
+  const [buildings, setBuildings] = useState([])
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -40,8 +43,24 @@ export default function EditDamagePost() {
       })
   }
 
+  async function getBuildings() {
+    try {
+      const response = await fetch(buildingsAPI)
+      const data = await response.json()
+
+      setBuildings(data)
+    } catch (e) {
+      //TODO: toast?
+      console.error(e)
+    }
+  }
+
   useEffect(() => {
     getDamage()
+  }, [])
+
+  useEffect(() => {
+    getBuildings()
   }, [])
 
   async function tryEditPost(data: any) {
@@ -56,7 +75,7 @@ export default function EditDamagePost() {
 
       formData.append("status", data.status)
 
-      formData.append("building", damage.building)
+      formData.append("building", data.building)
       formData.append("location", data.location)
 
       formData.append("description", data.description)
@@ -103,6 +122,26 @@ export default function EditDamagePost() {
               defaultValue={damage?.name}
               {...register("name")}
             />
+          </li>
+
+          <li className="dash-board__item">
+            <label htmlFor="building" className="dash-board__label">
+              Будівля
+            </label>
+            <select
+              {...register("building")}
+              className="dash-select"
+              name="building"
+              id="buildings"
+            >
+              <option hidden disabled selected value={""}>
+                {" "}
+                -- Оберіть варіант --{" "}
+              </option>
+              {buildings.map((building: any) => {
+                return <option value={building.name}>{building.name}</option>
+              })}
+            </select>
           </li>
           <li className="dash-board__item">
             <label htmlFor="location" className="dash-board__label">
