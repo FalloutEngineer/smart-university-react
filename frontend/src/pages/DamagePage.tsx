@@ -9,7 +9,7 @@ const damagePostsAPI = API_URL + "/api/damagePost/"
 export default function DamagePage() {
   const params = useParams()
 
-  const [damage, setDamage] = useState(null)
+  const [damage, setDamage]: any[] = useState(null)
 
   useEffect(() => {
     const fetchDamage = async () => {
@@ -18,6 +18,7 @@ export default function DamagePage() {
         const data = await response.json()
 
         console.log(data)
+        setDamage(data)
       } catch (e) {
         //TODO: toast?
         console.error(e)
@@ -40,7 +41,7 @@ export default function DamagePage() {
       <ul className="dash-board__list">
         <li className="dash-board__item">
           <h3 className="dash-board__label">ID:</h3>
-          <div className="dash-board__value">1234</div>
+          <div className="dash-board__value">{damage?._id}</div>
         </li>
         <li className="dash-board__item">
           <h3 className="dash-board__label">Фото:</h3>
@@ -50,26 +51,19 @@ export default function DamagePage() {
         </li>
         <li className="dash-board__item">
           <h3 className="dash-board__label">Назва:</h3>
-          <div className="dash-board__value">Розбите вікно</div>
+          <div className="dash-board__value">{damage?.name}</div>
         </li>
         <li className="dash-board__item">
           <h3 className="dash-board__label">Місцезнаходження:</h3>
-          <div className="dash-board__value">
-            1 корпус, 5 поверх, 507 аудиторія
-          </div>
+          <div className="dash-board__value">{damage?.location}</div>
         </li>
         <li className="dash-board__item">
           <h3 className="dash-board__label">Опис:</h3>
-          <div className="dash-board__value">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
-            optio placeat vitae iure dolores, totam eveniet. Fugit possimus
-            itaque animi quod facere, in, autem quasi, qui quia ut nostrum
-            sapiente.
-          </div>
+          <div className="dash-board__value">{damage?.description}</div>
         </li>
         <li className="dash-board__item">
           <h3 className="dash-board__label">Передбачувана сума:</h3>
-          <div className="dash-board__value">1000 грн</div>
+          <div className="dash-board__value">{damage?.sum} грн</div>
         </li>
       </ul>
     </DashLayout>
