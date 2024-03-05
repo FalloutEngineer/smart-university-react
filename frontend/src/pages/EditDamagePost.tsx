@@ -29,8 +29,6 @@ export default function EditDamagePost() {
     },
   })
 
-  function onSubmit(data: any) {}
-
   async function getDamage() {
     return fetch(damagePostsAPI + params.name)
       .then((res) => {
@@ -46,6 +44,51 @@ export default function EditDamagePost() {
     getDamage()
   }, [])
 
+  async function tryEditPost(data: any) {
+    if (data.name && damage) {
+      const formData = new FormData()
+
+      formData.append("name", String(data.name))
+
+      for (let i = 0; i < data.images.length; i++) {
+        formData.append("images", data.images[i])
+      }
+
+      formData.append("status", data.status)
+
+      formData.append("building", damage.building)
+      formData.append("location", data.location)
+
+      formData.append("description", data.description)
+
+      formData.append("sum", data.sum)
+
+      await fetch(damagePostsAPI + params.name, {
+        method: "PATCH",
+        headers: {
+          authorization: `Bearer ${user}`,
+        },
+        body: formData,
+      }).then(async (res) => {
+        const answer = await res.json()
+
+        if (!res.ok) {
+          //TODO: toast
+          alert(answer.message)
+        } else {
+          alert("Об'єкт успішно змінено")
+          navigate("/damage/")
+        }
+      })
+    } else {
+      alert("Будь ласка заповніть всі поля")
+    }
+  }
+
+  const onSubmit = (data: any) => {
+    tryEditPost(data)
+  }
+
   return (
     <DashLayout>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -54,19 +97,34 @@ export default function EditDamagePost() {
             <label htmlFor="name" className="dash-board__label">
               Назва
             </label>
-            <input id="name" className={styles.textArea} />
+            <input
+              id="name"
+              className={styles.textArea}
+              defaultValue={damage?.name}
+              {...register("name")}
+            />
           </li>
           <li className="dash-board__item">
             <label htmlFor="location" className="dash-board__label">
               Місцезнаходження
             </label>
-            <input id="location" type="text" className={styles.textArea} />
+            <textarea
+              id="location"
+              className={styles.textArea}
+              defaultValue={damage?.location}
+              {...register("location")}
+            />
           </li>
           <li className="dash-board__item">
             <label htmlFor="description" className="dash-board__label">
               Опис
             </label>
-            <input id="description" className={styles.textArea} />
+            <textarea
+              id="description"
+              className={styles.textArea}
+              defaultValue={damage?.description}
+              {...register("description")}
+            />
           </li>
           <li className="dash-board__item">
             <label htmlFor="sum" className="dash-board__label">
@@ -77,7 +135,8 @@ export default function EditDamagePost() {
               type="number"
               className={styles.textArea}
               min={0}
-              defaultValue={0}
+              {...register("sum")}
+              defaultValue={damage?.sum}
             />
           </li>
           <li id="images-item" className="dash-board__item">
@@ -90,6 +149,7 @@ export default function EditDamagePost() {
               multiple
               type="file"
               accept="image/*"
+              {...register("images")}
             />
           </li>
         </ul>
