@@ -155,6 +155,17 @@ export default function EditDamagePost() {
             />
           </li>
           <li className="dash-board__item">
+            <label htmlFor="location" className="dash-board__label">
+              Стан
+            </label>
+            <input
+              type="text"
+              id="status"
+              className={styles.textArea}
+              {...register("status")}
+            />
+          </li>
+          <li className="dash-board__item">
             <label htmlFor="description" className="dash-board__label">
               Опис
             </label>
