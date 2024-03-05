@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
-import { NavLink, useParams } from "react-router-dom"
+import { NavLink, useNavigate, useParams } from "react-router-dom"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 const API_URL = process.env.REACT_APP_API_URL
 
 const damagePostsAPI = API_URL + "/api/damagePost/"
 
 export default function DamagePage() {
+  const { user } = useAuthContext()
+  const navigate = useNavigate()
   const params = useParams()
 
   const [damage, setDamage]: any[] = useState(null)
@@ -28,16 +31,34 @@ export default function DamagePage() {
     fetchDamage()
   }, [])
 
-  function tryDeletePost() {
-    console.log("lorem ipsum")
-  }
+  const deleteCallback = () =>
+    function () {
+      fetch(damagePostsAPI + params.name, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user}`,
+        },
+      })
+        .then((res) => {
+          return res.json()
+        })
+        .then((data) => {
+          console.log(data)
+          navigate(-1)
+        })
+        .catch((e) => {
+          //TODO: toast?
+          console.error(e)
+        })
+    }
 
   return (
     <DashLayout>
       <NavLink className="dash-board__edit" to={`./edit`}>
         Редагувати
       </NavLink>
-      <button onClick={tryDeletePost}>Видалити</button>
+      <button onClick={deleteCallback()}>Видалити</button>
       <ul className="dash-board__list">
         <li className="dash-board__item">
           <h3 className="dash-board__label">ID:</h3>
