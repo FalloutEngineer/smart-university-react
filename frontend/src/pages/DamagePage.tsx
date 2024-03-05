@@ -43,12 +43,20 @@ export default function DamagePage() {
           <h3 className="dash-board__label">ID:</h3>
           <div className="dash-board__value">{damage?._id}</div>
         </li>
-        <li className="dash-board__item">
-          <h3 className="dash-board__label">Фото:</h3>
-          <div className="dash-board__value">
-            <img src={API_URL + "/images/damage/1.jpg"} alt="" />
-          </div>
-        </li>
+        {damage && damage.photo_links.length > 0 && (
+          <li className="dash-board__images">
+            <h3 className="dash-board__label">Зображення:</h3>
+            <ul className="dash-board__images-list">
+              {damage.photo_links.map((link: any) => {
+                return (
+                  <li className="dash-board__image-item">
+                    <img src={`/images/damage/${link}`} alt="" />
+                  </li>
+                )
+              })}
+            </ul>
+          </li>
+        )}
         <li className="dash-board__item">
           <h3 className="dash-board__label">Назва:</h3>
           <div className="dash-board__value">{damage?.name}</div>
