@@ -12,7 +12,7 @@ export default function DamagePage() {
   const navigate = useNavigate()
   const params = useParams()
 
-  const [damage, setDamage]: any[] = useState(null)
+  const [damage, setDamage]: any = useState(null)
 
   useEffect(() => {
     const fetchDamage = async () => {

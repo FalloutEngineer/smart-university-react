@@ -1,13 +1,50 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
 
 import styles from "./EditPages/editPage.module.css"
 import { useForm } from "react-hook-form"
+import { useAuthContext } from "../hooks/useAuthContext"
+import { useNavigate, useParams } from "react-router-dom"
+
+const API_URL = process.env.REACT_APP_API_URL
+
+const damagePostsAPI = API_URL + "/api/damagePost/"
 
 export default function EditDamagePost() {
-  const { register, handleSubmit } = useForm()
+  const { user } = useAuthContext()
+  const navigate = useNavigate()
+  const params = useParams()
+
+  const [damage, setDamage]: any = useState(null)
+
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      name: damage?.name,
+      images: damage?.photo_links,
+      status: damage?.status,
+      location: damage?.location,
+      building: damage?.building,
+      description: damage?.description,
+      sum: damage?.sum,
+    },
+  })
 
   function onSubmit(data: any) {}
+
+  async function getDamage() {
+    return fetch(damagePostsAPI + params.name)
+      .then((res) => {
+        return res.json()
+      })
+      .then((data) => {
+        setDamage(data)
+        reset()
+      })
+  }
+
+  useEffect(() => {
+    getDamage()
+  }, [])
 
   return (
     <DashLayout>
