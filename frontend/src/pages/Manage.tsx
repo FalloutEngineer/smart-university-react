@@ -182,7 +182,7 @@ export default function Manage() {
       const formData = new FormData()
 
       formData.append("name", data.name)
-      formData.append("svg", data.svg)
+      formData.append("svg", data.svg[0])
       formData.append("floors[]", JSON.stringify([]))
       formData.append("address", data.address)
 
