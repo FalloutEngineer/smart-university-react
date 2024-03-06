@@ -7,6 +7,22 @@ const Building = require("../../models/building")
 
 const requireAuth = require("../../middleware/requireAuth.js")
 
+const multer = require("multer")
+const path = require("path")
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./static/svg/floor")
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname))
+  },
+})
+
+const upload = multer({
+  storage: storage,
+})
+
 //get all
 router.get("/", async (req, res) => {
   try {
@@ -23,7 +39,7 @@ router.get("/:number", getFloor, (req, res) => {
 })
 
 //create one
-router.post("/", requireAuth, async (req, res) => {
+router.post("/", requireAuth, upload.single("svg"), async (req, res) => {
   let isFacultyExists = await Faculty.exists({ name: req.body.faculty })
   let isBuildingExists = await Building.exists({ name: req.body.building })
   let roomsArray = []
@@ -76,6 +92,13 @@ router.post("/", requireAuth, async (req, res) => {
 // delete one
 router.delete("/:number", requireAuth, getFloor, async (req, res) => {
   try {
+    if (res.floor.svg) {
+      const address = path.resolve("./static/svg/floor/" + res.floor.svg)
+      if (fs.existsSync(address)) {
+        fs.unlinkSync(address)
+      }
+    }
+
     await Faculty.updateOne(
       { name: res.floor.faculty },
       {
