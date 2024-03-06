@@ -19,6 +19,8 @@ export default function BuildingPage() {
 
   const [floors, setFloors]: any[] = useState([])
 
+  const [buildingSvgURL, setBuildingSvgURL] = useState("")
+
   useEffect(() => {
     const fetchBuildings = async () => {
       const response = await fetch(buildingsAPI + "/" + params.name)
@@ -28,6 +30,7 @@ export default function BuildingPage() {
         console.log(json)
 
         setBuilding(json)
+        setBuildingSvgURL(API_URL + "/svg/" + json.svg)
       } else {
         //TODO: toast error?
         console.log(response.status, response.text)
@@ -82,7 +85,7 @@ export default function BuildingPage() {
             <div className="model-container">
               <object
                 className="model-svg"
-                data={"/svg/" + building.svg}
+                data={buildingSvgURL}
                 type="image/svg+xml"
               >
                 Building Model
