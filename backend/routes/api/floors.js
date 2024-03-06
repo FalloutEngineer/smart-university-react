@@ -44,14 +44,20 @@ router.post("/", requireAuth, upload.single("svg"), async (req, res) => {
   let isBuildingExists = await Building.exists({ name: req.body.building })
   let roomsArray = []
 
+  if (req.body.rooms == null || req.body.rooms == undefined) {
+    req.body.rooms = []
+  }
+
   req.body.rooms.forEach((room) => {
     roomsArray.push(Room.exists({ number: room }))
   })
 
   let isRoomsExists = roomsArray.every((i) => i === true)
 
-  if (req.body.rooms == null || req.body.rooms == undefined) {
-    req.body.rooms = []
+  let svg
+
+  if (req.file) {
+    svg = req.file.filename
   }
 
   if (isFacultyExists && isRoomsExists && isBuildingExists) {
@@ -63,6 +69,7 @@ router.post("/", requireAuth, upload.single("svg"), async (req, res) => {
       temperatureSensorURL: req.body.temperatureSensorURL,
       co2SensorURL: req.body.co2SensorURL,
       floorColor: req.body.floorColor ?? "#ffffff",
+      svg: svg,
     })
 
     try {

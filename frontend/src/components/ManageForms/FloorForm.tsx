@@ -102,9 +102,6 @@ export default function FloorForm({
           <label htmlFor="" className="dash-board__label">
             SVG
           </label>
-          {/* TODO: REWORK ENCTYPE */}
-          {/* encType="multipart/form-data" */}
-          {/* enctype="multipart/form-data" v-on:change="handleSvgUpload" */}
           <input
             id="svg"
             className="dash-board__input"
