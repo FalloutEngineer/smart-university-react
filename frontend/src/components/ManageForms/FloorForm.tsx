@@ -98,6 +98,21 @@ export default function FloorForm({
           </label>
           <input type="color" id="floorColor" {...register("floorColor")} />
         </li>
+        <li id="svg-item" className="dash-board__item">
+          <label htmlFor="" className="dash-board__label">
+            SVG
+          </label>
+          {/* TODO: REWORK ENCTYPE */}
+          {/* encType="multipart/form-data" */}
+          {/* enctype="multipart/form-data" v-on:change="handleSvgUpload" */}
+          <input
+            id="svg"
+            className="dash-board__input"
+            type="file"
+            accept=".svg"
+            {...register("svg")}
+          />
+        </li>
       </ul>
 
       <button id="create" className="dash-button">

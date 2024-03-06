@@ -34,6 +34,10 @@ router.post("/", requireAuth, async (req, res) => {
 
   let isRoomsExists = roomsArray.every((i) => i === true)
 
+  if (req.body.rooms == null || req.body.rooms == undefined) {
+    req.body.rooms = []
+  }
+
   if (isFacultyExists && isRoomsExists && isBuildingExists) {
     const floor = new Floor({
       number: req.body.number,

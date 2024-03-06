@@ -146,16 +146,22 @@ export default function Manage() {
 
   async function tryCreateFloor(data: Floor) {
     if (data.number !== null && data.faculty !== "" && data.building !== "") {
+      const formData = new FormData()
+
+      formData.append("number", String(data.number))
+      formData.append("svg", data.svg)
+      formData.append("faculty", data.faculty)
+      formData.append("building", data.building)
+      formData.append("co2", JSON.stringify(data.co2))
+      formData.append("temperature", JSON.stringify(data.temperature))
+      formData.append("color", data.color)
+
       await fetch(floorsAPI, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           authorization: `Bearer ${user}`,
         },
-        body: JSON.stringify({
-          ...data,
-          rooms: [],
-        }),
+        body: formData,
       }).then(async (res) => {
         const answer = await res.json()
 
