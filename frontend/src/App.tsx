@@ -236,6 +236,7 @@ function App() {
             path="/createDamagePost"
             element={user ? <CreateDamagePost /> : <Navigate to="/login" />}
           />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
       {/* <ErrorPage /> */}
