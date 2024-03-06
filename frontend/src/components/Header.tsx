@@ -115,7 +115,12 @@ export default function Header({
                 </li>
                 {user && (
                   <li className="nav-item">
-                    <button onClick={handleLogoutClick}>Вийти</button>
+                    <button
+                      className="logout-button"
+                      onClick={handleLogoutClick}
+                    >
+                      Вийти
+                    </button>
                   </li>
                 )}
               </ul>
