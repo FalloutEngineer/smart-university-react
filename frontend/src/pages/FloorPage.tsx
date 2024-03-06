@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useEffect, useLayoutEffect, useMemo, useState } from "react"
 import Layout from "../components/Layout/Layout"
 
 /* TODO: INSERT PAGE COLOR HERE */
@@ -41,6 +41,8 @@ export default function FloorPage() {
 
   const [color, setColor] = useState("#000")
 
+  const [svgURL, setsvgURL] = useState("")
+
   const [facultyCard, setFacultyCard]: any = useState(null)
   const [pulpitCards, setPulpitCards]: any[] = useState([])
 
@@ -52,15 +54,16 @@ export default function FloorPage() {
     color: color,
   }
 
-  console.log(API_URL + "/svg/floor/" + floor?.svg)
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetchFloors = async () => {
       const response = await fetch(floorsAPI + "/" + params.number)
       const json = await response.json()
 
       if (response.ok) {
         setFloor(json)
+        if (json.svg !== "" || json.svg !== null || json.svg !== null) {
+          setsvgURL(API_URL + "/svg/floor/" + json.svg)
+        }
       } else {
         //TODO: toast error?
         console.log(response.status, response.text)
@@ -173,14 +176,17 @@ export default function FloorPage() {
         // TODO: ADD LOGO TO DATABASE
         imageUrl="http://localhost:3000/img/logo.png"
       />
-
       <div className="plan">
         {/* TODO: pass color from fetched data */}
-        <FloorMap
-          // TODO: ADD FLOOR PLAN FROM DATABASE
-          url={API_URL + "/svg/floor/" + floor?.svg}
-          styles={fillColor}
-        />
+        {svgURL !== "" ? (
+          <FloorMap
+            // TODO: ADD FLOOR PLAN FROM DATABASE
+            url={svgURL}
+            styles={fillColor}
+          />
+        ) : (
+          ""
+        )}
       </div>
 
       <div className="ui-60" style={sensorsBlockStyles}>
