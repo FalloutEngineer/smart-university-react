@@ -61,7 +61,7 @@ const authRouter = require("./routes/api/auth")
 app.use("/api/auth", authRouter)
 
 app.get("*", function (req, res) {
-  res.status(404).render("404")
+  res.status(404).send("Requested address doesn't exist")
 })
 
 const start = async () => {
