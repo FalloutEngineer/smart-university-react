@@ -36,7 +36,7 @@ export type Floor = {
   svg: string
   co2: string
   temperature: string
-  color: string
+  floorColor: string
 }
 
 export type Building = {

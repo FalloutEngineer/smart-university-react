@@ -154,7 +154,7 @@ export default function Manage() {
       formData.append("building", data.building)
       formData.append("co2", JSON.stringify(data.co2))
       formData.append("temperature", JSON.stringify(data.temperature))
-      formData.append("color", data.color)
+      formData.append("floorColor", data.floorColor)
 
       await fetch(floorsAPI, {
         method: "POST",
