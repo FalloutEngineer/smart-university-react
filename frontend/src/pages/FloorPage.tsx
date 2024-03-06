@@ -52,6 +52,8 @@ export default function FloorPage() {
     color: color,
   }
 
+  console.log(API_URL + "/svg/floor/" + floor?.svg)
+
   useEffect(() => {
     const fetchFloors = async () => {
       const response = await fetch(floorsAPI + "/" + params.number)
@@ -176,7 +178,7 @@ export default function FloorPage() {
         {/* TODO: pass color from fetched data */}
         <FloorMap
           // TODO: ADD FLOOR PLAN FROM DATABASE
-          url="http://localhost:3000/svg/mock-floorPlan.svg"
+          url={API_URL + "/svg/floor/" + floor?.svg}
           styles={fillColor}
         />
       </div>
