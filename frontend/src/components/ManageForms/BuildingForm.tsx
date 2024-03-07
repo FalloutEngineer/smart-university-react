@@ -61,6 +61,19 @@ export default function BuildingForm({
             type="text"
           />
         </li>
+        <li id="name-item" className="dash-board__item">
+          <label htmlFor="" className="dash-board__label">
+            Опис
+          </label>
+          <textarea
+            {...register("description")}
+            className="dash-board__textarea"
+            id="description"
+            cols={30}
+            rows={10}
+            placeholder="Введіть опис"
+          />
+        </li>
       </ul>
 
       <button id="create" className="dash-button">
