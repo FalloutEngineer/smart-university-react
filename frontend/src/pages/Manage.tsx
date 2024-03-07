@@ -186,6 +186,7 @@ export default function Manage() {
       formData.append("background", data.background[0])
       formData.append("floors[]", JSON.stringify([]))
       formData.append("address", data.address)
+      formData.append("description", data.description)
 
       await fetch(buildingsAPI, {
         method: "POST",

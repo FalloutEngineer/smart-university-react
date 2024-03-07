@@ -113,6 +113,7 @@ router.post(
         svg: svg,
         background: background,
         address: req.body.address,
+        description: req.body.description,
       })
 
       try {

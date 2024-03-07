@@ -44,6 +44,7 @@ export type Building = {
   background: string
   svg: string
   address: string
+  description: string
 }
 
 export type ManageData = Room | Pulpit | Faculty | Floor | Building
