@@ -29,8 +29,6 @@ export default function BuildingPage() {
       const json = await response.json()
 
       if (response.ok) {
-        console.log(json)
-
         setBuilding(json)
         setBuildingSvgURL(API_URL + "/svg/building/" + json.svg)
         if (json.background) {
@@ -122,6 +120,30 @@ export default function BuildingPage() {
           </ul>
         </div>
       </section>
+      <div className="bg-color-sky-light" data-auto-height="true">
+        {building.description ? (
+          <div
+            className="content-lg container descriptionContainer"
+            style={{ paddingBottom: "0px" }}
+          >
+            <div className="row">
+              <div className="col-12">
+                <div className="service">
+                  <div>
+                    <p
+                      style={{ color: "rgb(61, 61, 61)", textAlign: "center" }}
+                    >
+                      {building.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
     </Layout>
   )
 }

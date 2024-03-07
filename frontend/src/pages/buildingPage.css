@@ -5,3 +5,7 @@
 .buildingPage-content p {
   color: white;
 }
+
+.descriptionContainer {
+  padding-bottom: 100px !important;
+}
