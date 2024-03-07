@@ -96,7 +96,6 @@ router.post(
     let background
 
     if (req.files) {
-      console.log(req.files)
       if (req.files["svg"]) {
         svg = req.files["svg"][0].filename
       }
@@ -106,7 +105,6 @@ router.post(
     }
 
     if (isFloorsExists) {
-      console.log(background)
       const building = new Building({
         name: req.body.name,
         floors: req.body.floors[0] != "" ? req.body.floors : [],
