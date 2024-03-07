@@ -33,6 +33,7 @@ import DamageList from "./pages/DamageList"
 import DamagePage from "./pages/DamagePage"
 import CreateDamagePost from "./pages/CreateDamagePost"
 import EditDamagePost from "./pages/EditDamagePost"
+import ScrollToTop from "./components/ScrollToTop"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -42,6 +43,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route index element={<Home />} />
           <Route path="faculties" element={<Faculties />} />
