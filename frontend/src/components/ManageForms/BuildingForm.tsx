@@ -30,15 +30,24 @@ export default function BuildingForm({
           <label htmlFor="" className="dash-board__label">
             SVG
           </label>
-          {/* TODO: REWORK ENCTYPE */}
-          {/* encType="multipart/form-data" */}
-          {/* enctype="multipart/form-data" v-on:change="handleSvgUpload" */}
           <input
             id="svg"
             className="dash-board__input"
             type="file"
             accept=".svg"
             {...register("svg")}
+          />
+        </li>
+        <li id="svg-item" className="dash-board__item">
+          <label htmlFor="" className="dash-board__label">
+            Фон
+          </label>
+          <input
+            id="background"
+            className="dash-board__input"
+            type="file"
+            accept="image/*"
+            {...register("background")}
           />
         </li>
         <li id="name-item" className="dash-board__item">

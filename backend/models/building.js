@@ -13,7 +13,7 @@ const buildingSchema = new mongoose.Schema({
   svg: {
     type: String,
   },
-  backgroundURL: {
+  background: {
     type: String,
   },
   address: {

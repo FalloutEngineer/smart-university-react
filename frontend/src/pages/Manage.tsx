@@ -183,6 +183,7 @@ export default function Manage() {
 
       formData.append("name", data.name)
       formData.append("svg", data.svg[0])
+      formData.append("background", data.background[0])
       formData.append("floors[]", JSON.stringify([]))
       formData.append("address", data.address)
 

@@ -41,6 +41,7 @@ export type Floor = {
 
 export type Building = {
   name: string
+  background: string
   svg: string
   address: string
 }
