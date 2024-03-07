@@ -133,6 +133,24 @@ export default function FloorPage() {
         }
       })
       setRooms(readyRooms)
+
+      const pieReadyRooms = [
+        { name: "Аудиторія", value: 0 },
+        { name: "Лабораторія", value: 0 },
+        { name: "Комп'ютерна аудиторія", value: 0 },
+        { name: "Кафедра", value: 0 },
+        { name: "Приміщення", value: 0 },
+      ]
+
+      values.forEach((room: any) => {
+        if (room.type === "Аудиторія") pieReadyRooms[0].value++
+        if (room.type === "Лабораторія") pieReadyRooms[1].value++
+        if (room.type === "Комп'ютерна аудиторія") pieReadyRooms[2].value++
+        if (room.type === "Кафедра") pieReadyRooms[3].value++
+        if (room.type === "Приміщення") pieReadyRooms[4].value++
+      })
+
+      setPieChartData(pieReadyRooms)
     }
 
     if (floor && floor.rooms) {
