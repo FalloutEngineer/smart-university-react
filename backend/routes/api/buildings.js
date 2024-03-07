@@ -12,7 +12,12 @@ const router = express.Router()
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./static/svg")
+    if (file.fieldname === "svg") {
+      cb(null, "./static/svg/building")
+    }
+    if (file.fieldname === "background") {
+      cb(null, "./static/img/building")
+    }
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname))
@@ -57,54 +62,83 @@ async function getBuilding(req, res, next) {
 }
 
 //create one
-router.post("/", requireAuth, upload.single("svg"), async (req, res) => {
-  if (req.body.floors) {
-    req.body.floors = JSON.parse(req.body.floors)
-  }
-
-  let floorsArray = []
-
-  let isFloorsExists = true
-
-  if (floorsArray.length > 0 && floorsArray != "[]") {
-    for (const floor of req.body.floors) {
-      floorsArray.push(null != (await Floor.exists({ number: floor.number })))
+router.post(
+  "/",
+  requireAuth,
+  upload.fields([
+    {
+      name: "svg",
+      maxCount: 1,
+    },
+    {
+      name: "background",
+      maxCount: 1,
+    },
+  ]),
+  async (req, res) => {
+    if (req.body.floors) {
+      req.body.floors = JSON.parse(req.body.floors)
     }
 
-    isFloorsExists = floorsArray.every((i) => i === true)
-  }
+    let floorsArray = []
 
-  let svg
+    let isFloorsExists = true
 
-  if (req.file) {
-    svg = req.file.filename
-  }
+    if (floorsArray.length > 0 && floorsArray != "[]") {
+      for (const floor of req.body.floors) {
+        floorsArray.push(null != (await Floor.exists({ number: floor.number })))
+      }
 
-  if (isFloorsExists) {
-    const building = new Building({
-      name: req.body.name,
-      floors: req.body.floors[0] != "" ? req.body.floors : [],
-      svg: svg,
-      // background: req.body.background,
-      address: req.body.address,
-    })
-
-    try {
-      const newBuilding = await building.save()
-
-      res.status(201).json({ building: newBuilding })
-    } catch (err) {
-      res.status(400).json({ message: err.message })
+      isFloorsExists = floorsArray.every((i) => i === true)
     }
-  } else {
-    res.status(400).json({ message: "Invalid floors" })
+
+    let svg
+    let background
+
+    if (req.files) {
+      if (req.files["svg"]) {
+        svg = req.files["svg"][0].filename
+      }
+      if (req.files["background"]) {
+        background = req.files["background"][0].filename
+      }
+    }
+
+    if (isFloorsExists) {
+      const building = new Building({
+        name: req.body.name,
+        floors: req.body.floors[0] != "" ? req.body.floors : [],
+        svg: svg,
+        background: background,
+        address: req.body.address,
+      })
+
+      try {
+        const newBuilding = await building.save()
+
+        res.status(201).json({ building: newBuilding })
+      } catch (err) {
+        res.status(400).json({ message: err.message })
+      }
+    } else {
+      res.status(400).json({ message: "Invalid floors" })
+    }
   }
-})
+)
 
 router.delete("/:name", requireAuth, getBuilding, async (req, res) => {
   try {
     if (res.building.svg) {
-      const address = path.resolve("./static/svg/" + res.building.svg)
+      const address = path.resolve("./static/img/building/" + res.building.svg)
+      if (fs.existsSync(address)) {
+        fs.unlinkSync(address)
+      }
+    }
+
+    if (res.building.background) {
+      const address = path.resolve(
+        "./static/img/building/" + res.building.background
+      )
       if (fs.existsSync(address)) {
         fs.unlinkSync(address)
       }
