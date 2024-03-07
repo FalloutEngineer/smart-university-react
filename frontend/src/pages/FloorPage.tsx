@@ -13,7 +13,11 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
+  Pie,
+  PieChart,
+  PieLabel,
   Rectangle,
+  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
@@ -39,12 +43,26 @@ export default function FloorPage() {
 
   const [rooms, setRooms]: any[] = useState([])
 
+  const [pieChartData, setPieChartData]: any[] = useState([
+    { name: "Аудиторія", value: 1 },
+    { name: "Лабораторія", value: 1 },
+    { name: "Комп'ютерна аудиторія", value: 1 },
+    { name: "Кафедра", value: 1 },
+    { name: "Приміщення", value: 1 },
+  ])
+
+  const colors = ["#67b7dc", "#6794dc", "#6771dc", "#8067dc"]
+
   const [color, setColor] = useState("#000")
 
   const [svgURL, setsvgURL] = useState("")
 
   const [facultyCard, setFacultyCard]: any = useState(null)
   const [pulpitCards, setPulpitCards]: any[] = useState([])
+
+  const renderPieLabel = function (entry: any) {
+    return entry.name
+  }
 
   const sensorsBlockStyles = {
     backgroundColor: color,
@@ -227,30 +245,50 @@ export default function FloorPage() {
         </ul>
       </div>
       {rooms.length > 0 && (
-        <div className="facultyChart ui-60">
-          <BarChart
-            width={windowSize[0] - (windowSize[0] / 100) * 15}
-            height={windowSize[0] / 4}
-            data={rooms}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="chartName" />
-            <YAxis />
-            <Tooltip />
+        <>
+          <div className="pieChartContainer">
+            <PieChart
+              width={windowSize[0] - (windowSize[0] / 100) * 15}
+              height={windowSize[0] / 4}
+            >
+              <Pie
+                data={pieChartData}
+                dataKey="value"
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                fill="#8884d8"
+                label={renderPieLabel}
+              />
+              <Tooltip />
+            </PieChart>
+          </div>
 
-            <Bar
-              dataKey="Місць"
-              fill={color}
-              activeBar={<Rectangle fill="white" stroke={color} />}
-            />
-          </BarChart>
-        </div>
+          <div className="facultyChart ui-60">
+            <BarChart
+              width={windowSize[0] - (windowSize[0] / 100) * 15}
+              height={windowSize[0] / 4}
+              data={rooms}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="chartName" />
+              <YAxis />
+              <Tooltip />
+
+              <Bar
+                dataKey="Місць"
+                fill={color}
+                activeBar={<Rectangle fill="white" stroke={color} />}
+              />
+            </BarChart>
+          </div>
+        </>
       )}
     </Layout>
   )
