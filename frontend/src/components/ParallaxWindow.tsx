@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 import "./parallaxWindow.css"
 
@@ -9,7 +9,9 @@ export default function ParallaxWindow({
   children: any
   imageUrl: string
 }) {
-  const parallaxStyles = {
+  console.log("imageUrl ", imageUrl)
+
+  const styles = {
     backgroundImage: imageUrl,
     height: "fit-content",
     width: "100vw !important",
@@ -18,11 +20,7 @@ export default function ParallaxWindow({
   }
 
   return (
-    <div
-      className="parallax-window"
-      data-parallax="scroll"
-      style={parallaxStyles}
-    >
+    <div className="parallax-window" data-parallax="scroll" style={styles}>
       {children}
     </div>
   )

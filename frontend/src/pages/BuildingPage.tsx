@@ -21,6 +21,8 @@ export default function BuildingPage() {
 
   const [buildingSvgURL, setBuildingSvgURL] = useState("")
 
+  const [buildingBGURL, setBuildingBGURL] = useState("")
+
   useEffect(() => {
     const fetchBuildings = async () => {
       const response = await fetch(buildingsAPI + "/" + params.name)
@@ -30,7 +32,10 @@ export default function BuildingPage() {
         console.log(json)
 
         setBuilding(json)
-        setBuildingSvgURL(API_URL + "/svg/" + json.svg)
+        setBuildingSvgURL(API_URL + "/svg/building/" + json.svg)
+        if (json.background) {
+          setBuildingBGURL(API_URL + "/img/building/" + json.background)
+        }
       } else {
         //TODO: toast error?
         console.log(response.status, response.text)
@@ -72,13 +77,23 @@ export default function BuildingPage() {
 
   return (
     <Layout>
-      <ParallaxWindow imageUrl="url('/img/1.jpg')">
-        <div className="parallax-content container buildingPage-content">
-          {/* style="text-align: right;" */}
-          <h1 className="carousel-title">{building && building.name}</h1>
-          {building.address !== null ? <p>{building.address}</p> : ""}
-        </div>
-      </ParallaxWindow>
+      {buildingBGURL === "" ? (
+        <ParallaxWindow imageUrl={`url(/img/1.jpg)`}>
+          <div className="parallax-content container buildingPage-content">
+            {/* style="text-align: right;" */}
+            <h1 className="carousel-title">{building && building.name}</h1>
+            {building.address !== null ? <p>{building.address}</p> : ""}
+          </div>
+        </ParallaxWindow>
+      ) : (
+        <ParallaxWindow imageUrl={`url(${buildingBGURL})`}>
+          <div className="parallax-content container buildingPage-content">
+            {/* style="text-align: right;" */}
+            <h1 className="carousel-title">{building && building.name}</h1>
+            {building.address !== null ? <p>{building.address}</p> : ""}
+          </div>
+        </ParallaxWindow>
+      )}
       <section className="section section_models" id="models_1">
         <div className="container">
           {building.svg !== null ? (

@@ -174,7 +174,7 @@ export default function FloorPage() {
         floor={floor !== null ? floor.number : "0"}
         name={floor !== null ? floor.faculty : "Faculty"}
         // TODO: ADD LOGO TO DATABASE
-        imageUrl="http://localhost:3000/img/logo.png"
+        imageUrl="/img/logo.png"
       />
       <div className="plan">
         {/* TODO: pass color from fetched data */}

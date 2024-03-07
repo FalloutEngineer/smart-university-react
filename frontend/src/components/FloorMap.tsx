@@ -24,9 +24,6 @@ export default function FloorMap({
       let response = await fetch(url)
       let svg = await response.text()
       setSvg(svg)
-
-      console.log(url)
-      console.log(svg)
     }
 
     getSVG(url)
