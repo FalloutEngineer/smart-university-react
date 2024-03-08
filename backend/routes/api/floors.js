@@ -146,4 +146,22 @@ async function getFloor(req, res, next) {
   next()
 }
 
+router.patch("/:number", requireAuth, getFloor, async (req, res) => {
+  if (req.body.floorColor != null) {
+    res.floor.floorColor = req.body.floorColor
+  }
+
+  console.log("*************************************")
+  console.log("*************************************")
+  console.log("*************************************")
+  console.log(req.body.floorColor)
+
+  try {
+    const updatedFloor = await res.floor.save()
+    res.json(updatedFloor)
+  } catch (err) {
+    res.status(400).json({ message: err.message })
+  }
+})
+
 module.exports = router

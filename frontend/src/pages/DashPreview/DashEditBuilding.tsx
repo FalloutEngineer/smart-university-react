@@ -13,7 +13,6 @@ const buildingsAPI = API_URL + `/api/buildings`
 export default function DashEditBuilding() {
   let { name } = useParams()
   const { user } = useAuthContext()
-  const navigate = useNavigate()
 
   const [building, setBuilding]: any = useState(null)
 
