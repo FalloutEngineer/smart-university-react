@@ -101,7 +101,37 @@ router.patch(
         res.status(400).json({ message: err.message })
       }
     } else {
-      res.status(400).json({ message: "Something went wrong" })
+      const isFacultiesPagesExists = await FacultiesPage.exists({})
+
+      if (!isFacultiesPagesExists) {
+        const facultiesPage = new FacultiesPage({
+          heading:
+            req.body.heading && req.body.heading !== ""
+              ? req.body.heading
+              : "Факультети",
+          description:
+            req.body.description && req.body.description !== ""
+              ? req.body.description
+              : "Опис",
+          images:
+            req.body.images && req.body.images.length !== 0
+              ? req.body.images
+              : [],
+        })
+
+        try {
+          const newFacultiesPage = await facultiesPage.save()
+
+          res.status(201).json({
+            message: `Successfuly created faculties page!`,
+            page: newFacultiesPage,
+          })
+        } catch (err) {
+          res.status(400).json({ message: err.message })
+        }
+      } else {
+        res.status(400).json({ message: "Something went wrong" })
+      }
     }
   }
 )

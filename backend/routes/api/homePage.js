@@ -95,7 +95,36 @@ router.patch(
         res.status(400).json({ message: err.message })
       }
     } else {
-      res.status(400).json({ message: "Something went wrong" })
+      const isHomePageExists = await HomePage.exists({})
+
+      if (!isHomePageExists) {
+        const homePage = new HomePage({
+          heading:
+            req.body.heading && req.body.heading !== ""
+              ? req.body.heading
+              : "Домашня сторінка",
+          buttonLink:
+            req.body.buttonLink && req.body.buttonLink !== ""
+              ? req.body.buttonLink
+              : "/",
+          images: images[0] != "" ? images : [],
+        })
+
+        try {
+          const newHomePage = await homePage.save()
+
+          res
+            .status(201)
+            .json({
+              message: `Successfuly created home page!`,
+              page: newHomePage,
+            })
+        } catch (err) {
+          res.status(400).json({ message: err.message })
+        }
+      } else {
+        res.status(400).json({ message: "Something went wrong" })
+      }
     }
   }
 )

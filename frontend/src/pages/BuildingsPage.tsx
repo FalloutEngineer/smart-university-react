@@ -64,8 +64,6 @@ export default function BuildingsPage() {
       const json = await response.json()
 
       if (response.ok) {
-        console.log(json)
-
         setBuildings(json)
       } else {
         //TODO: toast error?
