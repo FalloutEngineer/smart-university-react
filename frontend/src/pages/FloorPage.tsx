@@ -245,23 +245,28 @@ export default function FloorPage() {
           </div>
         </div>
       </div>
-      <div className="facultyRooms container">
-        <h2 className="facultyRooms__heading">Список всіх приміщень поверха</h2>
-        <ul className="facultyRooms__list">
-          {rooms.map((room: any) => {
-            return (
-              <li className="facultyRooms__item">
-                <Link
-                  className="facultyRooms__itemLink"
-                  to={`../room/${room.number}`}
-                >
-                  {room.type} {room.number}
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
-      </div>
+      {rooms.length > 0 && (
+        <div className="facultyRooms container">
+          <h2 className="facultyRooms__heading">
+            Список всіх приміщень поверха
+          </h2>
+          <ul className="facultyRooms__list">
+            {rooms.map((room: any) => {
+              return (
+                <li className="facultyRooms__item">
+                  <Link
+                    className="facultyRooms__itemLink"
+                    to={`../room/${room.number}`}
+                  >
+                    {room.type} {room.number}
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      )}
+
       {rooms.length > 0 && (
         <>
           <div className="pieChartContainer">
