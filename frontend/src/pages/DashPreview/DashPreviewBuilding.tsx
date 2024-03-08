@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import { BuildingData, DashPreview } from "../../dashPreview"
 import { NavLink } from "react-router-dom"
 
+const API_URL = process.env.REACT_APP_API_URL
+
 export default function DashPreviewBuilding({ name, endpoint }: DashPreview) {
   const [building, setBuilding]: any = useState(null)
 
@@ -49,12 +51,12 @@ export default function DashPreviewBuilding({ name, endpoint }: DashPreview) {
             <div className="dash-board__value">{building.description}</div>
           </li>
         )}
-        {building?.svg && (
+        {building?.svg != "undefined" && (
           <li className="dash-board__item">
             <h3 className="dash-board__label">Зображення:</h3>
             <div className="dash-board__value">
               <object
-                data={`/svg/${building?.svg}`}
+                data={API_URL + "/svg/building/" + building?.svg}
                 type="image/svg+xml"
                 aria-label="Building svg"
               ></object>
