@@ -16,43 +16,46 @@ export default function DashPreviewBuilding({ name, endpoint }: DashPreview) {
   }, [])
 
   return (
-    <ul className="dash-board__list">
-      <li className="dash-board__item">
-        <h3 className="dash-board__label">Назва:</h3>
-        <div className="dash-board__value">{building?.name}</div>
-      </li>
-      {building?.floors && building?.floors.length > 0 && (
+    <>
+      <NavLink to={"./edit"}>Редагувати</NavLink>
+      <ul className="dash-board__list">
         <li className="dash-board__item">
-          <h3 className="dash-board__label">Поверхи:</h3>
-          <div className="dash-board__value">
-            {building.floors.map((floor) => {
-              return (
-                <p>
-                  <NavLink to={`/floor-list/${floor}`}>{floor}</NavLink>
-                </p>
-              )
-            })}
-          </div>
+          <h3 className="dash-board__label">Назва:</h3>
+          <div className="dash-board__value">{building?.name}</div>
         </li>
-      )}
-      {building?.address && (
-        <li className="dash-board__item">
-          <h3 className="dash-board__label">Адреса:</h3>
-          <div className="dash-board__value">{building.address}</div>
-        </li>
-      )}
-      {building?.svg && (
-        <li className="dash-board__item">
-          <h3 className="dash-board__label">Зображення:</h3>
-          <div className="dash-board__value">
-            <object
-              data={`/svg/${building?.svg}`}
-              type="image/svg+xml"
-              aria-label="Building svg"
-            ></object>
-          </div>
-        </li>
-      )}
-    </ul>
+        {building?.floors && building?.floors.length > 0 && (
+          <li className="dash-board__item">
+            <h3 className="dash-board__label">Поверхи:</h3>
+            <div className="dash-board__value">
+              {building.floors.map((floor) => {
+                return (
+                  <p>
+                    <NavLink to={`/floor-list/${floor}`}>{floor}</NavLink>
+                  </p>
+                )
+              })}
+            </div>
+          </li>
+        )}
+        {building?.address && (
+          <li className="dash-board__item">
+            <h3 className="dash-board__label">Адреса:</h3>
+            <div className="dash-board__value">{building.address}</div>
+          </li>
+        )}
+        {building?.svg && (
+          <li className="dash-board__item">
+            <h3 className="dash-board__label">Зображення:</h3>
+            <div className="dash-board__value">
+              <object
+                data={`/svg/${building?.svg}`}
+                type="image/svg+xml"
+                aria-label="Building svg"
+              ></object>
+            </div>
+          </li>
+        )}
+      </ul>
+    </>
   )
 }

@@ -2,6 +2,7 @@ const express = require("express")
 
 const multer = require("multer")
 const path = require("path")
+const fs = require("fs")
 
 const Building = require("../../models/building")
 const Floor = require("../../models/floor")
@@ -151,5 +152,61 @@ router.delete("/:name", requireAuth, getBuilding, async (req, res) => {
     res.status(500).json({ message: err.message })
   }
 })
+
+router.patch(
+  "/:name",
+  requireAuth,
+  upload.fields([
+    {
+      name: "svg",
+      maxCount: 1,
+    },
+    {
+      name: "background",
+      maxCount: 1,
+    },
+  ]),
+  getBuilding,
+  async (req, res) => {
+    if (res.building.svg) {
+      const address = path.resolve("./static/img/building/" + res.building.svg)
+      if (fs.existsSync(address)) {
+        fs.unlinkSync(address)
+      }
+    }
+
+    if (res.building.background) {
+      const address = path.resolve(
+        "./static/img/building/" + res.building.background
+      )
+      if (fs.existsSync(address)) {
+        fs.unlinkSync(address)
+      }
+    }
+
+    if (req.body.svg != null) {
+      res.building.svg = req.body.svg
+    }
+
+    if (req.body.background != null) {
+      res.building.background = req.body.background
+    }
+
+    if (req.body.address != null) {
+      res.building.address = req.body.address
+    }
+
+    if (req.body.description != null) {
+      res.building.description = req.body.description
+    }
+
+    try {
+      const updatedBuilding = await res.building.save()
+      res.json(updatedBuilding)
+    } catch (err) {
+      res.status(400).json({ message: err.message })
+    }
+  }
+)
 
 module.exports = router
