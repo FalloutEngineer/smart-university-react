@@ -36,6 +36,7 @@ import EditDamagePost from "./pages/EditDamagePost"
 import ScrollToTop from "./components/ScrollToTop"
 import DashEditBuilding from "./pages/DashPreview/DashEditBuilding"
 import DashEditFloor from "./pages/DashPreview/DashEditFloor"
+import UsersList from "./pages/UsersList"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -247,6 +248,10 @@ function App() {
           <Route
             path="/createDamagePost"
             element={user ? <CreateDamagePost /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/users"
+            element={user ? <UsersList /> : <Navigate to="/login" />}
           />
           <Route path="*" element={<ErrorPage />} />
         </Routes>

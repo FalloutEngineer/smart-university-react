@@ -61,6 +61,11 @@ export default function DashSidebar({ page }: { page?: string }) {
             Допомога
           </NavLink>
         </li>
+        <li className="dash-sidebar__item">
+          <NavLink to="/users" className={"dash-sidebar__link "}>
+            Користувачі
+          </NavLink>
+        </li>
       </ul>
     </div>
   )
