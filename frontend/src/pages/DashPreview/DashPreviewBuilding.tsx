@@ -51,14 +51,26 @@ export default function DashPreviewBuilding({ name, endpoint }: DashPreview) {
             <div className="dash-board__value">{building.description}</div>
           </li>
         )}
-        {building?.svg != "undefined" && (
+        {building?.svg && building?.svg !== "undefined" && (
           <li className="dash-board__item">
-            <h3 className="dash-board__label">Зображення:</h3>
+            <h3 className="dash-board__label">SVG:</h3>
             <div className="dash-board__value">
               <object
                 data={API_URL + "/svg/building/" + building?.svg}
                 type="image/svg+xml"
                 aria-label="Building svg"
+              ></object>
+            </div>
+          </li>
+        )}
+        {building?.background && building?.background !== "undefined" && (
+          <li className="dash-board__item">
+            <h3 className="dash-board__label">Зображення:</h3>
+            <div className="dash-board__value">
+              <object
+                data={API_URL + "/img/building/" + building?.background}
+                type="image/svg+xml"
+                aria-label="Building image"
               ></object>
             </div>
           </li>
