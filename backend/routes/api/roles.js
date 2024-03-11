@@ -15,27 +15,27 @@ router.get("/", requireAuth, async (req, res) => {
 })
 
 //get one
-// router.get("/:username", requireAuth, getUser, (req, res) => {
-//   res.json(res.user)
-// })
+router.get("/:name", requireAuth, getRole, (req, res) => {
+  res.json(res.role)
+})
 
-// async function getUser(req, res, next) {
-//   let user
+async function getRole(req, res, next) {
+  let role
 
-//   try {
-//     user = await User.findOne({
-//       username: req.params.username,
-//     })
-//     if (user == null) {
-//       return res.status(404).json({ message: "Can't find user" })
-//     }
-//   } catch (err) {
-//     return res.status(500).json({ message: err.message })
-//   }
+  try {
+    role = await Role.findOne({
+      name: req.params.name,
+    })
+    if (role == null) {
+      return res.status(404).json({ message: "Can't find role" })
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message })
+  }
 
-//   res.user = user
-//   next()
-// }
+  res.role = role
+  next()
+}
 
 // //create one
 // //TODO: REQUIRE SUPERADMIN RIGHTS
