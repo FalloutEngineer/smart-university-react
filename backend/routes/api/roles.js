@@ -86,15 +86,15 @@ router.post("/createRole", requireAuth, async (req, res) => {
 })
 
 // // delete one
-// // TODO: Якщо користувач має права видаляти
-// router.delete("/:username", requireAuth, getUser, async (req, res) => {
-//   try {
-//     await res.user.remove()
-//     res.json({ message: "Користувача видалено" })
-//   } catch (err) {
-//     res.status(500).json({ message: err.message })
-//   }
-// })
+// TODO: Якщо користувач має права видаляти
+router.delete("/:name", requireAuth, getRole, async (req, res) => {
+  try {
+    await res.role.remove()
+    res.json({ message: "Роль видалено" })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
 
 // //edit one
 // //TODO: REQUIRE SUPERADMIN RIGHTS
