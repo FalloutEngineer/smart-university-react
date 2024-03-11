@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 
 const Role = new mongoose.Schema({
+  name: { type: String, unique: true, required: true },
   isSuperAdmin: { type: Boolean, unique: false, required: true },
   isAdmin: { type: Boolean, unique: true, required: true },
   isEditor: { type: Boolean, unique: false, required: true },
