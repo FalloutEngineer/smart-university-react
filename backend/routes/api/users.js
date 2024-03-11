@@ -62,4 +62,22 @@ async function getUser(req, res, next) {
   next()
 }
 
+//create one
+//TODO: REQUIRE SUPERADMIN RIGHTS
+router.post("/createUser", requireAuth, async (req, res) => {
+  try {
+    const { login, name, role, password } = req.body
+    const candidate = await User.findOne({ login })
+    if (candidate) {
+      return res.status(400).json({ message: "Такий користувач вже існує" })
+    }
+    const hashedPassword = bcrypt.hashSync(password, 7)
+    const user = new User({ login, name, role, password: hashedPassword })
+    await user.save()
+    return res.json({ message: `Користувача ${login} створено` })
+  } catch (err) {
+    res.status(400).json({ message: err.message })
+  }
+})
+
 module.exports = router
