@@ -6,13 +6,6 @@ const jwt = require("jsonwebtoken")
 const User = require("../../models/user.js")
 const { secret } = require("../../config.js")
 
-const generateAccessToken = (id) => {
-  const payload = {
-    id,
-  }
-  return jwt.sign(payload, secret, { expiresIn: "24h" })
-}
-
 router.post("/register", async (req, res) => {
   try {
     const { login, password } = req.body
@@ -41,7 +34,7 @@ router.get("/", requireAuth, async (req, res) => {
 
 //get one
 router.get("/:username", requireAuth, getUser, (req, res) => {
-  res.json(res.building)
+  res.json(res.user)
 })
 
 async function getUser(req, res, next) {
@@ -58,7 +51,7 @@ async function getUser(req, res, next) {
     return res.status(500).json({ message: err.message })
   }
 
-  res.building = building
+  res.user = user
   next()
 }
 
@@ -77,6 +70,17 @@ router.post("/createUser", requireAuth, async (req, res) => {
     return res.json({ message: `Користувача ${login} створено` })
   } catch (err) {
     res.status(400).json({ message: err.message })
+  }
+})
+
+// delete one
+// TODO: Якщо користувач має права видаляти
+router.delete("/:name", requireAuth, getUser, async (req, res) => {
+  try {
+    await res.user.remove()
+    res.json({ message: "Користувача видалено" })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
   }
 })
 
