@@ -31,7 +31,7 @@ export default function RolesList() {
   return (
     <DashLayout>
       <DashListHeader options={listHeaderOptions} filterCallback={filter} />
-      <NavLink to={"../createUser"}>Створити роль</NavLink>
+      <NavLink to={"../createRole"}>Створити роль</NavLink>
       <div className="dash-list__container">
         <ul className="dash-list">
           {roles.map((role: any) => {
