@@ -29,4 +29,37 @@ router.post("/register", async (req, res) => {
   }
 })
 
+//get all
+router.get("/", requireAuth, async (req, res) => {
+  try {
+    const users = await User.find()
+    res.json(users)
+  } catch (err) {
+    res.status().json({ message: err.message })
+  }
+})
+
+//get one
+router.get("/:username", requireAuth, getUser, (req, res) => {
+  res.json(res.building)
+})
+
+async function getUser(req, res, next) {
+  let user
+
+  try {
+    user = await User.findOne({
+      username: req.params.username,
+    })
+    if (user == null) {
+      return res.status(404).json({ message: "Can't find user" })
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message })
+  }
+
+  res.building = building
+  next()
+}
+
 module.exports = router
