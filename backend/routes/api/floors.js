@@ -151,11 +151,6 @@ router.patch("/:number", requireAuth, getFloor, async (req, res) => {
     res.floor.floorColor = req.body.floorColor
   }
 
-  console.log("*************************************")
-  console.log("*************************************")
-  console.log("*************************************")
-  console.log(req.body.floorColor)
-
   try {
     const updatedFloor = await res.floor.save()
     res.json(updatedFloor)

@@ -75,12 +75,31 @@ router.post("/createUser", requireAuth, async (req, res) => {
 
 // delete one
 // TODO: Якщо користувач має права видаляти
-router.delete("/:name", requireAuth, getUser, async (req, res) => {
+router.delete("/:username", requireAuth, getUser, async (req, res) => {
   try {
     await res.user.remove()
     res.json({ message: "Користувача видалено" })
   } catch (err) {
     res.status(500).json({ message: err.message })
+  }
+})
+
+//edit one
+//TODO: REQUIRE SUPERADMIN RIGHTS
+router.patch("/:username", requireAuth, getFloor, async (req, res) => {
+  if (req.body.name != null) {
+    res.user.name = req.body.name
+  }
+
+  if (req.body.role != null) {
+    res.user.role = req.body.role
+  }
+
+  try {
+    const updatedUser = await res.user.save()
+    res.json(updatedUser)
+  } catch (err) {
+    res.status(400).json({ message: err.message })
   }
 })
 
