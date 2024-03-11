@@ -68,7 +68,7 @@ export default function DashPreviewBuilding({ name, endpoint }: DashPreview) {
             <h3 className="dash-board__label">Зображення:</h3>
             <div className="dash-board__value">
               <object
-                data={API_URL + "/img/building/" + building?.background}
+                data={API_URL + "/images/building/" + building?.background}
                 type="image/svg+xml"
                 aria-label="Building image"
               ></object>
