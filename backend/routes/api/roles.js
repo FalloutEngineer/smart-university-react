@@ -37,16 +37,6 @@ async function getRole(req, res, next) {
   next()
 }
 
-//   name: { type: String, unique: true, required: true },
-//   isSuperAdmin: { type: Boolean, unique: false, required: true },
-//   isAdmin: { type: Boolean, unique: true, required: true },
-//   isEditor: { type: Boolean, unique: false, required: true },
-//   couldEditDamage: { type: Boolean, unique: false, required: true },
-//   buildings: [{ type: ObjectId, ref: "Building" }],
-//   floors: [[{ type: ObjectId, ref: "Floor" }]],
-//   faculties: [{ type: ObjectId, ref: "Faculty" }],
-//   rooms: [{ type: ObjectId, ref: "Room" }],
-
 //create one
 //TODO: REQUIRE SUPERADMIN RIGHTS
 router.post("/createRole", requireAuth, async (req, res) => {
@@ -56,7 +46,7 @@ router.post("/createRole", requireAuth, async (req, res) => {
       isSuperAdmin,
       isAdmin,
       isEditor,
-      couldEditDamage,
+      canEditDamage,
       buildings,
       floors,
       faculties,
@@ -72,7 +62,7 @@ router.post("/createRole", requireAuth, async (req, res) => {
       isSuperAdmin,
       isAdmin,
       isEditor,
-      couldEditDamage,
+      canEditDamage,
       buildings,
       floors,
       faculties,
@@ -96,23 +86,61 @@ router.delete("/:name", requireAuth, getRole, async (req, res) => {
   }
 })
 
-// //edit one
-// //TODO: REQUIRE SUPERADMIN RIGHTS
-// router.patch("/:username", requireAuth, getFloor, async (req, res) => {
-//   if (req.body.name != null) {
-//     res.user.name = req.body.name
-//   }
+//   name: { type: String, unique: true, required: true },
+//   isSuperAdmin: { type: Boolean, unique: false, required: true },
+//   isAdmin: { type: Boolean, unique: true, required: true },
+//   isEditor: { type: Boolean, unique: false, required: true },
+//   canEditDamage: { type: Boolean, unique: false, required: true },
+//   buildings: [{ type: ObjectId, ref: "Building" }],
+//   floors: [[{ type: ObjectId, ref: "Floor" }]],
+//   faculties: [{ type: ObjectId, ref: "Faculty" }],
+//   rooms: [{ type: ObjectId, ref: "Room" }],
 
-//   if (req.body.role != null) {
-//     res.user.role = req.body.role
-//   }
+//edit one
+//TODO: REQUIRE SUPERADMIN RIGHTS
+router.patch("/:name", requireAuth, getRole, async (req, res) => {
+  if (req.body.name != null) {
+    res.role.name = req.body.name
+  }
 
-//   try {
-//     const updatedUser = await res.user.save()
-//     res.json(updatedUser)
-//   } catch (err) {
-//     res.status(400).json({ message: err.message })
-//   }
-// })
+  if (req.body.isSuperAdmin != null) {
+    res.role.isSuperAdmin = req.body.isSuperAdmin
+  }
+
+  if (req.body.isAdmin != null) {
+    res.role.isAdmin = req.body.isAdmin
+  }
+
+  if (req.body.isEditor != null) {
+    res.role.isEditor = req.body.isEditor
+  }
+
+  if (req.body.canEditDamage != null) {
+    res.role.canEditDamage = req.body.canEditDamage
+  }
+
+  if (req.body.buildings != null) {
+    res.role.buildings = req.body.buildings
+  }
+
+  if (req.body.floors != null) {
+    res.role.floors = req.body.floors
+  }
+
+  if (req.body.faculties != null) {
+    res.role.faculties = req.body.faculties
+  }
+
+  if (req.body.rooms != null) {
+    res.role.rooms = req.body.rooms
+  }
+
+  try {
+    const updatedRole = await res.role.save()
+    res.json(updatedRole)
+  } catch (err) {
+    res.status(400).json({ message: err.message })
+  }
+})
 
 module.exports = router
