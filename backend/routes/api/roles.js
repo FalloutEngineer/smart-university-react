@@ -37,23 +37,53 @@ async function getRole(req, res, next) {
   next()
 }
 
-// //create one
-// //TODO: REQUIRE SUPERADMIN RIGHTS
-// router.post("/createUser", requireAuth, async (req, res) => {
-//   try {
-//     const { login, name, role, password } = req.body
-//     const candidate = await User.findOne({ login })
-//     if (candidate) {
-//       return res.status(400).json({ message: "Такий користувач вже існує" })
-//     }
-//     const hashedPassword = bcrypt.hashSync(password, 7)
-//     const user = new User({ login, name, role, password: hashedPassword })
-//     await user.save()
-//     return res.json({ message: `Користувача ${login} створено` })
-//   } catch (err) {
-//     res.status(400).json({ message: err.message })
-//   }
-// })
+//   name: { type: String, unique: true, required: true },
+//   isSuperAdmin: { type: Boolean, unique: false, required: true },
+//   isAdmin: { type: Boolean, unique: true, required: true },
+//   isEditor: { type: Boolean, unique: false, required: true },
+//   couldEditDamage: { type: Boolean, unique: false, required: true },
+//   buildings: [{ type: ObjectId, ref: "Building" }],
+//   floors: [[{ type: ObjectId, ref: "Floor" }]],
+//   faculties: [{ type: ObjectId, ref: "Faculty" }],
+//   rooms: [{ type: ObjectId, ref: "Room" }],
+
+//create one
+//TODO: REQUIRE SUPERADMIN RIGHTS
+router.post("/createRole", requireAuth, async (req, res) => {
+  try {
+    const {
+      name,
+      isSuperAdmin,
+      isAdmin,
+      isEditor,
+      couldEditDamage,
+      buildings,
+      floors,
+      faculties,
+      rooms,
+    } = req.body
+
+    const candidate = await Role.findOne({ name })
+    if (candidate) {
+      return res.status(400).json({ message: "Така роль вже існує" })
+    }
+    const role = new Role({
+      name,
+      isSuperAdmin,
+      isAdmin,
+      isEditor,
+      couldEditDamage,
+      buildings,
+      floors,
+      faculties,
+      rooms,
+    })
+    await role.save()
+    return res.json({ message: `Роль ${name} створено` })
+  } catch (err) {
+    res.status(400).json({ message: err.message })
+  }
+})
 
 // // delete one
 // // TODO: Якщо користувач має права видаляти
