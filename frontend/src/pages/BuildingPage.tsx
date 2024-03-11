@@ -32,7 +32,7 @@ export default function BuildingPage() {
         setBuilding(json)
         setBuildingSvgURL(API_URL + "/svg/building/" + json.svg)
         if (json.background) {
-          setBuildingBGURL(API_URL + "/img/building/" + json.background)
+          setBuildingBGURL(API_URL + "/images/building/" + json.background)
         }
       } else {
         //TODO: toast error?
@@ -76,7 +76,7 @@ export default function BuildingPage() {
   return (
     <Layout>
       {buildingBGURL === "" ? (
-        <ParallaxWindow imageUrl={`url(/img/1.jpg)`}>
+        <ParallaxWindow imageUrl={`url(/images/1.jpg)`}>
           <div className="parallax-content container buildingPage-content">
             {/* style="text-align: right;" */}
             <h1 className="carousel-title">{building && building.name}</h1>

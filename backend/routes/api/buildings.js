@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
       cb(null, "./static/svg/building")
     }
     if (file.fieldname === "background") {
-      cb(null, "./static/img/building")
+      cb(null, "./static/images/building")
     }
   },
   filename: (req, file, cb) => {
@@ -131,7 +131,9 @@ router.post(
 router.delete("/:name", requireAuth, getBuilding, async (req, res) => {
   try {
     if (res.building.svg) {
-      const address = path.resolve("./static/img/building/" + res.building.svg)
+      const address = path.resolve(
+        "./static/images/building/" + res.building.svg
+      )
       if (fs.existsSync(address)) {
         fs.unlinkSync(address)
       }
@@ -139,7 +141,7 @@ router.delete("/:name", requireAuth, getBuilding, async (req, res) => {
 
     if (res.building.background) {
       const address = path.resolve(
-        "./static/img/building/" + res.building.background
+        "./static/images/building/" + res.building.background
       )
       if (fs.existsSync(address)) {
         fs.unlinkSync(address)
@@ -169,7 +171,9 @@ router.patch(
   getBuilding,
   async (req, res) => {
     if (res.building.svg) {
-      const address = path.resolve("./static/img/building/" + res.building.svg)
+      const address = path.resolve(
+        "./static/images/building/" + res.building.svg
+      )
       if (fs.existsSync(address)) {
         fs.unlinkSync(address)
       }
@@ -177,7 +181,7 @@ router.patch(
 
     if (res.building.background) {
       const address = path.resolve(
-        "./static/img/building/" + res.building.background
+        "./static/images/building/" + res.building.background
       )
       if (fs.existsSync(address)) {
         fs.unlinkSync(address)
