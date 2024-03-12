@@ -1,20 +1,49 @@
 import React from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate, useParams } from "react-router-dom"
+import { useAuthContext } from "../hooks/useAuthContext"
+
+const API_URL = process.env.REACT_APP_API_URL
+
+const rolesAPI = API_URL + "/api/roles/"
 
 export default function RolePage() {
-  // name: { type: String, unique: true, required: true },
-  // isSuperAdmin: { type: Boolean, unique: false, required: true },
-  // isAdmin: { type: Boolean, unique: true, required: true },
-  // isEditor: { type: Boolean, unique: false, required: true },
-  // canEditDamage: { type: Boolean, unique: false, required: true },
-  // buildings: [{ type: ObjectId, ref: "Building" }],
-  // floors: [[{ type: ObjectId, ref: "Floor" }]],
-  // faculties: [{ type: ObjectId, ref: "Faculty" }],
-  // rooms: [{ type: ObjectId, ref: "Room" }],
+  const { user } = useAuthContext()
+  const navigate = useNavigate()
+
+  const params = useParams()
+
+  async function tryDeleteRole() {
+    try {
+      const response = await fetch(rolesAPI + "/" + params.name, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user}`,
+        },
+      })
+      const data = await response.json()
+
+      alert(data.message)
+      navigate("/roles/")
+    } catch (e) {
+      alert(e)
+    }
+  }
+
+  function onDeleteClick() {
+    tryDeleteRole()
+  }
 
   return (
     <DashLayout>
+      <button
+        onClick={() => {
+          onDeleteClick()
+        }}
+      >
+        Видалити
+      </button>
       <NavLink className="dash-board__edit" to={`./edit`}>
         Редагувати
       </NavLink>

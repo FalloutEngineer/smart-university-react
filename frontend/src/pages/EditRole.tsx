@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
 
 import styles from "./EditPages/editPage.module.css"
@@ -25,32 +25,36 @@ export default function EditRole() {
       isAdmin: role?.isAdmin,
       isEditor: role?.isEditor,
       canEditDamage: role?.canEditDamage,
-      buildings: role?.buildings,
-      floors: role?.floors,
-      faculties: role?.faculties,
-      rooms: role?.rooms,
+      buildings: role?.buildings ? role?.buildings : [],
+      floors: role?.floors ? role?.floors : [],
+      faculties: role?.faculties ? role?.faculties : [],
+      rooms: role?.rooms ? role?.rooms : [],
     },
   })
 
-  async function tryFetchRoles(uri: string) {
-    const response = await fetch(uri + params.name)
+  async function tryFetchRoles() {
+    const response = await fetch(rolesAPI + params?.name, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${user}`,
+      },
+    })
     const data = await response.json()
 
-    setRole(data)
+    if (data.message) {
+      console.log(data)
+    } else {
+      setRole(data)
+    }
     reset()
   }
 
-  // useEffect(() => {
-  //   if (params.type === "faculty") {
-  //     tryFetchCard(facultyCardsAPI)
-  //   }
-  //   if (params.type === "pulpit") {
-  //     tryFetchCard(pulpitCardAPI)
-  //   }
-  // }, [])
+  useEffect(() => {
+    tryFetchRoles()
+  }, [])
 
   async function tryEditRole(data: any) {
-    fetch(rolesAPI + params.name, {
+    fetch(rolesAPI + params?.name, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -81,7 +85,6 @@ export default function EditRole() {
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <ul>
           <li className="dash-board__item">
-            {/* ДРОПДАУН АБО ПОСИЛАННЯ НА ФАЙЛ АБО ДОКИ */}
             <label htmlFor="icon" className="dash-board__label">
               Назва
             </label>
