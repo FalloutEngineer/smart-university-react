@@ -8,28 +8,28 @@ import { useForm } from "react-hook-form"
 
 const API_URL = process.env.REACT_APP_API_URL
 
-const rolesAPI = API_URL + "/api/roles/"
+const newUsersAPI = API_URL + "/api/newUsers/"
 
-export default function EditRole() {
+export default function EditUser() {
   const { user } = useAuthContext()
   const navigate = useNavigate()
 
   const params = useParams()
 
-  const [role, setRole]: any = useState(null)
+  const [newUser, setUser]: any = useState(null)
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
-      name: role?.name,
-      login: role?.login,
-      role: role?.role,
-      password: role?.password,
-      passwordRepeat: role?.password,
+      name: newUser?.name,
+      login: newUser?.login,
+      newUser: newUser?.newUser,
+      password: newUser?.password,
+      passwordRepeat: newUser?.password,
     },
   })
 
-  async function tryFetchRoles() {
-    const response = await fetch(rolesAPI + params?.name, {
+  async function tryFetchUsers() {
+    const response = await fetch(newUsersAPI + params?.name, {
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${user}`,
@@ -40,17 +40,17 @@ export default function EditRole() {
     if (data.message) {
       console.log(data)
     } else {
-      setRole(data)
+      setUser(data)
     }
     reset()
   }
 
   useEffect(() => {
-    tryFetchRoles()
+    tryFetchUsers()
   }, [])
 
-  async function tryEditRole(data: any) {
-    fetch(rolesAPI + params?.name, {
+  async function tryEditUser(data: any) {
+    fetch(newUsersAPI + params?.name, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -67,13 +67,13 @@ export default function EditRole() {
         alert(answer.message)
       } else {
         alert("Об'єкт успішно змінено")
-        navigate("/roles/")
+        navigate("/newUsers/")
       }
     })
   }
 
   function onSubmit(data: any) {
-    tryEditRole(data)
+    tryEditUser(data)
   }
 
   return (
@@ -88,7 +88,7 @@ export default function EditRole() {
               id="login"
               className={styles.textArea}
               {...register("login")}
-              defaultValue={role?.login}
+              defaultValue={newUser?.login}
             />
           </li>
           <li className="dash-board__item">
@@ -99,14 +99,18 @@ export default function EditRole() {
               id="name"
               className={styles.textArea}
               {...register("name")}
-              defaultValue={role?.name}
+              defaultValue={newUser?.name}
             />
           </li>
           <li className="dash-board__item">
             <label htmlFor="rooms" className="dash-board__label">
               Роль
             </label>
-            <select id="role" defaultValue={role?.role} {...register("role")}>
+            <select
+              id="newUser"
+              defaultValue={newUser?.newUser}
+              {...register("newUser")}
+            >
               <option selected value="no">
                 Немає
               </option>
@@ -125,7 +129,7 @@ export default function EditRole() {
               type="password"
               className={styles.textArea}
               {...register("password")}
-              defaultValue={role?.password}
+              defaultValue={newUser?.password}
             />
           </li>
           <li className="dash-board__item">
@@ -137,7 +141,7 @@ export default function EditRole() {
               type="password"
               className={styles.textArea}
               {...register("passwordRepeat")}
-              defaultValue={role?.passwordRepeat}
+              defaultValue={newUser?.passwordRepeat}
             />
           </li>
         </ul>
