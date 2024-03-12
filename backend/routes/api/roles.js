@@ -1,6 +1,7 @@
 const Router = require("express")
 const router = new Router()
 const bcrypt = require("bcryptjs")
+const requireAuth = require("../../middleware/requireAuth.js")
 
 const Role = require("../../models/role.js")
 
