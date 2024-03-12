@@ -38,6 +38,8 @@ import DashEditBuilding from "./pages/DashPreview/DashEditBuilding"
 import DashEditFloor from "./pages/DashPreview/DashEditFloor"
 import UsersList from "./pages/UsersList"
 import RolesList from "./pages/RolesList"
+import RolePage from "./pages/RolePage"
+import EditRole from "./pages/EditRole"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -257,6 +259,14 @@ function App() {
           <Route
             path="/roles"
             element={user ? <RolesList /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/roles/:name"
+            element={user ? <RolePage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/roles/:name/edit"
+            element={user ? <EditRole /> : <Navigate to="/login" />}
           />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
