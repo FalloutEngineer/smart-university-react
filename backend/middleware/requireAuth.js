@@ -6,26 +6,22 @@ const Role = require("../models/role")
 
 const requireAuth = (permissions) => {
   return async (req, res, next) => {
-    const { authorization } = req.headers
-
-    console.log(req.headers)
+    let { authorization } = req.headers
 
     if (!authorization) {
       return res.status(401).json({ error: "Authorization token required" })
     }
 
-    const token = authorization.split(" ")[1]
+    let token = authorization.split(" ")[1]
 
     try {
-      const { id } = jwt.verify(token, secret)
-      req.user = await User.findOne({ id })
+      let { id } = jwt.verify(token, secret)
+      req.user = await User.findOne({ _id: id })
         .select("login")
         .select("name")
         .select("role")
 
-      const role = await findRole(req.user.role)
-
-      console.log("user role: ", role)
+      req.role = await findRole(req.user.role)
       next()
     } catch (e) {
       console.log(e)
@@ -35,7 +31,7 @@ const requireAuth = (permissions) => {
 }
 
 async function findRole(id) {
-  const role = await Role.findOne({ id })
+  const role = await Role.findOne({ _id: id })
   return role
 }
 

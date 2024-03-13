@@ -4,20 +4,29 @@ const bcrypt = require("bcryptjs")
 const requireAuth = require("../../middleware/requireAuth.js")
 
 const Role = require("../../models/role.js")
+const { isSuperAdmin } = require("../../util/permissionsCheckers.js")
 
 //get all
 router.get("/", requireAuth(), async (req, res) => {
   try {
-    const roles = await Role.find()
-    res.json(roles)
+    if (isSuperAdmin(req.role)) {
+      const roles = await Role.find()
+      res.json(roles)
+    } else {
+      res.status().json({ message: "Access restricted" })
+    }
   } catch (err) {
-    res.status().json({ message: err.message })
+    res.status(400).json({ message: "Access restricted" })
   }
 })
 
 //get one
 router.get("/:name", requireAuth(), getRole, (req, res) => {
-  res.json(res.role)
+  if (isSuperAdmin(req.role)) {
+    res.json(res.role)
+  } else {
+    res.status(400).json({ message: "Access restricted" })
+  }
 })
 
 async function getRole(req, res, next) {
@@ -42,36 +51,40 @@ async function getRole(req, res, next) {
 //TODO: REQUIRE SUPERADMIN RIGHTS
 router.post("/", requireAuth(), async (req, res) => {
   try {
-    const {
-      name,
-      isSuperAdmin,
-      isAdmin,
-      isEditor,
-      canEditDamage,
-      buildings,
-      floors,
-      faculties,
-      rooms,
-    } = req.body
+    console.log(req.role)
+    if (isSuperAdmin(req.role)) {
+      const {
+        name,
+        isSuperAdmin,
+        isAdmin,
+        isEditor,
+        canEditDamage,
+        buildings,
+        floors,
+        faculties,
+        rooms,
+      } = req.body
 
-    const candidate = await Role.findOne({ name })
-    if (candidate) {
-      return res.status(400).json({ message: "Така роль вже існує" })
+      const candidate = await Role.findOne({ name })
+      if (candidate) {
+        return res.status(400).json({ message: "Така роль вже існує" })
+      }
+      const role = new Role({
+        name,
+        isSuperAdmin,
+        isAdmin,
+        isEditor,
+        canEditDamage,
+        buildings,
+        floors,
+        faculties,
+        rooms,
+      })
+      await role.save()
+      return res.json({ message: `Роль ${name} створено` })
+    } else {
+      res.status(400).json({ message: "Access restricted" })
     }
-    const role = new Role({
-      login,
-      name,
-      isSuperAdmin,
-      isAdmin,
-      isEditor,
-      canEditDamage,
-      buildings,
-      floors,
-      faculties,
-      rooms,
-    })
-    await role.save()
-    return res.json({ message: `Роль ${name} створено` })
   } catch (err) {
     res.status(400).json({ message: err.message })
   }
@@ -81,8 +94,12 @@ router.post("/", requireAuth(), async (req, res) => {
 // TODO: Якщо користувач має права видаляти
 router.delete("/:name", requireAuth(), getRole, async (req, res) => {
   try {
-    await res.role.remove()
-    res.json({ message: "Роль видалено" })
+    if (isSuperAdmin(req.role)) {
+      await res.role.remove()
+      res.json({ message: "Роль видалено" })
+    } else {
+      res.status(400).json({ message: "Access restricted" })
+    }
   } catch (err) {
     res.status(500).json({ message: err.message })
   }
@@ -128,8 +145,12 @@ router.patch("/:name", requireAuth(), getRole, async (req, res) => {
   }
 
   try {
-    const updatedRole = await res.role.save()
-    res.json(updatedRole)
+    if (isSuperAdmin(req.role)) {
+      const updatedRole = await res.role.save()
+      res.json(updatedRole)
+    } else {
+      res.status(400).json({ message: "Access restricted" })
+    }
   } catch (err) {
     res.status(400).json({ message: err.message })
   }

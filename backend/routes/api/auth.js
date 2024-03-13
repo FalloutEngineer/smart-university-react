@@ -6,11 +6,12 @@ const jwt = require("jsonwebtoken")
 const User = require("../../models/user.js")
 const { secret } = require("../../config.js")
 
-const generateAccessToken = (id) => {
-  const payload = {
+let generateAccessToken = (id) => {
+  let payload = {
     id,
   }
-  return jwt.sign(payload, secret, { expiresIn: "24h" })
+  let sign = jwt.sign(payload, secret, { expiresIn: "24h" })
+  return sign
 }
 
 router.post("/register", async (req, res) => {
@@ -31,8 +32,9 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const { login, password } = req.body
-    const user = await User.findOne({ login })
+    let { login, password } = req.body
+    let user = await User.findOne({ login })
+    console.log(user)
     if (!user) {
       return res.status(400).json({ message: "Користувача не знайдено" })
     }
@@ -40,7 +42,7 @@ router.post("/login", async (req, res) => {
     if (!validPassword) {
       return res.status(400).json({ message: "Не вірний пароль" })
     }
-    const token = generateAccessToken(user._id)
+    let token = generateAccessToken(user._id)
     return res.json({ token })
   } catch (err) {
     res.status(400).json({ message: err.message })

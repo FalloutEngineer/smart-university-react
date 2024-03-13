@@ -5,7 +5,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId
 const Role = new mongoose.Schema({
   name: { type: String, unique: true, required: true },
   isSuperAdmin: { type: Boolean, unique: false, required: true },
-  isAdmin: { type: Boolean, unique: true, required: true },
+  isAdmin: { type: Boolean, unique: false, required: true },
   isEditor: { type: Boolean, unique: false, required: true },
   canEditDamage: { type: Boolean, unique: false, required: true },
   buildings: [{ type: ObjectId, ref: "Building" }],
