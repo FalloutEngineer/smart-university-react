@@ -4,11 +4,18 @@ const bcrypt = require("bcryptjs")
 
 const User = require("../../models/user.js")
 
+const requireAuth = require("../../middleware/requireAuth.js")
+
 //get all
 router.get("/", requireAuth, async (req, res) => {
   try {
     const users = await User.find()
-    res.json(users)
+
+    let censoredUsers = users.map((user) => {
+      const { password, ...newUser } = user._doc
+      return newUser
+    })
+    res.json(censoredUsers)
   } catch (err) {
     res.status().json({ message: err.message })
   }
@@ -68,7 +75,7 @@ router.delete("/:username", requireAuth, getUser, async (req, res) => {
 
 //edit one
 //TODO: REQUIRE SUPERADMIN RIGHTS
-router.patch("/:username", requireAuth, getFloor, async (req, res) => {
+router.patch("/:username", requireAuth, getUser, async (req, res) => {
   if (req.body.name != null) {
     res.user.name = req.body.name
   }

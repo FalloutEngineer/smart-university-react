@@ -59,6 +59,7 @@ router.post("/createRole", requireAuth, async (req, res) => {
       return res.status(400).json({ message: "Така роль вже існує" })
     }
     const role = new Role({
+      login,
       name,
       isSuperAdmin,
       isAdmin,
