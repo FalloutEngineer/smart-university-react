@@ -23,7 +23,8 @@ router.get("/", requireAuth, async (req, res) => {
 
 //get one
 router.get("/:username", requireAuth, getUser, (req, res) => {
-  res.json(res.user)
+  const { password, ...censoredUser } = res.user._doc
+  res.json(censoredUser)
 })
 
 async function getUser(req, res, next) {
