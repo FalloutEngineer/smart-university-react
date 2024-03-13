@@ -6,7 +6,7 @@ const requireAuth = require("../../middleware/requireAuth.js")
 const Role = require("../../models/role.js")
 
 //get all
-router.get("/", requireAuth, async (req, res) => {
+router.get("/", requireAuth(), async (req, res) => {
   try {
     const roles = await Role.find()
     res.json(roles)
@@ -16,7 +16,7 @@ router.get("/", requireAuth, async (req, res) => {
 })
 
 //get one
-router.get("/:name", requireAuth, getRole, (req, res) => {
+router.get("/:name", requireAuth(), getRole, (req, res) => {
   res.json(res.role)
 })
 
@@ -40,7 +40,7 @@ async function getRole(req, res, next) {
 
 //create one
 //TODO: REQUIRE SUPERADMIN RIGHTS
-router.post("/", requireAuth, async (req, res) => {
+router.post("/", requireAuth(), async (req, res) => {
   try {
     const {
       name,
@@ -79,7 +79,7 @@ router.post("/", requireAuth, async (req, res) => {
 
 // // delete one
 // TODO: Якщо користувач має права видаляти
-router.delete("/:name", requireAuth, getRole, async (req, res) => {
+router.delete("/:name", requireAuth(), getRole, async (req, res) => {
   try {
     await res.role.remove()
     res.json({ message: "Роль видалено" })
@@ -90,7 +90,7 @@ router.delete("/:name", requireAuth, getRole, async (req, res) => {
 
 //edit one
 //TODO: REQUIRE SUPERADMIN RIGHTS
-router.patch("/:name", requireAuth, getRole, async (req, res) => {
+router.patch("/:name", requireAuth(), getRole, async (req, res) => {
   if (req.body.name != null) {
     res.role.name = req.body.name
   }
