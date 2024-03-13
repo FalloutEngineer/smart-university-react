@@ -40,7 +40,7 @@ async function getRole(req, res, next) {
 
 //create one
 //TODO: REQUIRE SUPERADMIN RIGHTS
-router.post("/createRole", requireAuth, async (req, res) => {
+router.post("/", requireAuth, async (req, res) => {
   try {
     const {
       name,

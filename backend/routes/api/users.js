@@ -47,7 +47,7 @@ async function getUser(req, res, next) {
 
 //create one
 //TODO: REQUIRE SUPERADMIN RIGHTS
-router.post("/createUser", requireAuth, async (req, res) => {
+router.post("/", requireAuth, async (req, res) => {
   try {
     const { login, name, role, password } = req.body
     const candidate = await User.findOne({ login })
