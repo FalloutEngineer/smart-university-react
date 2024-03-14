@@ -4,7 +4,7 @@ import { useAuthContext } from "../../hooks/useAuthContext"
 
 const API_URL = process.env.REACT_APP_API_URL
 
-const rolesAPI = API_URL + "/api/users/"
+const aboutAPI = API_URL + "/api/aboutMe/"
 
 export default function DashSidebar({ page }: { page?: string }) {
   const { user } = useAuthContext()
@@ -13,7 +13,7 @@ export default function DashSidebar({ page }: { page?: string }) {
 
   useEffect(() => {
     const fetchAbout = async () => {
-      const response = await fetch(rolesAPI + "aboutMe", {
+      const response = await fetch(aboutAPI, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

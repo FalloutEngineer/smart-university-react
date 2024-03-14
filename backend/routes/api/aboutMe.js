@@ -7,7 +7,6 @@ const Role = require("../../models/role.js")
 const requireAuth = require("../../middleware/requireAuth.js")
 
 router.get("/", requireAuth, async (req, res) => {
-  console.log(req.role)
   res.json({
     role: req.role,
   })
