@@ -11,24 +11,28 @@ const isUserEditable = require("../../util/isUserEditable.js")
 //get all
 router.get("/", requireAuth, async (req, res) => {
   try {
-    const users = await User.find()
+    if (req.role.isSuperAdmin === true) {
+      const users = await User.find()
 
-    let censoredUsers = users.map(async (user) => {
-      const { password, ...newUser } = user._doc
-      const userRole = await Role.findOne({ _id: user.role })
-      const isEditable = isUserEditable(req.role, userRole)
-      return {
-        ...newUser,
-        isEditable: isEditable,
-      }
-    })
-    Promise.all(censoredUsers)
-      .then((data) => {
-        res.json(data)
+      let censoredUsers = users.map(async (user) => {
+        const { password, ...newUser } = user._doc
+        const userRole = await Role.findOne({ _id: user.role })
+        const isEditable = isUserEditable(req.role, userRole)
+        return {
+          ...newUser,
+          isEditable: isEditable,
+        }
       })
-      .catch((e) => {
-        res.status(400).json({ message: e })
-      })
+      Promise.all(censoredUsers)
+        .then((data) => {
+          res.json(data)
+        })
+        .catch((e) => {
+          res.status(400).json({ message: e })
+        })
+    } else {
+      res.status(400).json({ message: "Недостатньо прав" })
+    }
   } catch (err) {
     res.status(400).json({ message: err.message })
   }
@@ -40,10 +44,14 @@ router.get("/:username", requireAuth, getUser, async (req, res) => {
   // const isEditable = isUserEditable(req.requesterID, res.user.id)
   const userRole = await Role.findOne({ _id: res.user.role })
   const isEditable = isUserEditable(req.role, userRole)
-  res.json({
-    ...censoredUser,
-    isEditable: isEditable,
-  })
+  if (req.role.isSuperAdmin === true) {
+    res.json({
+      ...censoredUser,
+      isEditable: isEditable,
+    })
+  } else {
+    res.status(400).json({ message: "Недостатньо прав" })
+  }
 })
 
 async function getUser(req, res, next) {
@@ -68,15 +76,19 @@ async function getUser(req, res, next) {
 //TODO: REQUIRE SUPERADMIN RIGHTS
 router.post("/", requireAuth, async (req, res) => {
   try {
-    const { login, name, role, password } = req.body
-    const candidate = await User.findOne({ login })
-    if (candidate) {
-      return res.status(400).json({ message: "Такий користувач вже існує" })
+    if (req.role.isSuperAdmin === true) {
+      const { login, name, role, password } = req.body
+      const candidate = await User.findOne({ login })
+      if (candidate) {
+        return res.status(400).json({ message: "Такий користувач вже існує" })
+      }
+      const hashedPassword = bcrypt.hashSync(password, 7)
+      const user = new User({ login, name, role, password: hashedPassword })
+      await user.save()
+      return res.json({ message: `Користувача ${login} створено` })
+    } else {
+      return res.status(400).json({ message: "Недостатньо прав" })
     }
-    const hashedPassword = bcrypt.hashSync(password, 7)
-    const user = new User({ login, name, role, password: hashedPassword })
-    await user.save()
-    return res.json({ message: `Користувача ${login} створено` })
   } catch (err) {
     res.status(400).json({ message: err.message })
   }
@@ -92,7 +104,7 @@ router.delete("/:username", requireAuth, getUser, async (req, res) => {
       await res.user.remove()
       res.json({ message: "Користувача видалено" })
     } else {
-      res.json({ message: "Недостатньо прав" })
+      res.status(400).json({ message: "Недостатньо прав" })
     }
   } catch (err) {
     res.status(500).json({ message: err.message })
@@ -117,7 +129,7 @@ router.patch("/:username", requireAuth, getUser, async (req, res) => {
       const updatedUser = await res.user.save()
       res.json(updatedUser)
     } else {
-      res.json({ message: "Недостатньо прав" })
+      res.status(400).json({ message: "Недостатньо прав" })
     }
   } catch (err) {
     res.status(400).json({ message: err.message })
