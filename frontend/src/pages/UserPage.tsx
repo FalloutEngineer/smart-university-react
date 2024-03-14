@@ -30,8 +30,6 @@ export default function RolePage() {
     fetchUser()
   }, [])
 
-  console.log(usersAPI + params.name)
-
   async function tryDeleteUser() {
     try {
       const response = await fetch(usersAPI + params.name, {
