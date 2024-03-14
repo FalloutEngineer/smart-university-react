@@ -13,7 +13,7 @@ export default function RolePage() {
 
   const params = useParams()
 
-  const [isEditable, setIsEditable] = useState(false)
+  const [pageUser, setPageUser]: any = useState(null)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -26,7 +26,7 @@ export default function RolePage() {
 
       const data = await response.json()
 
-      console.log("Data: ", data)
+      setPageUser(data)
     }
 
     fetchUser()
@@ -56,7 +56,7 @@ export default function RolePage() {
 
   return (
     <DashLayout>
-      {isEditable ? (
+      {pageUser?.isEditable ? (
         <>
           <button
             onClick={() => {
