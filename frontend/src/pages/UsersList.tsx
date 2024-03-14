@@ -15,16 +15,7 @@ export default function UsersList() {
   const listHeaderOptions = null
   const filter = null
 
-  const [users, setUsers]: any = useState([
-    { name: "Taras", role: "Superadmin" },
-    { name: "Hanna", role: "Dean", faculty: "ФКНФМ" },
-    {
-      name: "Hanna",
-      role: "Assistant",
-      faculty: "ФКНФМ",
-      rooms: [501, 507, 510],
-    },
-  ])
+  const [users, setUsers]: any = useState([])
 
   const [roles, setRoles]: any = useState([])
 
@@ -40,7 +31,6 @@ export default function UsersList() {
         const data = await response.json()
 
         setUsers(data)
-        console.log(data)
       } catch (e) {
         alert(e)
       }
@@ -61,7 +51,6 @@ export default function UsersList() {
         const data = await response.json()
 
         setRoles(data)
-        console.log(data)
       } catch (e) {
         alert(e)
       }
