@@ -45,6 +45,8 @@ const usersRoute = require("./routes/api/users.js")
 
 const damagePost = require("./routes/api/damagePost.js")
 
+const aboutRoute = require("./routes/api/aboutMe.js")
+
 app.use("/api/buildings", buildingsRoute)
 app.use("/api/floors", floorsRoute)
 app.use("/api/rooms", roomsRoute)
@@ -62,6 +64,8 @@ app.use("/api/damagePost", damagePost)
 
 app.use("/api/roles", rolesRoute)
 app.use("/api/users", usersRoute)
+
+app.use("/api/aboutMe", aboutRoute)
 
 const authRouter = require("./routes/api/auth")
 app.use("/api/auth", authRouter)

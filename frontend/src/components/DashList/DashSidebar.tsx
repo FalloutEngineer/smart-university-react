@@ -1,8 +1,36 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { NavLink } from "react-router-dom"
+import { useAuthContext } from "../../hooks/useAuthContext"
+
+const API_URL = process.env.REACT_APP_API_URL
+
+const rolesAPI = API_URL + "/api/users/"
 
 export default function DashSidebar({ page }: { page?: string }) {
-  //TODO: change class on current
+  const { user } = useAuthContext()
+
+  console.log(user)
+
+  useEffect(() => {
+    const fetchAbout = async () => {
+      const response = await fetch(rolesAPI + "aboutMe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user}`,
+        },
+      })
+
+      const data = await response.json()
+
+      console.log(data)
+    }
+
+    fetchAbout()
+  })
+
+  //TODO: GET USER ROLE
+
   return (
     <div className="dash-sidebar">
       <ul className="dash-sidebar__list">
