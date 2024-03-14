@@ -8,7 +8,8 @@ import { useForm } from "react-hook-form"
 
 const API_URL = process.env.REACT_APP_API_URL
 
-const newUsersAPI = API_URL + "/api/newUsers/"
+const usersAPI = API_URL + "/api/users/"
+const rolesAPI = API_URL + "/api/roles/"
 
 export default function EditUser() {
   const { user } = useAuthContext()
@@ -18,18 +19,20 @@ export default function EditUser() {
 
   const [newUser, setUser]: any = useState(null)
 
+  const [roles, setRoles]: any[] = useState([])
+
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       name: newUser?.name,
       login: newUser?.login,
-      newUser: newUser?.newUser,
+      role: newUser?.role,
       password: newUser?.password,
       passwordRepeat: newUser?.password,
     },
   })
 
   async function tryFetchUsers() {
-    const response = await fetch(newUsersAPI + params?.name, {
+    const response = await fetch(usersAPI + params?.name, {
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${user}`,
@@ -45,12 +48,28 @@ export default function EditUser() {
     reset()
   }
 
+  async function tryFetchRoles() {
+    const response = await fetch(rolesAPI, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${user}`,
+      },
+    })
+
+    const data = await response.json()
+
+    console.log(data)
+    setRoles(data)
+  }
+
   useEffect(() => {
     tryFetchUsers()
+    tryFetchRoles()
   }, [])
 
   async function tryEditUser(data: any) {
-    fetch(newUsersAPI + params?.name, {
+    fetch(usersAPI + params?.name, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +86,7 @@ export default function EditUser() {
         alert(answer.message)
       } else {
         alert("Об'єкт успішно змінено")
-        navigate("/newUsers/")
+        navigate("/users/")
       }
     })
   }
@@ -107,17 +126,21 @@ export default function EditUser() {
               Роль
             </label>
             <select
-              id="newUser"
-              defaultValue={newUser?.newUser}
-              {...register("newUser")}
+              id="role"
+              defaultValue={newUser?.role}
+              {...register("role")}
             >
-              <option selected value="no">
-                Немає
-              </option>
-              <option value="1">Суперадмін</option>
-              <option value="2">Ректор</option>
-              <option value="3">Редактор</option>
-              <option value="4">Асистент 507</option>
+              {roles.length > 0 &&
+                roles?.map((role: any) => {
+                  return (
+                    <option
+                      selected={newUser?.role === role?._id}
+                      value={role?._id}
+                    >
+                      {role?.name}
+                    </option>
+                  )
+                })}
             </select>
           </li>
           <li className="dash-board__item">

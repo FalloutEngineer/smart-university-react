@@ -114,6 +114,10 @@ router.delete("/:username", requireAuth, getUser, async (req, res) => {
 //edit one
 //TODO: REQUIRE SUPERADMIN RIGHTS
 router.patch("/:username", requireAuth, getUser, async (req, res) => {
+  if (req.body.login != null) {
+    res.user.login = req.body.login
+  }
+
   if (req.body.name != null) {
     res.user.name = req.body.name
   }
@@ -121,6 +125,13 @@ router.patch("/:username", requireAuth, getUser, async (req, res) => {
   if (req.body.role != null) {
     res.user.role = req.body.role
   }
+
+  if (req.body.password != null) {
+    const hashedPassword = bcrypt.hashSync(req.body.password, 7)
+    res.user.password = hashedPassword
+  }
+
+  console.log(res.user)
 
   try {
     const userRole = await Role.findOne({ _id: res.user.role })
