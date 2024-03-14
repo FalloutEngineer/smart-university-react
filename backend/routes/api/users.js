@@ -32,7 +32,7 @@ async function getUser(req, res, next) {
 
   try {
     user = await User.findOne({
-      username: req.params.username,
+      login: req.params.username,
     })
     if (user == null) {
       return res.status(404).json({ message: "Can't find user" })

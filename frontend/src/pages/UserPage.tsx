@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
 import { NavLink, useNavigate, useParams } from "react-router-dom"
 import { useAuthContext } from "../hooks/useAuthContext"
@@ -12,6 +12,25 @@ export default function RolePage() {
   const navigate = useNavigate()
 
   const params = useParams()
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const response = await fetch(usersAPI + "/" + params.name, {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${user}`,
+        },
+      })
+
+      const data = await response.json()
+
+      console.log("Data: ", data)
+    }
+
+    fetchUser()
+  }, [])
+
+  console.log(usersAPI + params.name)
 
   async function tryDeleteUser() {
     try {

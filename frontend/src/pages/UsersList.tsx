@@ -65,28 +65,33 @@ export default function UsersList() {
       <NavLink to={"../createUser"}>Створити користувача</NavLink>
       <div className="dash-list__container">
         <ul className="dash-list">
-          {users.map((user: any) => {
-            return (
-              <li className="dash-list__item">
-                <NavLink to={"./" + user.name} className="dash-list__link">
-                  <span className="dash-list__property">{user.name}</span>
-                  <span className="dash-list__property">
-                    {roles.length > 0
-                      ? roles.find((element: any) => element._id === user.role)
-                          .name
-                      : ""}
-                  </span>
-                  {user.faculty && (
-                    <span className="dash-list__property">{user.faculty}</span>
-                  )}
-                  {user.rooms &&
-                    user.rooms.map((room: string) => {
-                      return room + " "
-                    })}
-                </NavLink>
-              </li>
-            )
-          })}
+          {users.length > 0
+            ? users.map((user: any) => {
+                return (
+                  <li className="dash-list__item">
+                    <NavLink to={"./" + user.login} className="dash-list__link">
+                      <span className="dash-list__property">{user.name}</span>
+                      <span className="dash-list__property">
+                        {roles.length > 0
+                          ? roles.find(
+                              (element: any) => element._id === user.role
+                            ).name
+                          : ""}
+                      </span>
+                      {user.faculty && (
+                        <span className="dash-list__property">
+                          {user.faculty}
+                        </span>
+                      )}
+                      {user.rooms &&
+                        user.rooms.map((room: string) => {
+                          return room + " "
+                        })}
+                    </NavLink>
+                  </li>
+                )
+              })
+            : ""}
         </ul>
       </div>
     </DashLayout>
