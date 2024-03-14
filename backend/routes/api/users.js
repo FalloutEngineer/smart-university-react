@@ -86,8 +86,14 @@ router.post("/", requireAuth, async (req, res) => {
 // TODO: Якщо користувач має права видаляти
 router.delete("/:username", requireAuth, getUser, async (req, res) => {
   try {
-    await res.user.remove()
-    res.json({ message: "Користувача видалено" })
+    const userRole = await Role.findOne({ _id: res.user.role })
+    const isEditable = isUserEditable(req.role, userRole)
+    if (isEditable) {
+      await res.user.remove()
+      res.json({ message: "Користувача видалено" })
+    } else {
+      res.json({ message: "Недостатньо прав" })
+    }
   } catch (err) {
     res.status(500).json({ message: err.message })
   }
@@ -105,8 +111,14 @@ router.patch("/:username", requireAuth, getUser, async (req, res) => {
   }
 
   try {
-    const updatedUser = await res.user.save()
-    res.json(updatedUser)
+    const userRole = await Role.findOne({ _id: res.user.role })
+    const isEditable = isUserEditable(req.role, userRole)
+    if (isEditable) {
+      const updatedUser = await res.user.save()
+      res.json(updatedUser)
+    } else {
+      res.json({ message: "Недостатньо прав" })
+    }
   } catch (err) {
     res.status(400).json({ message: err.message })
   }
