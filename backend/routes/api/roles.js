@@ -7,7 +7,7 @@ const Role = require("../../models/role.js")
 const { isSuperAdmin } = require("../../util/permissionsCheckers.js")
 
 //get all
-router.get("/", requireAuth(), async (req, res) => {
+router.get("/", requireAuth, async (req, res) => {
   try {
     if (isSuperAdmin(req.role)) {
       const roles = await Role.find()
@@ -21,7 +21,7 @@ router.get("/", requireAuth(), async (req, res) => {
 })
 
 //get one
-router.get("/:name", requireAuth(), getRole, (req, res) => {
+router.get("/:name", requireAuth, getRole, (req, res) => {
   if (isSuperAdmin(req.role)) {
     res.json(res.role)
   } else {
@@ -49,7 +49,7 @@ async function getRole(req, res, next) {
 
 //create one
 //TODO: REQUIRE SUPERADMIN RIGHTS
-router.post("/", requireAuth(), async (req, res) => {
+router.post("/", requireAuth, async (req, res) => {
   try {
     console.log(req.role)
     if (isSuperAdmin(req.role)) {
@@ -92,7 +92,7 @@ router.post("/", requireAuth(), async (req, res) => {
 
 // // delete one
 // TODO: Якщо користувач має права видаляти
-router.delete("/:name", requireAuth(), getRole, async (req, res) => {
+router.delete("/:name", requireAuth, getRole, async (req, res) => {
   try {
     if (isSuperAdmin(req.role)) {
       await res.role.remove()
@@ -107,7 +107,7 @@ router.delete("/:name", requireAuth(), getRole, async (req, res) => {
 
 //edit one
 //TODO: REQUIRE SUPERADMIN RIGHTS
-router.patch("/:name", requireAuth(), getRole, async (req, res) => {
+router.patch("/:name", requireAuth, getRole, async (req, res) => {
   if (req.body.name != null) {
     res.role.name = req.body.name
   }

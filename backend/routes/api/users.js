@@ -7,7 +7,7 @@ const User = require("../../models/user.js")
 const requireAuth = require("../../middleware/requireAuth.js")
 
 //get all
-router.get("/", requireAuth(), async (req, res) => {
+router.get("/", requireAuth, async (req, res) => {
   try {
     const users = await User.find()
 
@@ -22,7 +22,7 @@ router.get("/", requireAuth(), async (req, res) => {
 })
 
 //get one
-router.get("/:username", requireAuth(), getUser, (req, res) => {
+router.get("/:username", requireAuth, getUser, (req, res) => {
   const { password, ...censoredUser } = res.user._doc
   res.json(censoredUser)
 })
@@ -47,7 +47,7 @@ async function getUser(req, res, next) {
 
 //create one
 //TODO: REQUIRE SUPERADMIN RIGHTS
-router.post("/", requireAuth(), async (req, res) => {
+router.post("/", requireAuth, async (req, res) => {
   try {
     const { login, name, role, password } = req.body
     const candidate = await User.findOne({ login })
@@ -65,7 +65,7 @@ router.post("/", requireAuth(), async (req, res) => {
 
 // delete one
 // TODO: Якщо користувач має права видаляти
-router.delete("/:username", requireAuth(), getUser, async (req, res) => {
+router.delete("/:username", requireAuth, getUser, async (req, res) => {
   try {
     await res.user.remove()
     res.json({ message: "Користувача видалено" })
@@ -76,7 +76,7 @@ router.delete("/:username", requireAuth(), getUser, async (req, res) => {
 
 //edit one
 //TODO: REQUIRE SUPERADMIN RIGHTS
-router.patch("/:username", requireAuth(), getUser, async (req, res) => {
+router.patch("/:username", requireAuth, getUser, async (req, res) => {
   if (req.body.name != null) {
     res.user.name = req.body.name
   }
