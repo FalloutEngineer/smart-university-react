@@ -1,20 +1,20 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
 import { useAuthContext } from "../../hooks/useAuthContext"
 
 const API_URL = process.env.REACT_APP_API_URL
 
-const aboutAPI = API_URL + "/api/aboutMe/"
+const aboutAPI = API_URL + "/api/aboutMe"
 
 export default function DashSidebar({ page }: { page?: string }) {
   const { user } = useAuthContext()
 
-  console.log(user)
+  const [role, setRole]: any = useState(null)
 
   useEffect(() => {
     const fetchAbout = async () => {
       const response = await fetch(aboutAPI, {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${user}`,
@@ -22,8 +22,7 @@ export default function DashSidebar({ page }: { page?: string }) {
       })
 
       const data = await response.json()
-
-      console.log(data)
+      setRole(data.role)
     }
 
     fetchAbout()
@@ -84,16 +83,20 @@ export default function DashSidebar({ page }: { page?: string }) {
             Список сторінок
           </NavLink>
         </li>
-        <li className="dash-sidebar__item">
-          <NavLink to="/users" className={"dash-sidebar__link "}>
-            Користувачі
-          </NavLink>
-        </li>
-        <li className="dash-sidebar__item">
-          <NavLink to="/roles" className={"dash-sidebar__link "}>
-            Ролі
-          </NavLink>
-        </li>
+        {role?.isSuperAdmin && (
+          <li className="dash-sidebar__item">
+            <NavLink to="/users" className={"dash-sidebar__link "}>
+              Користувачі
+            </NavLink>
+          </li>
+        )}
+        {role?.isSuperAdmin && (
+          <li className="dash-sidebar__item">
+            <NavLink to="/roles" className={"dash-sidebar__link "}>
+              Ролі
+            </NavLink>
+          </li>
+        )}
         <li className="dash-sidebar__item">
           <NavLink to="/help" className={"dash-sidebar__link "}>
             Допомога
