@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
 import { NavLink, useNavigate, useParams } from "react-router-dom"
 import { useAuthContext } from "../hooks/useAuthContext"
@@ -12,6 +12,8 @@ export default function RolePage() {
   const navigate = useNavigate()
 
   const params = useParams()
+
+  const [isEditable, setIsEditable] = useState(false)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -54,16 +56,23 @@ export default function RolePage() {
 
   return (
     <DashLayout>
-      <button
-        onClick={() => {
-          onDeleteClick()
-        }}
-      >
-        Видалити
-      </button>
-      <NavLink className="dash-board__edit" to={`./edit`}>
-        Редагувати
-      </NavLink>
+      {isEditable ? (
+        <>
+          <button
+            onClick={() => {
+              onDeleteClick()
+            }}
+          >
+            Видалити
+          </button>
+          <NavLink className="dash-board__edit" to={`./edit`}>
+            Редагувати
+          </NavLink>
+        </>
+      ) : (
+        ""
+      )}
+
       <ul className="dash-board__list">
         <li className="dash-board__item">
           <h3 className="dash-board__label">Username:</h3>

@@ -6231,3 +6231,19 @@ div#chartdiv {
 .dash-board__sub-value {
   color: black;
 }
+
+.dash-list__link__disabled {
+  background-color: grey;
+}
+
+.dash-list__link__disabled .dash-list__property {
+  color: white !important;
+}
+
+.dash-list__link__disabled:hover {
+  background-color: grey !important;
+  cursor: not-allowed;
+}
+.dash-list__link__disabled:hover .dash-list__property {
+  color: white !important;
+}

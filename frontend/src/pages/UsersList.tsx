@@ -69,13 +69,16 @@ export default function UsersList() {
             ? users.map((user: any) => {
                 return (
                   <li className="dash-list__item">
-                    <NavLink to={"./" + user.login} className="dash-list__link">
-                      <span className="dash-list__property">{user.name}</span>
+                    <NavLink
+                      to={"./" + user?.login}
+                      className={"dash-list__link"}
+                    >
+                      <span className="dash-list__property">{user?.name}</span>
                       <span className="dash-list__property">
                         {roles.length > 0
                           ? roles.find(
                               (element: any) => element._id === user.role
-                            ).name
+                            )?.name
                           : ""}
                       </span>
                       {user.faculty && (

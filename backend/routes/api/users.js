@@ -3,28 +3,47 @@ const router = new Router()
 const bcrypt = require("bcryptjs")
 
 const User = require("../../models/user.js")
+const Role = require("../../models/role.js")
 
 const requireAuth = require("../../middleware/requireAuth.js")
+const isUserEditable = require("../../util/isUserEditable.js")
 
 //get all
 router.get("/", requireAuth, async (req, res) => {
   try {
     const users = await User.find()
 
-    let censoredUsers = users.map((user) => {
+    let censoredUsers = users.map(async (user) => {
       const { password, ...newUser } = user._doc
-      return newUser
+      const userRole = await Role.findOne({ _id: user.role })
+      const isEditable = isUserEditable(req.role, userRole)
+      return {
+        ...newUser,
+        isEditable: isEditable,
+      }
     })
-    res.json(censoredUsers)
+    Promise.all(censoredUsers)
+      .then((data) => {
+        res.json(data)
+      })
+      .catch((e) => {
+        res.status(400).json({ message: e })
+      })
   } catch (err) {
-    res.status().json({ message: err.message })
+    res.status(400).json({ message: err.message })
   }
 })
 
 //get one
-router.get("/:username", requireAuth, getUser, (req, res) => {
+router.get("/:username", requireAuth, getUser, async (req, res) => {
   const { password, ...censoredUser } = res.user._doc
-  res.json(censoredUser)
+  // const isEditable = isUserEditable(req.requesterID, res.user.id)
+  const userRole = await Role.findOne({ _id: res.user.role })
+  const isEditable = isUserEditable(req.role, userRole)
+  res.json({
+    ...censoredUser,
+    isEditable: isEditable,
+  })
 })
 
 async function getUser(req, res, next) {

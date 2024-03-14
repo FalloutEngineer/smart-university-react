@@ -21,6 +21,7 @@ const requireAuth = async (req, res, next) => {
       .select("role")
 
     req.role = await findRole(req.user.role)
+    req.requesterID = id
     next()
   } catch (e) {
     console.log(e)
