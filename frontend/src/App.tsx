@@ -42,6 +42,7 @@ import EditRole from "./pages/EditRole"
 import RolePage from "./pages/RolePage"
 import UserPage from "./pages/UserPage"
 import EditUser from "./pages/EditUser"
+import CreateUser from "./pages/CreateUser"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -257,6 +258,10 @@ function App() {
           <Route
             path="/users"
             element={user ? <UsersList /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/createUser"
+            element={user ? <CreateUser /> : <Navigate to="/login" />}
           />
           <Route
             path="/users/:name"

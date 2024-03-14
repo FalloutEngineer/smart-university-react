@@ -92,7 +92,11 @@ export default function EditUser() {
   }
 
   function onSubmit(data: any) {
-    tryEditUser(data)
+    if (data.password === data.passwordRepeat) {
+      tryEditUser(data)
+    } else {
+      alert("Паролі не збігаються!")
+    }
   }
 
   return (
