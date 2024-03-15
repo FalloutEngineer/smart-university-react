@@ -6,6 +6,7 @@ const path = require("path")
 const fs = require("fs")
 
 const requireAuth = require("../../middleware/requireAuth.js")
+const { isEditor } = require("../../util/permissionsCheckers.js")
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -32,27 +33,31 @@ router.get("/", async (req, res) => {
 
 //create one
 router.post("/", requireAuth, async (req, res) => {
-  const isBuildingsPageExists = await BuildingsPage.exists({})
+  if (isEditor(req.role)) {
+    const isBuildingsPageExists = await BuildingsPage.exists({})
 
-  if (!isBuildingsPageExists) {
-    const buildingsPage = new BuildingsPage({
-      heading: req.body.heading,
-      description: req.body.description,
-      images: req.body.images,
-    })
-
-    try {
-      const newBuildingsPage = await buildingsPage.save()
-
-      res.status(201).json({
-        message: `Successfuly created faculties page!`,
-        page: newBuildingsPage,
+    if (!isBuildingsPageExists) {
+      const buildingsPage = new BuildingsPage({
+        heading: req.body.heading,
+        description: req.body.description,
+        images: req.body.images,
       })
-    } catch (err) {
-      res.status(400).json({ message: err.message })
+
+      try {
+        const newBuildingsPage = await buildingsPage.save()
+
+        res.status(201).json({
+          message: `Successfuly created faculties page!`,
+          page: newBuildingsPage,
+        })
+      } catch (err) {
+        res.status(400).json({ message: err.message })
+      }
+    } else {
+      res.status(400).json({ message: "Something went wrong" })
     }
   } else {
-    res.status(400).json({ message: "Something went wrong" })
+    res.status(500).json({ message: "Not enough rights" })
   }
 })
 
@@ -63,71 +68,75 @@ router.patch(
   upload.any("images"),
   getBuildings,
   async (req, res) => {
-    const isBuildingsPageExists = await BuildingsPage.exists({})
-
-    if (isBuildingsPageExists) {
-      const buildingsPages = await BuildingsPage.find()
-
-      if (req.body.heading) {
-        buildingsPages[0].heading = req.body.heading
-      }
-      if (req.body.description) {
-        buildingsPages[0].description = req.body.description
-      }
-
-      const images = req.files.map(
-        (file) => "/images/buildings/" + file.filename
-      )
-
-      buildingsPages[0].images.forEach((link) => {
-        const address = path.resolve("./static/images/buildings/" + link)
-        if (fs.existsSync(address)) {
-          fs.unlinkSync(address)
-        }
-      })
-
-      if (images != null) {
-        buildingsPages[0].images = images
-      }
-
-      try {
-        const updatedBuildingsPage = await buildingsPages[0].save()
-        res.json(updatedBuildingsPage)
-      } catch (err) {
-        res.status(400).json({ message: err.message })
-      }
-    } else {
+    if (isEditor(req.role)) {
       const isBuildingsPageExists = await BuildingsPage.exists({})
 
-      if (!isBuildingsPageExists) {
-        const buildingsPage = new BuildingsPage({
-          heading:
-            req.body.heading && req.body.heading !== ""
-              ? req.body.heading
-              : "Будівлі",
-          description:
-            req.body.description !== "" && req.body.description
-              ? req.body.description
-              : "Опис",
-          images:
-            req.body.images && req.body.images.length !== 0
-              ? req.body.images
-              : [],
+      if (isBuildingsPageExists) {
+        const buildingsPages = await BuildingsPage.find()
+
+        if (req.body.heading) {
+          buildingsPages[0].heading = req.body.heading
+        }
+        if (req.body.description) {
+          buildingsPages[0].description = req.body.description
+        }
+
+        const images = req.files.map(
+          (file) => "/images/buildings/" + file.filename
+        )
+
+        buildingsPages[0].images.forEach((link) => {
+          const address = path.resolve("./static/images/buildings/" + link)
+          if (fs.existsSync(address)) {
+            fs.unlinkSync(address)
+          }
         })
 
-        try {
-          const newBuildingsPage = await buildingsPage.save()
+        if (images != null) {
+          buildingsPages[0].images = images
+        }
 
-          res.status(201).json({
-            message: `Successfuly created faculties page!`,
-            page: newBuildingsPage,
-          })
+        try {
+          const updatedBuildingsPage = await buildingsPages[0].save()
+          res.json(updatedBuildingsPage)
         } catch (err) {
           res.status(400).json({ message: err.message })
         }
       } else {
-        res.status(400).json({ message: "Something went wrong" })
+        const isBuildingsPageExists = await BuildingsPage.exists({})
+
+        if (!isBuildingsPageExists) {
+          const buildingsPage = new BuildingsPage({
+            heading:
+              req.body.heading && req.body.heading !== ""
+                ? req.body.heading
+                : "Будівлі",
+            description:
+              req.body.description !== "" && req.body.description
+                ? req.body.description
+                : "Опис",
+            images:
+              req.body.images && req.body.images.length !== 0
+                ? req.body.images
+                : [],
+          })
+
+          try {
+            const newBuildingsPage = await buildingsPage.save()
+
+            res.status(201).json({
+              message: `Successfuly created faculties page!`,
+              page: newBuildingsPage,
+            })
+          } catch (err) {
+            res.status(400).json({ message: err.message })
+          }
+        } else {
+          res.status(400).json({ message: "Something went wrong" })
+        }
       }
+    } else {
+      res.status(500).json({ message: "Not enough rights" })
     }
   }
 )
