@@ -42,23 +42,6 @@ export default function CreateRole() {
     },
   })
 
-  async function tryFetchRoles() {
-    const response = await fetch(rolesAPI + params?.name, {
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${user}`,
-      },
-    })
-    const data = await response.json()
-
-    if (data.message) {
-      console.log(data)
-    } else {
-      setRole(data)
-    }
-    reset()
-  }
-
   async function tryFetchBuildings() {
     const response = await fetch(buildingsAPI, {
       headers: {
@@ -128,7 +111,6 @@ export default function CreateRole() {
   }
 
   useEffect(() => {
-    tryFetchRoles()
     tryFetchBuildings()
     tryFetchFloors()
     tryFetchFaculties()

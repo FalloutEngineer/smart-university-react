@@ -8,10 +8,10 @@ const Role = new mongoose.Schema({
   isAdmin: { type: Boolean, unique: false, required: true },
   isEditor: { type: Boolean, unique: false, required: true },
   canEditDamage: { type: Boolean, unique: false, required: true },
-  buildings: [{ type: ObjectId, ref: "Building" }],
-  floors: [[{ type: ObjectId, ref: "Floor" }]],
-  faculties: [{ type: ObjectId, ref: "Faculty" }],
-  rooms: [{ type: ObjectId, ref: "Room" }],
+  buildings: [{ type: ObjectId, ref: "Building", required: false }],
+  floors: [[{ type: ObjectId, ref: "Floor", required: false }]],
+  faculties: [{ type: ObjectId, ref: "Faculty", required: false }],
+  rooms: [{ type: ObjectId, ref: "Room", required: false }],
 })
 
 module.exports = mongoose.model("Role", Role)

@@ -51,7 +51,6 @@ async function getRole(req, res, next) {
 //TODO: REQUIRE SUPERADMIN RIGHTS
 router.post("/", requireAuth, async (req, res) => {
   try {
-    console.log(req.role)
     if (isSuperAdmin(req.role)) {
       let {
         name,
@@ -66,18 +65,30 @@ router.post("/", requireAuth, async (req, res) => {
       } = req.body
 
       if (!(buildings instanceof Array)) {
+        if (buildings === "") {
+          buildings = null
+        }
         buildings = [buildings]
       }
 
       if (!(floors instanceof Array)) {
+        if (floors === "") {
+          floors = null
+        }
         floors = [floors]
       }
 
       if (!(faculties instanceof Array)) {
+        if (faculties === "") {
+          faculties = null
+        }
         faculties = [faculties]
       }
 
       if (!(rooms instanceof Array)) {
+        if (rooms === "") {
+          rooms = null
+        }
         rooms = [rooms]
       }
 
@@ -110,7 +121,9 @@ router.post("/", requireAuth, async (req, res) => {
 // TODO: Якщо користувач має права видаляти
 router.delete("/:name", requireAuth, getRole, async (req, res) => {
   try {
-    if (isSuperAdmin(req.role)) {
+    console.log(res.role)
+    console.log(!isSuperAdmin(res.role))
+    if (isSuperAdmin(req.role) && !isSuperAdmin(res.role)) {
       await res.role.remove()
       res.json({ message: "Роль видалено" })
     } else {
