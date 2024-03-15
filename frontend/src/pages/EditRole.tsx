@@ -10,6 +10,11 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const rolesAPI = API_URL + "/api/roles/"
 
+const facultiesAPI = API_URL + "/api/faculties/"
+const floorsAPI = API_URL + "/api/floors/"
+const roomsAPI = API_URL + "/api/rooms/"
+const buildingsAPI = API_URL + "/api/buildings/"
+
 export default function EditRole() {
   const { user } = useAuthContext()
   const navigate = useNavigate()
@@ -17,6 +22,11 @@ export default function EditRole() {
   const params = useParams()
 
   const [role, setRole]: any = useState(null)
+
+  const [buildings, setBuildings]: any[] = useState([])
+  const [floors, setFloors]: any[] = useState([])
+  const [faculties, setFaculties]: any[] = useState([])
+  const [rooms, setRooms]: any[] = useState([])
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -49,8 +59,80 @@ export default function EditRole() {
     reset()
   }
 
+  async function tryFetchBuildings() {
+    const response = await fetch(buildingsAPI, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${user}`,
+      },
+    })
+    const data = await response.json()
+
+    if (data.message) {
+      console.log(data)
+    } else {
+      setBuildings(data)
+    }
+    reset()
+  }
+
+  async function tryFetchFloors() {
+    const response = await fetch(floorsAPI, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${user}`,
+      },
+    })
+    const data = await response.json()
+
+    if (data.message) {
+      console.log(data)
+    } else {
+      setFloors(data)
+    }
+    reset()
+  }
+
+  async function tryFetchFaculties() {
+    const response = await fetch(facultiesAPI, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${user}`,
+      },
+    })
+    const data = await response.json()
+
+    if (data.message) {
+      console.log(data)
+    } else {
+      setFaculties(data)
+    }
+    reset()
+  }
+
+  async function tryFetchRooms() {
+    const response = await fetch(roomsAPI, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${user}`,
+      },
+    })
+    const data = await response.json()
+
+    if (data.message) {
+      console.log(data)
+    } else {
+      setRooms(data)
+    }
+    reset()
+  }
+
   useEffect(() => {
     tryFetchRoles()
+    tryFetchBuildings()
+    tryFetchFloors()
+    tryFetchFaculties()
+    tryFetchRooms()
   }, [])
 
   async function tryEditRole(data: any) {
@@ -104,6 +186,7 @@ export default function EditRole() {
               type="checkbox"
               className={styles.textArea}
               {...register("isSuperAdmin")}
+              checked={role?.isSuperAdmin}
               defaultValue={role?.isSuperAdmin}
             />
           </li>
@@ -117,6 +200,7 @@ export default function EditRole() {
               className={styles.textArea}
               {...register("isAdmin")}
               defaultValue={role?.isAdmin}
+              checked={role?.isAdmin}
             />
           </li>
           <li className="dash-board__item">
@@ -129,6 +213,7 @@ export default function EditRole() {
               className={styles.textArea}
               {...register("isEditor")}
               defaultValue={role?.isEditor}
+              checked={role?.isEditor}
             />
           </li>
           <li className="dash-board__item">
@@ -141,6 +226,7 @@ export default function EditRole() {
               className={styles.textArea}
               {...register("canEditDamage")}
               defaultValue={role?.canEditDamage}
+              checked={role?.canEditDamage}
             />
           </li>
           <li className="dash-board__item">
@@ -152,13 +238,16 @@ export default function EditRole() {
               defaultValue={role?.buildings[0]}
               {...register("buildings")}
             >
-              <option selected value="no">
+              <option selected value="">
                 Немає
               </option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
+              {buildings.length > 0
+                ? buildings.map((building: any) => {
+                    return (
+                      <option value={building.name}>{building.name}</option>
+                    )
+                  })
+                : ""}
             </select>
           </li>
 
@@ -171,13 +260,14 @@ export default function EditRole() {
               defaultValue={role?.floors[0]}
               {...register("floors")}
             >
-              <option selected value="no">
+              <option selected value="">
                 Немає
               </option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
+              {floors.length > 0
+                ? floors.map((floor: any) => {
+                    return <option value={floor.number}>{floor.number}</option>
+                  })
+                : ""}
             </select>
           </li>
           <li className="dash-board__item">
@@ -189,11 +279,14 @@ export default function EditRole() {
               defaultValue={role?.faculties[0]}
               {...register("faculties")}
             >
-              <option selected value="no">
+              <option selected value="">
                 Немає
               </option>
-              <option value="1">ФКНФМ</option>
-              <option value="2">ФІЗВИХ</option>
+              {faculties.length > 0
+                ? faculties.map((faculty: any) => {
+                    return <option value={faculty.name}>{faculty.name}</option>
+                  })
+                : ""}
             </select>
           </li>
           <li className="dash-board__item">
@@ -205,12 +298,14 @@ export default function EditRole() {
               defaultValue={role?.rooms[0]}
               {...register("rooms")}
             >
-              <option selected value="no">
+              <option selected value="">
                 Немає
               </option>
-              <option value="1">111</option>
-              <option value="2">222</option>
-              <option value="2">333</option>
+              {rooms.length > 0
+                ? rooms.map((room: any) => {
+                    return <option value={room.number}>{room.number}</option>
+                  })
+                : ""}
             </select>
           </li>
         </ul>
