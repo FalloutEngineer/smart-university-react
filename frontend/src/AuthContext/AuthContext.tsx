@@ -22,6 +22,7 @@ export default function AuthContextProvider({ children }: { children: any }) {
 
   useEffect(() => {
     const token = cookies.token
+    // const role = cookies.role
     if (token) {
       dispatch({ type: "LOGIN", payload: token })
     }

@@ -32,8 +32,10 @@ export const useLogin = () => {
     }
     if (response.ok) {
       const token = json.token
+      const role = JSON.stringify(json.role)
 
       document.cookie = `token=${token};`
+      document.cookie = `role=${role};`
 
       dispatch({ type: "LOGIN", payload: token })
 
