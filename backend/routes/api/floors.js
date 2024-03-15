@@ -9,6 +9,10 @@ const requireAuth = require("../../middleware/requireAuth.js")
 
 const multer = require("multer")
 const path = require("path")
+const {
+  isEditor,
+  canEditThisFloor,
+} = require("../../util/permissionsCheckers.js")
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -40,92 +44,100 @@ router.get("/:number", getFloor, (req, res) => {
 
 //create one
 router.post("/", requireAuth, upload.single("svg"), async (req, res) => {
-  let isFacultyExists = await Faculty.exists({ name: req.body.faculty })
-  let isBuildingExists = await Building.exists({ name: req.body.building })
-  let roomsArray = []
+  if (isEditor(req.role)) {
+    let isFacultyExists = await Faculty.exists({ name: req.body.faculty })
+    let isBuildingExists = await Building.exists({ name: req.body.building })
+    let roomsArray = []
 
-  if (req.body.rooms == null || req.body.rooms == undefined) {
-    req.body.rooms = []
-  }
+    if (req.body.rooms == null || req.body.rooms == undefined) {
+      req.body.rooms = []
+    }
 
-  req.body.rooms.forEach((room) => {
-    roomsArray.push(Room.exists({ number: room }))
-  })
-
-  let isRoomsExists = roomsArray.every((i) => i === true)
-
-  let svg
-
-  if (req.file) {
-    svg = req.file.filename
-  }
-
-  if (isFacultyExists && isRoomsExists && isBuildingExists) {
-    const floor = new Floor({
-      number: req.body.number,
-      faculty: req.body.faculty,
-      rooms: req.body.rooms,
-      building: req.body.building,
-      temperatureSensorURL: req.body.temperatureSensorURL,
-      co2SensorURL: req.body.co2SensorURL,
-      floorColor: req.body.floorColor ?? "#ffffff",
-      svg: svg,
+    req.body.rooms.forEach((room) => {
+      roomsArray.push(Room.exists({ number: room }))
     })
 
-    try {
-      const newFloor = await floor.save()
+    let isRoomsExists = roomsArray.every((i) => i === true)
 
-      const faculty = await Faculty.findOne({ name: req.body.faculty })
-      faculty.floors.push(req.body.number)
-      const updatedFaculty = await faculty.save()
+    let svg
 
-      const building = await Building.findOne({ name: req.body.building })
-      building.floors.push(req.body.number)
-      const updatedBuilding = await building.save()
+    if (req.file) {
+      svg = req.file.filename
+    }
 
-      res.status(201).json({
-        floor: newFloor,
-        faculty: updatedFaculty,
-        building: updatedBuilding,
+    if (isFacultyExists && isRoomsExists && isBuildingExists) {
+      const floor = new Floor({
+        number: req.body.number,
+        faculty: req.body.faculty,
+        rooms: req.body.rooms,
+        building: req.body.building,
+        temperatureSensorURL: req.body.temperatureSensorURL,
+        co2SensorURL: req.body.co2SensorURL,
+        floorColor: req.body.floorColor ?? "#ffffff",
+        svg: svg,
       })
-    } catch (err) {
-      res.status(400).json({ message: err.message })
+
+      try {
+        const newFloor = await floor.save()
+
+        const faculty = await Faculty.findOne({ name: req.body.faculty })
+        faculty.floors.push(req.body.number)
+        const updatedFaculty = await faculty.save()
+
+        const building = await Building.findOne({ name: req.body.building })
+        building.floors.push(req.body.number)
+        const updatedBuilding = await building.save()
+
+        res.status(201).json({
+          floor: newFloor,
+          faculty: updatedFaculty,
+          building: updatedBuilding,
+        })
+      } catch (err) {
+        res.status(400).json({ message: err.message })
+      }
+    } else {
+      res.status(400).json({ message: "Invalid building or faculty" })
     }
   } else {
-    res.status(400).json({ message: "Invalid building or faculty" })
+    res.status(400).json({ message: "Not enough rights" })
   }
 })
 
 // delete one
 router.delete("/:number", requireAuth, getFloor, async (req, res) => {
-  try {
-    if (res.floor.svg) {
-      const address = path.resolve("./static/svg/floor/" + res.floor.svg)
-      if (fs.existsSync(address)) {
-        fs.unlinkSync(address)
+  if (isEditor(req.role)) {
+    try {
+      if (res.floor.svg) {
+        const address = path.resolve("./static/svg/floor/" + res.floor.svg)
+        if (fs.existsSync(address)) {
+          fs.unlinkSync(address)
+        }
       }
-    }
 
-    await Faculty.updateOne(
-      { name: res.floor.faculty },
-      {
-        $pullAll: {
-          floors: [res.floor.number],
-        },
-      }
-    )
-    await Building.updateOne(
-      { name: res.floor.building },
-      {
-        $pullAll: {
-          floors: [res.floor.number],
-        },
-      }
-    )
-    await res.floor.remove()
-    res.json({ message: "Deleted Floor" })
-  } catch (err) {
-    res.status(500).json({ message: err.message })
+      await Faculty.updateOne(
+        { name: res.floor.faculty },
+        {
+          $pullAll: {
+            floors: [res.floor.number],
+          },
+        }
+      )
+      await Building.updateOne(
+        { name: res.floor.building },
+        {
+          $pullAll: {
+            floors: [res.floor.number],
+          },
+        }
+      )
+      await res.floor.remove()
+      res.json({ message: "Deleted Floor" })
+    } catch (err) {
+      res.status(500).json({ message: err.message })
+    }
+  } else {
+    res.status(400).json({ message: "Not enough rights" })
   }
 })
 
@@ -147,15 +159,19 @@ async function getFloor(req, res, next) {
 }
 
 router.patch("/:number", requireAuth, getFloor, async (req, res) => {
-  if (req.body.floorColor != null) {
-    res.floor.floorColor = req.body.floorColor
-  }
+  if (canEditThisFloor(res.floor.id, req.role)) {
+    if (req.body.floorColor != null) {
+      res.floor.floorColor = req.body.floorColor
+    }
 
-  try {
-    const updatedFloor = await res.floor.save()
-    res.json(updatedFloor)
-  } catch (err) {
-    res.status(400).json({ message: err.message })
+    try {
+      const updatedFloor = await res.floor.save()
+      res.json(updatedFloor)
+    } catch (err) {
+      res.status(400).json({ message: err.message })
+    }
+  } else {
+    res.status(500).json({ message: "Not enough rights" })
   }
 })
 
