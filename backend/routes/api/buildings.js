@@ -8,6 +8,10 @@ const Building = require("../../models/building")
 const Floor = require("../../models/floor")
 
 const requireAuth = require("../../middleware/requireAuth.js")
+const {
+  isEditor,
+  canEditThisBuilding,
+} = require("../../util/permissionsCheckers.js")
 
 const router = express.Router()
 
@@ -77,81 +81,91 @@ router.post(
     },
   ]),
   async (req, res) => {
-    if (req.body.floors) {
-      req.body.floors = JSON.parse(req.body.floors)
-    }
-
-    let floorsArray = []
-
-    let isFloorsExists = true
-
-    if (floorsArray.length > 0 && floorsArray != "[]") {
-      for (const floor of req.body.floors) {
-        floorsArray.push(null != (await Floor.exists({ number: floor.number })))
+    if (isEditor(req.role)) {
+      if (req.body.floors) {
+        req.body.floors = JSON.parse(req.body.floors)
       }
 
-      isFloorsExists = floorsArray.every((i) => i === true)
-    }
+      let floorsArray = []
 
-    let svg
-    let background
+      let isFloorsExists = true
 
-    if (req.files) {
-      if (req.files["svg"]) {
-        svg = req.files["svg"][0].filename
+      if (floorsArray.length > 0 && floorsArray != "[]") {
+        for (const floor of req.body.floors) {
+          floorsArray.push(
+            null != (await Floor.exists({ number: floor.number }))
+          )
+        }
+
+        isFloorsExists = floorsArray.every((i) => i === true)
       }
-      if (req.files["background"]) {
-        background = req.files["background"][0].filename
+
+      let svg
+      let background
+
+      if (req.files) {
+        if (req.files["svg"]) {
+          svg = req.files["svg"][0].filename
+        }
+        if (req.files["background"]) {
+          background = req.files["background"][0].filename
+        }
       }
-    }
 
-    if (isFloorsExists) {
-      const building = new Building({
-        name: req.body.name,
-        floors: req.body.floors[0] != "" ? req.body.floors : [],
-        svg: svg,
-        background: background,
-        address: req.body.address,
-        description: req.body.description,
-      })
+      if (isFloorsExists) {
+        const building = new Building({
+          name: req.body.name,
+          floors: req.body.floors[0] != "" ? req.body.floors : [],
+          svg: svg,
+          background: background,
+          address: req.body.address,
+          description: req.body.description,
+        })
 
-      try {
-        const newBuilding = await building.save()
+        try {
+          const newBuilding = await building.save()
 
-        res.status(201).json({ building: newBuilding })
-      } catch (err) {
-        res.status(400).json({ message: err.message })
+          res.status(201).json({ building: newBuilding })
+        } catch (err) {
+          res.status(400).json({ message: err.message })
+        }
+      } else {
+        res.status(400).json({ message: "Invalid floors" })
       }
     } else {
-      res.status(400).json({ message: "Invalid floors" })
+      res.status(500).json({ message: "Not enough rights" })
     }
   }
 )
 
 router.delete("/:name", requireAuth, getBuilding, async (req, res) => {
-  try {
-    if (res.building.svg) {
-      const address = path.resolve(
-        "./static/images/building/" + res.building.svg
-      )
-      if (fs.existsSync(address)) {
-        fs.unlinkSync(address)
+  if (isEditor(req.role)) {
+    try {
+      if (res.building.svg) {
+        const address = path.resolve(
+          "./static/images/building/" + res.building.svg
+        )
+        if (fs.existsSync(address)) {
+          fs.unlinkSync(address)
+        }
       }
-    }
 
-    if (res.building.background) {
-      const address = path.resolve(
-        "./static/images/building/" + res.building.background
-      )
-      if (fs.existsSync(address)) {
-        fs.unlinkSync(address)
+      if (res.building.background) {
+        const address = path.resolve(
+          "./static/images/building/" + res.building.background
+        )
+        if (fs.existsSync(address)) {
+          fs.unlinkSync(address)
+        }
       }
-    }
 
-    await res.building.remove()
-    res.json({ message: "Deleted Building" })
-  } catch (err) {
-    res.status(500).json({ message: err.message })
+      await res.building.remove()
+      res.json({ message: "Deleted Building" })
+    } catch (err) {
+      res.status(500).json({ message: err.message })
+    }
+  } else {
+    res.status(500).json({ message: "Not enough rights" })
   }
 })
 
@@ -170,45 +184,49 @@ router.patch(
   ]),
   getBuilding,
   async (req, res) => {
-    if (res.building.svg) {
-      const address = path.resolve(
-        "./static/images/building/" + res.building.svg
-      )
-      if (fs.existsSync(address)) {
-        fs.unlinkSync(address)
+    if (canEditThisBuilding(req.role)) {
+      if (res.building.svg) {
+        const address = path.resolve(
+          "./static/images/building/" + res.building.svg
+        )
+        if (fs.existsSync(address)) {
+          fs.unlinkSync(address)
+        }
       }
-    }
 
-    if (res.building.background) {
-      const address = path.resolve(
-        "./static/images/building/" + res.building.background
-      )
-      if (fs.existsSync(address)) {
-        fs.unlinkSync(address)
+      if (res.building.background) {
+        const address = path.resolve(
+          "./static/images/building/" + res.building.background
+        )
+        if (fs.existsSync(address)) {
+          fs.unlinkSync(address)
+        }
       }
-    }
 
-    if (req.body.svg != null) {
-      res.building.svg = req.body.svg
-    }
+      if (req.body.svg != null) {
+        res.building.svg = req.body.svg
+      }
 
-    if (req.body.background != null) {
-      res.building.background = req.body.background
-    }
+      if (req.body.background != null) {
+        res.building.background = req.body.background
+      }
 
-    if (req.body.address != null) {
-      res.building.address = req.body.address
-    }
+      if (req.body.address != null) {
+        res.building.address = req.body.address
+      }
 
-    if (req.body.description != null) {
-      res.building.description = req.body.description
-    }
+      if (req.body.description != null) {
+        res.building.description = req.body.description
+      }
 
-    try {
-      const updatedBuilding = await res.building.save()
-      res.json(updatedBuilding)
-    } catch (err) {
-      res.status(400).json({ message: err.message })
+      try {
+        const updatedBuilding = await res.building.save()
+        res.json(updatedBuilding)
+      } catch (err) {
+        res.status(400).json({ message: err.message })
+      }
+    } else {
+      res.status(500).json({ message: "Not enough rights" })
     }
   }
 )
