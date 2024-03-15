@@ -53,7 +53,7 @@ router.post("/", requireAuth, async (req, res) => {
   try {
     console.log(req.role)
     if (isSuperAdmin(req.role)) {
-      const {
+      let {
         name,
         isSuperAdmin,
         isAdmin,
@@ -64,6 +64,22 @@ router.post("/", requireAuth, async (req, res) => {
         faculties,
         rooms,
       } = req.body
+
+      if (!(buildings instanceof Array)) {
+        buildings = [buildings]
+      }
+
+      if (!(floors instanceof Array)) {
+        floors = [floors]
+      }
+
+      if (!(faculties instanceof Array)) {
+        faculties = [faculties]
+      }
+
+      if (!(rooms instanceof Array)) {
+        rooms = [rooms]
+      }
 
       const candidate = await Role.findOne({ name })
       if (candidate) {

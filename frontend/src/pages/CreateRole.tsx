@@ -243,9 +243,7 @@ export default function CreateRole() {
               </option>
               {buildings.length > 0
                 ? buildings.map((building: any) => {
-                    return (
-                      <option value={building.name}>{building.name}</option>
-                    )
+                    return <option value={building._id}>{building.name}</option>
                   })
                 : ""}
             </select>
@@ -265,7 +263,7 @@ export default function CreateRole() {
               </option>
               {floors.length > 0
                 ? floors.map((floor: any) => {
-                    return <option value={floor.number}>{floor.number}</option>
+                    return <option value={floor._id}>{floor.number}</option>
                   })
                 : ""}
             </select>
@@ -284,7 +282,7 @@ export default function CreateRole() {
               </option>
               {faculties.length > 0
                 ? faculties.map((faculty: any) => {
-                    return <option value={faculty.name}>{faculty.name}</option>
+                    return <option value={faculty._id}>{faculty.name}</option>
                   })
                 : ""}
             </select>
@@ -303,7 +301,7 @@ export default function CreateRole() {
               </option>
               {rooms.length > 0
                 ? rooms.map((room: any) => {
-                    return <option value={room.number}>{room.number}</option>
+                    return <option value={room._id}>{room.number}</option>
                   })
                 : ""}
             </select>
