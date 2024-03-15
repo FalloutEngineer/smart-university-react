@@ -1,32 +1,41 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
 import { NavLink } from "react-router-dom"
 import DashListHeader from "../components/DashList/DashListHeader"
+import { useAuthContext } from "../hooks/useAuthContext"
+
+const API_URL = process.env.REACT_APP_API_URL
+
+const rolesAPI = API_URL + "/api/roles/"
 
 export default function RolesList() {
+  const { user } = useAuthContext()
+
   const listHeaderOptions = null
   const filter = null
 
-  const [roles, setRoles]: any = useState([
-    { name: "Головний адміністратор", isSuperAdmin: true },
-    { name: "Ректор", isSuperAdmin: true },
-    { name: "Проректор", isSuperAdmin: false, isAdmin: true },
-    {
-      name: "Редактор",
-      isSuperAdmin: false,
-      isAdmin: false,
-      isEditor: true,
-      canEditDamage: true,
-    },
-    {
-      name: "Асистент ФКНФМ",
-      isSuperAdmin: false,
-      isAdmin: false,
-      isEditor: false,
-      canEditDamage: false,
-      rooms: [111, 112, 113],
-    },
-  ])
+  const [roles, setRoles]: any = useState([])
+
+  useEffect(() => {
+    const fetchRoles = async () => {
+      try {
+        const response = await fetch(rolesAPI, {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${user}`,
+          },
+        })
+
+        const data = await response.json()
+
+        setRoles(data)
+      } catch (e) {
+        alert(e)
+      }
+    }
+
+    fetchRoles()
+  }, [])
 
   return (
     <DashLayout>
