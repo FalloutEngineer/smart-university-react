@@ -45,6 +45,10 @@ import EditUser from "./pages/EditUser"
 import CreateUser from "./pages/CreateUser"
 import CreateRole from "./pages/CreateRole"
 import {
+  canEditAtLeastOneBuilding,
+  canEditAtLeastOneFaculty,
+  canEditAtLeastOneFloor,
+  canEditAtLeastOneRoom,
   canEditDamage,
   isEditor,
   isSuperAdmin,
@@ -114,7 +118,7 @@ function App() {
             path="/room-list"
             element={
               user ? (
-                isEditor(aboutMe?.role) ? (
+                canEditAtLeastOneRoom(aboutMe?.role) ? (
                   <ListPage listType={ItemTypeEnum.ROOM} />
                 ) : (
                   <Navigate to={`/help`} replace={true} />
@@ -128,7 +132,7 @@ function App() {
             path="/floor-list"
             element={
               user ? (
-                isEditor(aboutMe?.role) ? (
+                canEditAtLeastOneFloor(aboutMe?.role) ? (
                   <ListPage listType={ItemTypeEnum.FLOOR} />
                 ) : (
                   <Navigate to={`/help`} replace={true} />
@@ -142,7 +146,7 @@ function App() {
             path="/faculty-list"
             element={
               user ? (
-                isEditor(aboutMe?.role) ? (
+                canEditAtLeastOneFaculty(aboutMe?.role) ? (
                   <ListPage listType={ItemTypeEnum.FACULTY} />
                 ) : (
                   <Navigate to={`/help`} replace={true} />
@@ -170,7 +174,7 @@ function App() {
             path="/building-list"
             element={
               user ? (
-                isEditor(aboutMe?.role) ? (
+                canEditAtLeastOneBuilding(aboutMe?.role) ? (
                   <ListPage listType={ItemTypeEnum.BUILDING} />
                 ) : (
                   <Navigate to={`/help`} replace={true} />
@@ -184,7 +188,7 @@ function App() {
             path="/building-list/:name"
             element={
               user ? (
-                isEditor(aboutMe?.role) ? (
+                canEditAtLeastOneBuilding(aboutMe?.role) ? (
                   <DashPreview
                     PreviewComponent={DashPreviewBuilding}
                     endpoint={API_URL + "/api/buildings/"}
@@ -218,7 +222,7 @@ function App() {
             path="/faculty-list/:name"
             element={
               user ? (
-                isEditor(aboutMe?.role) ? (
+                canEditAtLeastOneFaculty(aboutMe?.role) ? (
                   <DashPreview
                     PreviewComponent={DashPreviewFaculty}
                     endpoint={API_URL + "/api/faculties/"}
@@ -235,7 +239,7 @@ function App() {
             path="/floor-list/:name"
             element={
               user ? (
-                isEditor(aboutMe?.role) ? (
+                canEditAtLeastOneFloor(aboutMe?.role) ? (
                   <DashPreview
                     PreviewComponent={DashPreviewFloor}
                     endpoint={API_URL + "/api/floors/"}
@@ -252,7 +256,7 @@ function App() {
             path="/room-list/:name"
             element={
               user ? (
-                isEditor(aboutMe?.role) ? (
+                canEditAtLeastOneRoom(aboutMe?.role) ? (
                   <DashPreview
                     PreviewComponent={DashPreviewRoom}
                     endpoint={API_URL + "/api/rooms/"}
@@ -269,7 +273,7 @@ function App() {
             path="/room-list/:name/edit"
             element={
               user ? (
-                isEditor(aboutMe?.role) ? (
+                canEditAtLeastOneRoom(aboutMe?.role) ? (
                   <DashEditRoom endpoint={API_URL + "/api/rooms/"} />
                 ) : (
                   <Navigate to={`/help`} replace={true} />
@@ -283,7 +287,7 @@ function App() {
             path="/building-list/:name/edit"
             element={
               user ? (
-                isEditor(aboutMe?.role) ? (
+                canEditAtLeastOneBuilding(aboutMe?.role) ? (
                   <DashEditBuilding />
                 ) : (
                   <Navigate to={`/help`} replace={true} />
@@ -297,7 +301,7 @@ function App() {
             path="/floor-list/:number/edit"
             element={
               user ? (
-                isEditor(aboutMe?.role) ? (
+                canEditAtLeastOneFloor(aboutMe?.role) ? (
                   <DashEditFloor />
                 ) : (
                   <Navigate to={`/help`} replace={true} />
