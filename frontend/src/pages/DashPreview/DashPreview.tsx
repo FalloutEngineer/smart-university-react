@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom"
 import DashLayout from "../../components/DashLayout/DashLayout"
 import DeleteButton from "../../components/DashPreview/DeleteButton"
 import { useAuthContext } from "../../hooks/useAuthContext"
+import { useCookies } from "react-cookie"
+import { isEditor } from "../../util/permissionsCheckers"
 
 export default function DashPreview({
   PreviewComponent,
@@ -16,6 +18,10 @@ export default function DashPreview({
   const { user } = useAuthContext()
 
   const navigate = useNavigate()
+
+  const [cookies, setCookie] = useCookies(["role"])
+
+  const myRole = cookies["role"] ? cookies["role"] : ""
 
   const deleteCallback = () =>
     function () {
@@ -40,7 +46,7 @@ export default function DashPreview({
     }
   return (
     <DashLayout>
-      <DeleteButton callback={deleteCallback} />
+      {isEditor(myRole) && <DeleteButton callback={deleteCallback} />}
       <PreviewComponent endpoint={endpoint} name={name} />
     </DashLayout>
   )

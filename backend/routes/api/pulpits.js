@@ -5,6 +5,7 @@ const Faculty = require("../../models/faculty")
 const Room = require("../../models/room")
 
 const requireAuth = require("../../middleware/requireAuth.js")
+const { isEditor } = require("../../util/permissionsCheckers.js")
 
 //get all
 router.get("/", async (req, res) => {
@@ -39,61 +40,69 @@ async function getPulpit(req, res, next) {
 
 //create one
 router.post("/", requireAuth, async (req, res) => {
-  let isFacultyExists = await Faculty.exists({ name: req.body.faculty })
-  let roomsArray = []
+  if (isEditor(req.role)) {
+    let isFacultyExists = await Faculty.exists({ name: req.body.faculty })
+    let roomsArray = []
 
-  for (const room of req.body.rooms) {
-    roomsArray.push(null != (await Room.exists({ number: room })))
-  }
+    for (const room of req.body.rooms) {
+      roomsArray.push(null != (await Room.exists({ number: room })))
+    }
 
-  let isRoomsExists = roomsArray.every((i) => i === true)
+    let isRoomsExists = roomsArray.every((i) => i === true)
 
-  if (isFacultyExists && isRoomsExists) {
-    const pulpit = new Pulpit({
-      name: req.body.name,
-      faculty: req.body.faculty,
-      rooms: req.body.rooms,
-    })
+    if (isFacultyExists && isRoomsExists) {
+      const pulpit = new Pulpit({
+        name: req.body.name,
+        faculty: req.body.faculty,
+        rooms: req.body.rooms,
+      })
 
-    try {
-      const newPulpit = await pulpit.save()
+      try {
+        const newPulpit = await pulpit.save()
 
-      const faculty = await Faculty.findOne({ name: req.body.faculty })
-      faculty.pulpits.push(req.body.name)
-      const updatedFaculty = await faculty.save()
+        const faculty = await Faculty.findOne({ name: req.body.faculty })
+        faculty.pulpits.push(req.body.name)
+        const updatedFaculty = await faculty.save()
 
-      res.status(201).json({ pulpit: newPulpit, faculty: updatedFaculty })
-    } catch (err) {
-      res.status(400).json({ message: err.message })
+        res.status(201).json({ pulpit: newPulpit, faculty: updatedFaculty })
+      } catch (err) {
+        res.status(400).json({ message: err.message })
+      }
+    } else {
+      res.status(400).json({ message: "Invalid room or faculty" })
     }
   } else {
-    res.status(400).json({ message: "Invalid room or faculty" })
+    res.status(400).json({ message: "Not enough rights" })
   }
 })
 
 // delete one
 router.delete("/:name", requireAuth, getPulpit, async (req, res) => {
-  try {
-    await Faculty.updateOne(
-      { pulpits: res.pulpit.name },
-      {
-        $pullAll: {
-          pulpits: [res.pulpit.name],
-        },
-      }
-    )
-    await Room.updateMany(
-      { name: res.pulpit.faculty },
-      {
-        $pullAll: {
-          pulpits: [res.pulpit.name],
-        },
-      }
-    )
-    await res.pulpit.remove()
-    res.json({ message: "Deleted Pulpit" })
-  } catch (err) {
-    res.status(500).json({ message: err.message })
+  if (isEditor(req.role)) {
+    try {
+      await Faculty.updateOne(
+        { pulpits: res.pulpit.name },
+        {
+          $pullAll: {
+            pulpits: [res.pulpit.name],
+          },
+        }
+      )
+      await Room.updateMany(
+        { name: res.pulpit.faculty },
+        {
+          $pullAll: {
+            pulpits: [res.pulpit.name],
+          },
+        }
+      )
+      await res.pulpit.remove()
+      res.json({ message: "Deleted Pulpit" })
+    } catch (err) {
+      res.status(500).json({ message: err.message })
+    }
+  } else {
+    res.status(400).json({ message: "Not enough rights" })
   }
 })
 

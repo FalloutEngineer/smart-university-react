@@ -5,6 +5,7 @@ import { useAuthContext } from "../../hooks/useAuthContext"
 import DashLayout from "../../components/DashLayout/DashLayout"
 import { Room } from "../../manageTypes"
 import { useForm } from "react-hook-form"
+import { useCookies } from "react-cookie"
 
 const roomTypes = [
   "Аудиторія",

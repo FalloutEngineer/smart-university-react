@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { DashPreview, RoomData } from "../../dashPreview"
 import { NavLink } from "react-router-dom"
+import { useCookies } from "react-cookie"
 
 export default function DashPreviewRoom({ name, endpoint }: DashPreview) {
   const [room, setRoom] = useState<RoomData>(null)
