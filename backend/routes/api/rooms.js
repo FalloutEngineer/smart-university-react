@@ -11,6 +11,11 @@ const Floor = require("../../models/floor")
 
 const requireAuth = require("../../middleware/requireAuth.js")
 
+const {
+  canEditThisRoom,
+  isEditor,
+} = require("../../util/permissionsCheckers.js")
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./static/images")
@@ -150,32 +155,36 @@ router.post("/", requireAuth, upload.any("images"), async (req, res) => {
 // delete one
 router.delete("/:number", requireAuth, getRoom, async (req, res) => {
   try {
-    await Floor.updateOne(
-      { rooms: res.room.number },
-      {
-        $pullAll: {
-          rooms: [res.room.number],
-        },
-      }
-    )
-    await Pulpit.updateMany(
-      { rooms: res.room.number },
-      {
-        $pullAll: {
-          rooms: [res.room.number],
-        },
-      }
-    )
+    if (isEditor(req.role)) {
+      await Floor.updateOne(
+        { rooms: res.room.number },
+        {
+          $pullAll: {
+            rooms: [res.room.number],
+          },
+        }
+      )
+      await Pulpit.updateMany(
+        { rooms: res.room.number },
+        {
+          $pullAll: {
+            rooms: [res.room.number],
+          },
+        }
+      )
 
-    res.room.photo_links.forEach((link) => {
-      const address = path.resolve("./static/images/" + link)
-      if (fs.existsSync(address)) {
-        fs.unlinkSync(address)
-      }
-    })
+      res.room.photo_links.forEach((link) => {
+        const address = path.resolve("./static/images/" + link)
+        if (fs.existsSync(address)) {
+          fs.unlinkSync(address)
+        }
+      })
 
-    await res.room.remove()
-    res.json({ message: "Deleted Room" })
+      await res.room.remove()
+      res.json({ message: "Deleted Room" })
+    } else {
+      res.status(500).json({ message: "Not enough rights" })
+    }
   } catch (err) {
     res.status(500).json({ message: err.message })
   }
@@ -265,8 +274,10 @@ router.patch(
         res.room.temperature_history = req.body.temperature_history
       }
       try {
-        const updatedRoom = await res.room.save()
-        res.json(updatedRoom)
+        if (canEditThisRoom(res.room.id, req.role)) {
+          const updatedRoom = await res.room.save()
+          res.json(updatedRoom)
+        }
       } catch (err) {
         res.status(400).json({ message: err.message })
       }

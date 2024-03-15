@@ -3,6 +3,7 @@ import DashLayout from "../components/DashLayout/DashLayout"
 import DashListHeader from "../components/DashList/DashListHeader"
 import DashListBody from "../components/DashList/DashListBody"
 import { ItemTypeEnum } from "../enums"
+import { useCookies } from "react-cookie"
 
 const API_URL = process.env.REACT_APP_API_URL
 

@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
 import { useAuthContext } from "../../hooks/useAuthContext"
 import {
+  canEditAtLeastOneBuilding,
+  canEditAtLeastOneFaculty,
+  canEditAtLeastOneFloor,
+  canEditAtLeastOneRoom,
   canEditDamage,
   isEditor,
   isSuperAdmin,
@@ -63,32 +67,44 @@ export default function DashSidebar({ page }: { page?: string }) {
                 Список карток
               </NavLink>
             </li>
-            <li className="dash-sidebar__item">
-              <NavLink to="/room-list" className={"dash-sidebar__link "}>
-                Список приміщень
-              </NavLink>
-            </li>
-            <li className="dash-sidebar__item">
-              <NavLink to="/floor-list" className={"dash-sidebar__link "}>
-                Список поверхів
-              </NavLink>
-            </li>
-            <li className="dash-sidebar__item">
-              <NavLink to="/faculty-list" className={"dash-sidebar__link "}>
-                Список факультетів
-              </NavLink>
-            </li>
-            <li className="dash-sidebar__item">
-              <NavLink to="/pulpit-list" className={"dash-sidebar__link "}>
-                Список кафедр
-              </NavLink>
-            </li>
-            <li className="dash-sidebar__item">
-              <NavLink to="/building-list" className={"dash-sidebar__link "}>
-                Список будівель
-              </NavLink>
-            </li>
           </>
+        )}
+
+        {role && canEditAtLeastOneRoom(role) && (
+          <li className="dash-sidebar__item">
+            <NavLink to="/room-list" className={"dash-sidebar__link "}>
+              Список приміщень
+            </NavLink>
+          </li>
+        )}
+        {role && canEditAtLeastOneFloor(role) && (
+          <li className="dash-sidebar__item">
+            <NavLink to="/floor-list" className={"dash-sidebar__link "}>
+              Список поверхів
+            </NavLink>
+          </li>
+        )}
+        {role && canEditAtLeastOneFaculty(role) && (
+          <li className="dash-sidebar__item">
+            <NavLink to="/faculty-list" className={"dash-sidebar__link "}>
+              Список факультетів
+            </NavLink>
+          </li>
+        )}
+        {role && canEditAtLeastOneBuilding(role) && (
+          <li className="dash-sidebar__item">
+            <NavLink to="/building-list" className={"dash-sidebar__link "}>
+              Список будівель
+            </NavLink>
+          </li>
+        )}
+
+        {role && isEditor(role) && (
+          <li className="dash-sidebar__item">
+            <NavLink to="/pulpit-list" className={"dash-sidebar__link "}>
+              Список кафедр
+            </NavLink>
+          </li>
         )}
 
         {role && isEditor(role) && (

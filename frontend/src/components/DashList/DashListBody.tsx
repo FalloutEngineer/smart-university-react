@@ -6,6 +6,7 @@ import DashListFloor from "./DashListFloor"
 import DashListFaculty from "./DashListFaculty"
 import DashListPulpit from "./DashListPulpit"
 import DashListBuilding from "./DashListBuilding"
+import { useCookies } from "react-cookie"
 
 export default function DashListBody({
   listData,
@@ -14,23 +15,31 @@ export default function DashListBody({
   listData: any[]
   listType: ItemTypeEnum
 }) {
-  //TODO: Generate list by data
+  const [cookies, setCookie] = useCookies(["role"])
+
+  const myRole = cookies["role"] ? cookies["role"] : ""
   return (
     <div className="dash-list__container">
       <ul className="dash-list">
         {listType === ItemTypeEnum.ROOM
           ? listData.map((listItem) => {
-              return <DashListRoom itemData={listItem} />
+              return myRole.rooms.includes(listItem._id) ? (
+                <DashListRoom itemData={listItem} />
+              ) : null
             })
           : ""}
         {listType === ItemTypeEnum.FLOOR
           ? listData.map((listItem) => {
-              return <DashListFloor itemData={listItem} />
+              return myRole.floors.includes(listItem._id) ? (
+                <DashListFloor itemData={listItem} />
+              ) : null
             })
           : ""}
         {listType === ItemTypeEnum.FACULTY
           ? listData.map((listItem) => {
-              return <DashListFaculty itemData={listItem} />
+              return myRole.faculties.includes(listItem._id) ? (
+                <DashListFaculty itemData={listItem} />
+              ) : null
             })
           : ""}
         {listType === ItemTypeEnum.PULPIT
@@ -40,7 +49,9 @@ export default function DashListBody({
           : ""}
         {listType === ItemTypeEnum.BUILDING
           ? listData.map((listItem) => {
-              return <DashListBuilding itemData={listItem} />
+              return myRole.buildings.includes(listItem._id) ? (
+                <DashListBuilding itemData={listItem} />
+              ) : null
             })
           : ""}
         {/* TODO: listData.map... */}
