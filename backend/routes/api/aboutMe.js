@@ -1,15 +1,16 @@
 const Router = require("express")
 const router = new Router()
 
-const User = require("../../models/user.js")
-const Role = require("../../models/role.js")
-
 const requireAuth = require("../../middleware/requireAuth.js")
 
 router.get("/", requireAuth, async (req, res) => {
-  res.json({
-    role: req.role,
-  })
+  if (req.role) {
+    res.json({
+      role: req.role,
+    })
+  } else {
+    res.status(404).send("Something went wrong with role")
+  }
 })
 
 module.exports = router

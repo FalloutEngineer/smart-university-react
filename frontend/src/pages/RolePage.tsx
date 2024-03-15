@@ -7,11 +7,15 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const rolesAPI = API_URL + "/api/roles/"
 
+const usersAPI = API_URL + "/api/users/"
+
 export default function RolePage() {
   const { user } = useAuthContext()
   const navigate = useNavigate()
 
   const [role, setRole]: any = useState(null)
+
+  const [pageUser, setPageUser]: any = useState(null)
 
   const params = useParams()
 
@@ -38,6 +42,23 @@ export default function RolePage() {
   }
 
   useEffect(() => {
+    const fetchUser = async () => {
+      const response = await fetch(usersAPI + "/" + params.name, {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${user}`,
+        },
+      })
+
+      const data = await response.json()
+
+      setPageUser(data)
+    }
+
+    fetchUser()
+  }, [])
+
+  useEffect(() => {
     const fetchRole = async () => {
       try {
         const response = await fetch(rolesAPI + params.name, {
@@ -61,16 +82,24 @@ export default function RolePage() {
 
   return (
     <DashLayout>
-      <button
-        onClick={() => {
-          onDeleteClick()
-        }}
-      >
-        Видалити
-      </button>
-      <NavLink className="dash-board__edit" to={`./edit`}>
-        Редагувати
-      </NavLink>
+      {pageUser?.isEditable ? (
+        <>
+          {" "}
+          <button
+            onClick={() => {
+              onDeleteClick()
+            }}
+          >
+            Видалити
+          </button>
+          <NavLink className="dash-board__edit" to={`./edit`}>
+            Редагувати
+          </NavLink>
+        </>
+      ) : (
+        ""
+      )}
+
       <ul className="dash-board__list">
         <li className="dash-board__item">
           <h3 className="dash-board__label">Назва:</h3>

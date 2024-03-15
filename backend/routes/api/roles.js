@@ -121,8 +121,6 @@ router.post("/", requireAuth, async (req, res) => {
 // TODO: Якщо користувач має права видаляти
 router.delete("/:name", requireAuth, getRole, async (req, res) => {
   try {
-    console.log(res.role)
-    console.log(!isSuperAdmin(res.role))
     if (isSuperAdmin(req.role) && !isSuperAdmin(res.role)) {
       await res.role.remove()
       res.json({ message: "Роль видалено" })

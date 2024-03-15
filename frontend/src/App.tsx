@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext, useEffect, useState } from "react"
 import "./App.css"
 import Home from "./pages/Home"
 import ErrorPage from "./pages/ErrorPage"
@@ -44,11 +44,42 @@ import UserPage from "./pages/UserPage"
 import EditUser from "./pages/EditUser"
 import CreateUser from "./pages/CreateUser"
 import CreateRole from "./pages/CreateRole"
+import {
+  canEditDamage,
+  isEditor,
+  isSuperAdmin,
+} from "./util/permissionsCheckers"
 
 const API_URL = process.env.REACT_APP_API_URL
 
+const aboutAPI = API_URL + "/api/aboutMe"
+
 function App() {
   const { user } = useAuthContext()
+
+  const [aboutMe, setAboutMe]: any = useState(null)
+
+  useEffect(() => {
+    const fetchAbout = async () => {
+      try {
+        const response = await fetch(aboutAPI, {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${user}`,
+          },
+        })
+
+        const data = await response.json()
+
+        setAboutMe(data)
+      } catch (e) {
+        alert(e)
+      }
+    }
+    if (user) {
+      fetchAbout()
+    }
+  }, [])
 
   return (
     <div className="App">
@@ -69,7 +100,11 @@ function App() {
             path="/manage"
             element={
               user ? (
-                <Manage />
+                isEditor(aboutMe?.role) ? (
+                  <Manage />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
               ) : (
                 <Navigate to={`/login?redirectTo=/manage`} replace={true} />
               )
@@ -79,7 +114,11 @@ function App() {
             path="/room-list"
             element={
               user ? (
-                <ListPage listType={ItemTypeEnum.ROOM} />
+                isEditor(aboutMe?.role) ? (
+                  <ListPage listType={ItemTypeEnum.ROOM} />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
               ) : (
                 <Navigate to="/login" />
               )
@@ -89,7 +128,11 @@ function App() {
             path="/floor-list"
             element={
               user ? (
-                <ListPage listType={ItemTypeEnum.FLOOR} />
+                isEditor(aboutMe?.role) ? (
+                  <ListPage listType={ItemTypeEnum.FLOOR} />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
               ) : (
                 <Navigate to="/login" />
               )
@@ -99,7 +142,11 @@ function App() {
             path="/faculty-list"
             element={
               user ? (
-                <ListPage listType={ItemTypeEnum.FACULTY} />
+                isEditor(aboutMe?.role) ? (
+                  <ListPage listType={ItemTypeEnum.FACULTY} />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
               ) : (
                 <Navigate to="/login" />
               )
@@ -109,7 +156,11 @@ function App() {
             path="/pulpit-list"
             element={
               user ? (
-                <ListPage listType={ItemTypeEnum.PULPIT} />
+                isEditor(aboutMe?.role) ? (
+                  <ListPage listType={ItemTypeEnum.PULPIT} />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
               ) : (
                 <Navigate to="/login" />
               )
@@ -119,7 +170,11 @@ function App() {
             path="/building-list"
             element={
               user ? (
-                <ListPage listType={ItemTypeEnum.BUILDING} />
+                isEditor(aboutMe?.role) ? (
+                  <ListPage listType={ItemTypeEnum.BUILDING} />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
               ) : (
                 <Navigate to="/login" />
               )
@@ -129,10 +184,14 @@ function App() {
             path="/building-list/:name"
             element={
               user ? (
-                <DashPreview
-                  PreviewComponent={DashPreviewBuilding}
-                  endpoint={API_URL + "/api/buildings/"}
-                />
+                isEditor(aboutMe?.role) ? (
+                  <DashPreview
+                    PreviewComponent={DashPreviewBuilding}
+                    endpoint={API_URL + "/api/buildings/"}
+                  />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
               ) : (
                 <Navigate to="/login" />
               )
@@ -142,10 +201,14 @@ function App() {
             path="/pulpit-list/:name"
             element={
               user ? (
-                <DashPreview
-                  PreviewComponent={DashPreviewPulpit}
-                  endpoint={API_URL + "/api/pulpits/"}
-                />
+                isEditor(aboutMe?.role) ? (
+                  <DashPreview
+                    PreviewComponent={DashPreviewPulpit}
+                    endpoint={API_URL + "/api/pulpits/"}
+                  />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
               ) : (
                 <Navigate to="/login" />
               )
@@ -155,10 +218,14 @@ function App() {
             path="/faculty-list/:name"
             element={
               user ? (
-                <DashPreview
-                  PreviewComponent={DashPreviewFaculty}
-                  endpoint={API_URL + "/api/faculties/"}
-                />
+                isEditor(aboutMe?.role) ? (
+                  <DashPreview
+                    PreviewComponent={DashPreviewFaculty}
+                    endpoint={API_URL + "/api/faculties/"}
+                  />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
               ) : (
                 <Navigate to="/login" />
               )
@@ -168,10 +235,14 @@ function App() {
             path="/floor-list/:name"
             element={
               user ? (
-                <DashPreview
-                  PreviewComponent={DashPreviewFloor}
-                  endpoint={API_URL + "/api/floors/"}
-                />
+                isEditor(aboutMe?.role) ? (
+                  <DashPreview
+                    PreviewComponent={DashPreviewFloor}
+                    endpoint={API_URL + "/api/floors/"}
+                  />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
               ) : (
                 <Navigate to="/login" />
               )
@@ -181,10 +252,14 @@ function App() {
             path="/room-list/:name"
             element={
               user ? (
-                <DashPreview
-                  PreviewComponent={DashPreviewRoom}
-                  endpoint={API_URL + "/api/rooms/"}
-                />
+                isEditor(aboutMe?.role) ? (
+                  <DashPreview
+                    PreviewComponent={DashPreviewRoom}
+                    endpoint={API_URL + "/api/rooms/"}
+                  />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
               ) : (
                 <Navigate to="/login" />
               )
@@ -194,7 +269,11 @@ function App() {
             path="/room-list/:name/edit"
             element={
               user ? (
-                <DashEditRoom endpoint={API_URL + "/api/rooms/"} />
+                isEditor(aboutMe?.role) ? (
+                  <DashEditRoom endpoint={API_URL + "/api/rooms/"} />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
               ) : (
                 <Navigate to="/login" />
               )
@@ -202,106 +281,315 @@ function App() {
           />
           <Route
             path="/building-list/:name/edit"
-            element={user ? <DashEditBuilding /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isEditor(aboutMe?.role) ? (
+                  <DashEditBuilding />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/floor-list/:number/edit"
-            element={user ? <DashEditFloor /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isEditor(aboutMe?.role) ? (
+                  <DashEditFloor />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/managePages"
-            element={user ? <ManagePages /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isEditor(aboutMe?.role) ? (
+                  <ManagePages />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/editHome"
-            element={user ? <EditHome /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isEditor(aboutMe?.role) ? (
+                  <EditHome />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/editFaculties"
-            element={user ? <EditFaculties /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isEditor(aboutMe?.role) ? (
+                  <EditFaculties />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/editBuildings"
-            element={user ? <EditBuildings /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isEditor(aboutMe?.role) ? (
+                  <EditBuildings />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/manageCard"
-            element={user ? <ManageCard /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isEditor(aboutMe?.role) ? (
+                  <ManageCard />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/cards"
-            element={user ? <Cards /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isEditor(aboutMe?.role) ? (
+                  <Cards />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/cards/:type/:name"
-            element={user ? <CardPage /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isEditor(aboutMe?.role) ? (
+                  <CardPage />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/cards/:type/:name/edit"
-            element={user ? <EditCardPage /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isEditor(aboutMe?.role) ? (
+                  <EditCardPage />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/damage"
-            element={user ? <DamageList /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                canEditDamage(aboutMe?.role) ? (
+                  <DamageList />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/damage/:name"
-            element={user ? <DamagePage /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                canEditDamage(aboutMe?.role) ? (
+                  <DamagePage />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/damage/:name/edit"
-            element={user ? <EditDamagePost /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                canEditDamage(aboutMe?.role) ? (
+                  <EditDamagePost />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/createDamagePost"
-            element={user ? <CreateDamagePost /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                canEditDamage(aboutMe?.role) ? (
+                  <CreateDamagePost />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/users"
-            element={user ? <UsersList /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isSuperAdmin(aboutMe?.role) ? (
+                  <UsersList />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/createUser"
-            element={user ? <CreateUser /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isSuperAdmin(aboutMe?.role) ? (
+                  <CreateUser />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/users/:name"
-            element={user ? <UserPage /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isSuperAdmin(aboutMe?.role) ? (
+                  <UserPage />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/users/:name/edit"
-            element={user ? <EditUser /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isSuperAdmin(aboutMe?.role) ? (
+                  <EditUser />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/roles"
-            element={user ? <RolesList /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isSuperAdmin(aboutMe?.role) ? (
+                  <RolesList />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/createRole"
-            element={user ? <CreateRole /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isSuperAdmin(aboutMe?.role) ? (
+                  <CreateRole />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/roles/:name"
-            element={user ? <RolePage /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isSuperAdmin(aboutMe?.role) ? (
+                  <RolePage />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route
             path="/roles/:name/edit"
-            element={user ? <EditRole /> : <Navigate to="/login" />}
+            element={
+              user ? (
+                isSuperAdmin(aboutMe?.role) ? (
+                  <EditRole />
+                ) : (
+                  <Navigate to={`/help`} replace={true} />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
-      {/* <ErrorPage /> */}
-      {/* <Faculties /> */}
-      {/* <BuildingsPage /> */}
-      {/* <LoginPage /> */}
-      {/* <BuildingPage id={1} /> */}
-      {/* <FloorPage id={1} /> */}
-      {/* <Manage /> */}
-      {/* <ListPage listType={"room"} /> */}
-      {/* <Edit /> */}
-      {/* <DashboardView /> */}
-      {/* <RoomPage /> */}
     </div>
   )
 }
