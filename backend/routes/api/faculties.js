@@ -3,6 +3,7 @@ const router = express.Router()
 const Faculty = require("../../models/faculty")
 
 const requireAuth = require("../../middleware/requireAuth.js")
+const { isEditor } = require("../../util/permissionsCheckers.js")
 
 //get all
 router.get("/", async (req, res) => {
@@ -21,27 +22,35 @@ router.get("/:name", getFaculty, (req, res) => {
 
 //create one
 router.post("/", requireAuth, async (req, res) => {
-  const faculty = new Faculty({
-    name: req.body.name,
-    floors: req.body.floors || [],
-    pulpits: req.body.pulpits || [],
-  })
+  if (isEditor(req.role)) {
+    const faculty = new Faculty({
+      name: req.body.name,
+      floors: req.body.floors || [],
+      pulpits: req.body.pulpits || [],
+    })
 
-  try {
-    const newFaculty = await faculty.save()
-    res.status(201).json(newFaculty)
-  } catch (err) {
-    res.status(400).json({ message: err.message })
+    try {
+      const newFaculty = await faculty.save()
+      res.status(201).json(newFaculty)
+    } catch (err) {
+      res.status(400).json({ message: err.message })
+    }
+  } else {
+    res.status(500).json({ message: "Not enough rights" })
   }
 })
 
 // delete one
 router.delete("/:name", requireAuth, getFaculty, async (req, res) => {
-  try {
-    await res.faculty.remove()
-    res.json({ message: "Faculty successfull deleted" })
-  } catch (err) {
-    res.status(500).json({ message: err.message })
+  if (isEditor(req.role)) {
+    try {
+      await res.faculty.remove()
+      res.json({ message: "Faculty successfull deleted" })
+    } catch (err) {
+      res.status(500).json({ message: err.message })
+    }
+  } else {
+    res.status(500).json({ message: "Not enough rights" })
   }
 })
 
