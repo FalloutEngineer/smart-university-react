@@ -7,6 +7,7 @@ const fs = require("fs")
 const HomePage = require("../../models/homePage")
 
 const requireAuth = require("../../middleware/requireAuth.js")
+const { isEditor } = require("../../util/permissionsCheckers.js")
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -33,26 +34,31 @@ router.get("/", async (req, res) => {
 
 //create one
 router.post("/", requireAuth, upload.any("images"), async (req, res) => {
-  const isHomePageExists = await HomePage.exists({})
+  if (isEditor(req.role)) {
+    const isHomePageExists = await HomePage.exists({})
 
-  if (!isHomePageExists) {
-    const homePage = new HomePage({
-      heading: req.body.heading,
-      buttonLink: req.body.buttonLink,
-      images: images[0] != "" ? images : [],
-    })
+    if (!isHomePageExists) {
+      const homePage = new HomePage({
+        heading: req.body.heading,
+        buttonLink: req.body.buttonLink,
+        images: images[0] != "" ? images : [],
+      })
 
-    try {
-      const newHomePage = await homePage.save()
+      try {
+        const newHomePage = await homePage.save()
 
-      res
-        .status(201)
-        .json({ message: `Successfuly created home page!`, page: newHomePage })
-    } catch (err) {
-      res.status(400).json({ message: err.message })
+        res.status(201).json({
+          message: `Successfuly created home page!`,
+          page: newHomePage,
+        })
+      } catch (err) {
+        res.status(400).json({ message: err.message })
+      }
+    } else {
+      res.status(400).json({ message: "Something went wrong" })
     }
   } else {
-    res.status(400).json({ message: "Something went wrong" })
+    res.status(400).json({ message: "Not enough rights" })
   }
 })
 
@@ -63,68 +69,70 @@ router.patch(
   upload.any("images"),
   getHome,
   async (req, res) => {
-    const isHomePageExists = await HomePage.exists({})
-
-    if (isHomePageExists) {
-      const homePages = await HomePage.find()
-
-      if (req.body.heading) {
-        homePages[0].heading = req.body.heading
-      }
-      if (req.body.buttonLink) {
-        homePages[0].buttonLink = req.body.buttonLink
-      }
-
-      const images = req.files.map((file) => "/images/home/" + file.filename)
-
-      homePages[0].images.forEach((link) => {
-        const address = path.resolve("./static/images/home/" + link)
-        if (fs.existsSync(address)) {
-          fs.unlinkSync(address)
-        }
-      })
-
-      if (images != null) {
-        homePages[0].images = images
-      }
-
-      try {
-        const updatedHomePage = await homePages[0].save()
-        res.json(updatedHomePage)
-      } catch (err) {
-        res.status(400).json({ message: err.message })
-      }
-    } else {
+    if (isEditor(req.role)) {
       const isHomePageExists = await HomePage.exists({})
 
-      if (!isHomePageExists) {
-        const homePage = new HomePage({
-          heading:
-            req.body.heading && req.body.heading !== ""
-              ? req.body.heading
-              : "Домашня сторінка",
-          buttonLink:
-            req.body.buttonLink && req.body.buttonLink !== ""
-              ? req.body.buttonLink
-              : "/",
-          images: images[0] != "" ? images : [],
+      if (isHomePageExists) {
+        const homePages = await HomePage.find()
+
+        if (req.body.heading) {
+          homePages[0].heading = req.body.heading
+        }
+        if (req.body.buttonLink) {
+          homePages[0].buttonLink = req.body.buttonLink
+        }
+
+        const images = req.files.map((file) => "/images/home/" + file.filename)
+
+        homePages[0].images.forEach((link) => {
+          const address = path.resolve("./static/images/home/" + link)
+          if (fs.existsSync(address)) {
+            fs.unlinkSync(address)
+          }
         })
 
-        try {
-          const newHomePage = await homePage.save()
+        if (images != null) {
+          homePages[0].images = images
+        }
 
-          res
-            .status(201)
-            .json({
-              message: `Successfuly created home page!`,
-              page: newHomePage,
-            })
+        try {
+          const updatedHomePage = await homePages[0].save()
+          res.json(updatedHomePage)
         } catch (err) {
           res.status(400).json({ message: err.message })
         }
       } else {
-        res.status(400).json({ message: "Something went wrong" })
+        const isHomePageExists = await HomePage.exists({})
+
+        if (!isHomePageExists) {
+          const homePage = new HomePage({
+            heading:
+              req.body.heading && req.body.heading !== ""
+                ? req.body.heading
+                : "Домашня сторінка",
+            buttonLink:
+              req.body.buttonLink && req.body.buttonLink !== ""
+                ? req.body.buttonLink
+                : "/",
+            images: images[0] != "" ? images : [],
+          })
+
+          try {
+            const newHomePage = await homePage.save()
+
+            res.status(201).json({
+              message: `Successfuly created home page!`,
+              page: newHomePage,
+            })
+          } catch (err) {
+            res.status(400).json({ message: err.message })
+          }
+        } else {
+          res.status(400).json({ message: "Something went wrong" })
+        }
       }
+    } else {
+      res.status(400).json({ message: "Not enough rights" })
     }
   }
 )
