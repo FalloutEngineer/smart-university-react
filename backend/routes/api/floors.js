@@ -165,6 +165,10 @@ router.patch("/:number", requireAuth, getFloor, async (req, res) => {
       res.floor.floorColor = req.body.floorColor
     }
 
+    if (req.body.co2SensorURL != null) {
+      res.floor.co2SensorURL = req.body.co2SensorURL
+    }
+
     try {
       const updatedFloor = await res.floor.save()
       res.json(updatedFloor)

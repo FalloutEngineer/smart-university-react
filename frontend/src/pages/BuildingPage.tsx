@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useLayoutEffect, useState } from "react"
 import Layout from "../components/Layout/Layout"
 import ParallaxWindow from "../components/ParallaxWindow"
 
 import "./buildingPage.css"
 import BuildingItem from "../components/BuildingItem"
 import { useParams } from "react-router-dom"
+import BuildingSVG from "../components/BuildingSVG"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -23,7 +24,7 @@ export default function BuildingPage() {
 
   const [buildingBGURL, setBuildingBGURL] = useState("")
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetchBuildings = async () => {
       const response = await fetch(buildingsAPI + "/" + params.name)
       const json = await response.json()
@@ -96,13 +97,19 @@ export default function BuildingPage() {
         <div className="container">
           {building.svg !== null ? (
             <div className="model-container">
-              <object
+              {/* <object
                 className="model-svg"
                 data={buildingSvgURL}
                 type="image/svg+xml"
               >
                 Building Model
-              </object>
+              </object> */}
+
+              {buildingSvgURL !== "" ? (
+                <BuildingSVG url={buildingSvgURL} />
+              ) : null}
+
+              <svg />
             </div>
           ) : (
             ""

@@ -213,16 +213,7 @@ export default function FloorPage() {
         imageUrl="/img/logo.png"
       />
       <div className="plan">
-        {/* TODO: pass color from fetched data */}
-        {svgURL !== "" ? (
-          <FloorMap
-            // TODO: ADD FLOOR PLAN FROM DATABASE
-            url={svgURL}
-            styles={fillColor}
-          />
-        ) : (
-          ""
-        )}
+        {svgURL !== "" ? <FloorMap url={svgURL} styles={fillColor} /> : ""}
       </div>
 
       <div className="ui-60" style={sensorsBlockStyles}>

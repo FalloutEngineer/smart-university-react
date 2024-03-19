@@ -184,7 +184,8 @@ router.patch(
   ]),
   getBuilding,
   async (req, res) => {
-    if (canEditThisBuilding(req.role)) {
+    console.log(req.role)
+    if (canEditThisBuilding(res.building.name, req.role)) {
       if (res.building.svg) {
         const address = path.resolve(
           "./static/images/building/" + res.building.svg
