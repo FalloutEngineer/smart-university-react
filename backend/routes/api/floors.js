@@ -9,6 +9,7 @@ const requireAuth = require("../../middleware/requireAuth.js")
 
 const multer = require("multer")
 const path = require("path")
+const fs = require("fs")
 const {
   isEditor,
   canEditThisFloor,
