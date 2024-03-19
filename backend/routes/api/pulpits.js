@@ -23,6 +23,7 @@ router.get("/:name", getPulpit, (req, res) => {
 })
 
 async function getPulpit(req, res, next) {
+  let pulpit
   try {
     pulpit = await Pulpit.findOne({
       name: req.params.name,
