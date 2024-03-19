@@ -91,14 +91,6 @@ export default function Header({
                 </li>
                 <li className="nav-item">
                   <NavLink
-                    to="/manage"
-                    className={"nav-item-child nav-item-hover"}
-                  >
-                    Керування
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink
                     to="/faculties"
                     className={"nav-item-child nav-item-hover"}
                   >

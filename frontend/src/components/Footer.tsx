@@ -1,4 +1,5 @@
 import React from "react"
+import { NavLink } from "react-router-dom"
 
 export default function Footer() {
   return (
@@ -27,6 +28,11 @@ export default function Footer() {
             </p>
           </div>
         </div>
+      </div>
+      <div className="footer-manage">
+        <NavLink to="/manage" className={"nav-item-child nav-item-hover"}>
+          Керування
+        </NavLink>
       </div>
     </footer>
   )

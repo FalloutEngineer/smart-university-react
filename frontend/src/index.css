@@ -6247,3 +6247,7 @@ div#chartdiv {
 .dash-list__link__disabled:hover .dash-list__property {
   color: white !important;
 }
+
+.footer-manage {
+  margin-bottom: 15px;
+}
