@@ -76,8 +76,8 @@ export default function BuildingPage() {
 
   return (
     <Layout>
-      {buildingBGURL === "" ? (
-        <ParallaxWindow imageUrl={`url(/images/1.jpg)`}>
+      {buildingBGURL === "" || buildingBGURL === null ? (
+        <ParallaxWindow imageUrl={`url(/img/1.jpg)`}>
           <div className="parallax-content container buildingPage-content">
             {/* style="text-align: right;" */}
             <h1 className="carousel-title">{building && building.name}</h1>
