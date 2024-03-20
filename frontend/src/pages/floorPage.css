@@ -6,48 +6,48 @@
   stroke-width: 1.5;
   stroke-miterlimit: 10;
 }
-.plan .st1 {
+/* .plan .st1 {
   fill: #e5e5e5;
   stroke: #000000;
   stroke-miterlimit: 10;
-}
-.plan .st2 {
+} */
+/* .plan .st2 {
   opacity: 0.67;
   fill: none;
   stroke: #1d1d1b;
   stroke-width: 0.75;
   stroke-miterlimit: 10;
-}
-.plan .st3 {
+} */
+/* .plan .st3 {
   fill: black;
   font-size: 14px;
   font-family: "FranklinGothic-Medium";
-}
-.plan .st4 {
+} */
+/* .plan .st4 {
   fill: black;
   font-size: 15px;
   font-family: "Lemon/Milk(RUS BY LYAJKA) Regular";
-}
-.plan .st5 {
+} */
+/* .plan .st5 {
   fill: #1d1d1b;
   font-size: 15px;
   font-weight: 700;
-}
-.plan .st6 {
+} */
+/* .plan .st6 {
   opacity: 0.3;
   fill: white;
   stroke: rgb(68, 68, 68);
   stroke-width: 0.75;
   stroke-miterlimit: 10;
-}
+} */
 .plan .st6:hover {
   filter: saturate(500000000%) brightness(80%);
 }
-.plan .st7 {
+/* .plan .st7 {
   fill: #ffffff;
   stroke: #1d1d1b;
   stroke-miterlimit: 10;
-}
+} */
 
 /* page styles */
 

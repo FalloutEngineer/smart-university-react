@@ -4,6 +4,7 @@ const floorSchema = new mongoose.Schema({
   number: {
     type: Number,
     required: true,
+    unique: false,
   },
   faculty: {
     type: String,

@@ -52,8 +52,6 @@ export default function BuildingPage() {
 
   useEffect(() => {
     const fetchFloors = async (IDs: any) => {
-      console.log("IDs:", IDs)
-
       if (IDs) {
         const idPromises = IDs.map((id: any) => {
           return getBuildingPromise(id)
