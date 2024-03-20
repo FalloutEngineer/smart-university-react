@@ -12,10 +12,10 @@ export default function FloorMap({
   const [svg, setSvg] = useState("")
 
   const stylesString = `
-  .stv {
-    fill: ${styles ? styles.color : "#808080"};
-    opacity: 0.7;
-    cursor: pointer;
+  .plan .stv {
+    fill: ${styles ? styles.color : "#808080"} !important; 
+    opacity: 0.7 !important;
+    cursor: pointer !important;
   }
 `
 
