@@ -17,6 +17,7 @@ export default function RoomPage() {
     type: "room",
     number: 111,
     faculty: "ФКНФМ",
+    building: "Головний Корпус",
     floor: 1,
     pulpits: ["КІПІЕК"],
     description: "Hello, world",
@@ -49,7 +50,10 @@ export default function RoomPage() {
 
   useEffect(() => {
     const fetchFaculty = async () => {
-      const response = await fetch(floorsAPI + "/" + room.floor)
+      //TODO: get building before fetching floor
+      const response = await fetch(
+        floorsAPI + "/" + room.building + "/" + room.floor
+      )
       const json = await response.json()
 
       if (response.ok) {

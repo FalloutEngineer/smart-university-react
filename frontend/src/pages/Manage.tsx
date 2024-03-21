@@ -318,6 +318,7 @@ export default function Manage() {
           faculties={faculties}
           floors={floors}
           pulpits={pulpits}
+          buildings={buildings}
         />
       ) : null}
       {selectedType === ItemTypeEnum.FLOOR ? (

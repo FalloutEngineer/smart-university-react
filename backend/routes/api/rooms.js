@@ -72,6 +72,10 @@ router.post("/", requireAuth, upload.any("images"), async (req, res) => {
       req.body.capacity = Number(req.body.capacity)
     }
 
+    if (req.body.building) {
+      req.body.building = JSON.parse(req.body.building)
+    }
+
     if (req.body.pulpits) {
       req.body.pulpits = JSON.parse(req.body.pulpits)
     }
@@ -118,6 +122,7 @@ router.post("/", requireAuth, upload.any("images"), async (req, res) => {
         faculty: req.body.faculty,
         capacity: req.body.capacity,
         type: req.body.type,
+        building: req.body.building,
         photo_links: images[0] != "" ? images : [],
         description: req.body.description,
         assistant: req.body.assistant,

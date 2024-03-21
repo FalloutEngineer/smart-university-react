@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react"
 import { DashPreview, FloorData } from "../../dashPreview"
-import { NavLink } from "react-router-dom"
+import { NavLink, useParams } from "react-router-dom"
 
 export default function DashPreviewFloor({ name, endpoint }: DashPreview) {
   const [floor, setFloor] = useState<FloorData>(null)
 
+  const { building } = useParams()
+
   useEffect(() => {
-    fetch(endpoint + name)
+    fetch(endpoint + building + "/" + name)
       .then((res) => {
         return res.json()
       })

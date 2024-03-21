@@ -47,7 +47,7 @@ export default function BuildingPage() {
   }, [])
 
   async function getBuildingPromise(id: any) {
-    return fetch(floorsAPI + "/" + id)
+    return fetch(floorsAPI + "/" + building.name + "/" + id)
   }
 
   useEffect(() => {
@@ -118,6 +118,7 @@ export default function BuildingPage() {
                 return (
                   <BuildingItem
                     number={floor.number}
+                    building={building.name}
                     faculties={[floor.faculty]}
                   />
                 )

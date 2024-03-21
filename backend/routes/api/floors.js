@@ -39,7 +39,7 @@ router.get("/", async (req, res) => {
 })
 
 //get one
-router.get("/:number", getFloor, (req, res) => {
+router.get("/:building/:number", getFloor, (req, res) => {
   res.json(res.floor)
 })
 
@@ -106,7 +106,7 @@ router.post("/", requireAuth, upload.single("svg"), async (req, res) => {
 })
 
 // delete one
-router.delete("/:number", requireAuth, getFloor, async (req, res) => {
+router.delete("/:building/:number", requireAuth, getFloor, async (req, res) => {
   if (isEditor(req.role)) {
     try {
       if (res.floor.svg) {
@@ -146,8 +146,10 @@ async function getFloor(req, res, next) {
   let floor
   try {
     floor = await Floor.findOne({
+      building: req.params.building,
       number: req.params.number,
     })
+    console.log(floor)
     if (floor == null) {
       return res.status(404).json({ message: "Can't find floor" })
     }
@@ -159,7 +161,7 @@ async function getFloor(req, res, next) {
   next()
 }
 
-router.patch("/:number", requireAuth, getFloor, async (req, res) => {
+router.patch("/:building/:number", requireAuth, getFloor, async (req, res) => {
   if (canEditThisFloor(res.floor.id, req.role)) {
     if (req.body.floorColor != null) {
       res.floor.floorColor = req.body.floorColor

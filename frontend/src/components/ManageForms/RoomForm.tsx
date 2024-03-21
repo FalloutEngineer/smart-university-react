@@ -14,11 +14,13 @@ export default function RoomForm({
   faculties,
   floors,
   pulpits,
+  buildings,
 }: {
   createRoomCallback: any
   faculties: any
   floors: any
   pulpits: any
+  buildings: any
 }) {
   const { register, handleSubmit, watch } = useForm()
 
@@ -64,6 +66,25 @@ export default function RoomForm({
             </option>
             {faculties.map((faculty: any) => {
               return <option value={faculty.name}>{faculty.name}</option>
+            })}
+          </select>
+        </li>
+        <li id="floor-item" className="dash-board__item">
+          <label htmlFor="floor" className="dash-board__label">
+            До якої будівлі належить?
+          </label>
+          <select
+            {...register("building")}
+            className="dash-select"
+            name="building"
+            id="buildings"
+          >
+            <option hidden disabled selected value={""}>
+              {" "}
+              -- Оберіть варіант --{" "}
+            </option>
+            {buildings.map((building: any) => {
+              return <option value={building.name}>{building.name}</option>
             })}
           </select>
         </li>

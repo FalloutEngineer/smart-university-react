@@ -80,7 +80,7 @@ function App() {
             element={!user ? <LoginPage /> : <Navigate to="/" />}
           />
           <Route path="/building/:name" element={<BuildingPage />} />
-          <Route path="/floor/:number" element={<FloorPage />} />
+          <Route path="/floor/:building/:number" element={<FloorPage />} />
           <Route path="/room/:number" element={<RoomPage />} />
           <Route
             path="/manage"
@@ -174,6 +174,7 @@ function App() {
                   <DashPreview
                     PreviewComponent={DashPreviewBuilding}
                     endpoint={API_URL + "/api/buildings/"}
+                    isFloor={false}
                   />
                 ) : (
                   <Navigate to={`/help`} replace={true} />
@@ -191,6 +192,7 @@ function App() {
                   <DashPreview
                     PreviewComponent={DashPreviewPulpit}
                     endpoint={API_URL + "/api/pulpits/"}
+                    isFloor={false}
                   />
                 ) : (
                   <Navigate to={`/help`} replace={true} />
@@ -208,6 +210,7 @@ function App() {
                   <DashPreview
                     PreviewComponent={DashPreviewFaculty}
                     endpoint={API_URL + "/api/faculties/"}
+                    isFloor={false}
                   />
                 ) : (
                   <Navigate to={`/help`} replace={true} />
@@ -218,13 +221,14 @@ function App() {
             }
           />
           <Route
-            path="/floor-list/:name"
+            path="/floor-list/:building/:name"
             element={
               user ? (
                 canEditAtLeastOneFloor(myRole) ? (
                   <DashPreview
                     PreviewComponent={DashPreviewFloor}
                     endpoint={API_URL + "/api/floors/"}
+                    isFloor={true}
                   />
                 ) : (
                   <Navigate to={`/help`} replace={true} />
@@ -242,6 +246,7 @@ function App() {
                   <DashPreview
                     PreviewComponent={DashPreviewRoom}
                     endpoint={API_URL + "/api/rooms/"}
+                    isFloor={true}
                   />
                 ) : (
                   <Navigate to={`/help`} replace={true} />
@@ -280,7 +285,7 @@ function App() {
             }
           />
           <Route
-            path="/floor-list/:number/edit"
+            path="/floor-list/:building/:number/edit"
             element={
               user ? (
                 canEditAtLeastOneFloor(myRole) ? (

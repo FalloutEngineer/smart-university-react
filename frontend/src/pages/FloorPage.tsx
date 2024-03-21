@@ -74,7 +74,9 @@ export default function FloorPage() {
 
   useLayoutEffect(() => {
     const fetchFloors = async () => {
-      const response = await fetch(floorsAPI + "/" + params.number)
+      const response = await fetch(
+        floorsAPI + "/" + params.building + "/" + params.number
+      )
       const json = await response.json()
 
       if (response.ok) {

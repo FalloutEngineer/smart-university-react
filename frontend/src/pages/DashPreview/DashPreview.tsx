@@ -10,11 +10,13 @@ import { isEditor } from "../../util/permissionsCheckers"
 export default function DashPreview({
   PreviewComponent,
   endpoint,
+  isFloor,
 }: {
   PreviewComponent: DashPreviewComponent
   endpoint: string
+  isFloor: boolean
 }) {
-  let { name } = useParams()
+  let { name, building } = useParams()
   const { user } = useAuthContext()
 
   const navigate = useNavigate()
@@ -25,24 +27,45 @@ export default function DashPreview({
 
   const deleteCallback = () =>
     function () {
-      fetch(endpoint + name, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${user}`,
-        },
-      })
-        .then((res) => {
-          return res.json()
+      if (isFloor) {
+        fetch(endpoint + building + "/" + name, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user}`,
+          },
         })
-        .then((data) => {
-          console.log(data)
-          navigate(-1)
+          .then((res) => {
+            return res.json()
+          })
+          .then((data) => {
+            console.log(data)
+            navigate(-1)
+          })
+          .catch((e) => {
+            //TODO: toast?
+            console.error(e)
+          })
+      } else {
+        fetch(endpoint + name, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user}`,
+          },
         })
-        .catch((e) => {
-          //TODO: toast?
-          console.error(e)
-        })
+          .then((res) => {
+            return res.json()
+          })
+          .then((data) => {
+            console.log(data)
+            navigate(-1)
+          })
+          .catch((e) => {
+            //TODO: toast?
+            console.error(e)
+          })
+      }
     }
   return (
     <DashLayout>

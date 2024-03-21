@@ -10,7 +10,7 @@ const API_URL = process.env.REACT_APP_API_URL
 const floorsAPI = API_URL + `/api/floors`
 
 export default function DashEditFloor() {
-  let { number } = useParams()
+  let { number, building } = useParams()
   const { user } = useAuthContext()
 
   const [floor, setFloor]: any = useState(null)
@@ -22,7 +22,7 @@ export default function DashEditFloor() {
   })
 
   async function getFloor() {
-    return fetch(floorsAPI + "/" + number)
+    return fetch(floorsAPI + "/" + building + "/" + number)
       .then((res) => {
         return res.json()
       })
@@ -41,7 +41,7 @@ export default function DashEditFloor() {
 
     // const color = JSON.stringify(data.floorColor)
 
-    await fetch(floorsAPI + "/" + number, {
+    await fetch(floorsAPI + "/" + building + "/" + number, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
