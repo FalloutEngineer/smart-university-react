@@ -149,7 +149,6 @@ async function getFloor(req, res, next) {
       building: req.params.building,
       number: req.params.number,
     })
-    console.log(floor)
     if (floor == null) {
       return res.status(404).json({ message: "Can't find floor" })
     }
