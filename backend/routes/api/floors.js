@@ -125,7 +125,7 @@ router.delete("/:building/:number", requireAuth, getFloor, async (req, res) => {
         }
       )
       await Building.updateOne(
-        { name: res.floor.building },
+        { name: res.floor.building[0] },
         {
           $pullAll: {
             floors: [res.floor.number],

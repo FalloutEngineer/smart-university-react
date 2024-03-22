@@ -246,7 +246,7 @@ function App() {
                   <DashPreview
                     PreviewComponent={DashPreviewRoom}
                     endpoint={API_URL + "/api/rooms/"}
-                    isFloor={true}
+                    isFloor={false}
                   />
                 ) : (
                   <Navigate to={`/help`} replace={true} />
