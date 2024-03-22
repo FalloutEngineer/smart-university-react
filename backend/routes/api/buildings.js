@@ -184,9 +184,13 @@ router.patch(
   ]),
   getBuilding,
   async (req, res) => {
-    console.log(req.role)
     if (canEditThisBuilding(res.building.name, req.role)) {
-      if (res.building.svg) {
+      if (
+        req.files &&
+        Array.isArray(req.files.svg) &&
+        req.files.svg[0].filename != null &&
+        res.building.svg
+      ) {
         const address = path.resolve(
           "./static/images/building/" + res.building.svg
         )
@@ -195,7 +199,12 @@ router.patch(
         }
       }
 
-      if (res.building.background) {
+      if (
+        req.files &&
+        Array.isArray(req.files.background) &&
+        req.files.background[0].filename != null &&
+        res.building.background
+      ) {
         const address = path.resolve(
           "./static/images/building/" + res.building.background
         )
@@ -204,12 +213,20 @@ router.patch(
         }
       }
 
-      if (req.body.svg != null) {
-        res.building.svg = req.body.svg
+      if (
+        req.files &&
+        Array.isArray(req.files.svg) &&
+        req.files.svg[0].filename != null
+      ) {
+        res.building.svg = req.files.svg[0].filename
       }
 
-      if (req.body.background != null) {
-        res.building.background = req.body.background
+      if (
+        req.files &&
+        Array.isArray(req.files.background) &&
+        req.files.background[0].filename != null
+      ) {
+        res.building.background = req.files.background[0].filename
       }
 
       if (req.body.address != null) {
