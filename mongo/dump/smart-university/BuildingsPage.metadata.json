@@ -1,0 +1,1 @@
+{"options":{"capped":true,"size":{"$numberInt":"1024"},"max":{"$numberInt":"1"}},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"2dc8cf7b31604828be78c914c2c7722f","collectionName":"BuildingsPage","type":"collection"}
