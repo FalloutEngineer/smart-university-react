@@ -12,11 +12,11 @@ export default function DashListFloor({ itemData }: { itemData: any }) {
         <span className="dash-list__property dash-list__property_name">
           {itemData.number}
         </span>
+        <span className="dash-list__property dash-list__property_pulpit">
+          {itemData.building}
+        </span>
         <span className="dash-list__property dash-list__property_faculty">
           {itemData.faculty}
-        </span>
-        <span className="dash-list__property dash-list__property_pulpit">
-          {itemData.rooms}
         </span>
       </NavLink>
     </li>

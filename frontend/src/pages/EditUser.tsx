@@ -41,7 +41,7 @@ export default function EditUser() {
     const data = await response.json()
 
     if (data.message) {
-      console.log(data)
+      console.error(data)
     } else {
       setUser(data)
     }
@@ -59,7 +59,6 @@ export default function EditUser() {
 
     const data = await response.json()
 
-    console.log(data)
     setRoles(data)
   }
 

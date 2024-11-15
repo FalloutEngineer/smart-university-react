@@ -53,7 +53,7 @@ export default function ManageCard() {
           })
         )
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     }
     fetchFaculties()
@@ -71,7 +71,7 @@ export default function ManageCard() {
           })
         )
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     }
     fetchPulpits()
@@ -122,7 +122,12 @@ export default function ManageCard() {
             <label htmlFor="faculty" className="dash-board__label">
               Тип картки
             </label>
-            <select id="type" defaultValue={"faculty"} onChange={onTypeChange}>
+            <select
+              id="type"
+              defaultValue={"faculty"}
+              onChange={onTypeChange}
+              className="dash-board__input"
+            >
               <option value="faculty">Факультет</option>
               <option value="pulpit">Кафедра</option>
             </select>
@@ -132,7 +137,11 @@ export default function ManageCard() {
               <label htmlFor="faculty" className="dash-board__label">
                 Назва
               </label>
-              <select id="faculty" {...register("name")}>
+              <select
+                id="faculty"
+                {...register("name")}
+                className="dash-board__input"
+              >
                 <option value="" disabled selected hidden>
                   ---Оберіть факультет---
                 </option>
@@ -147,7 +156,11 @@ export default function ManageCard() {
               <label htmlFor="pulpit" className="dash-board__label">
                 Назва
               </label>
-              <select id="pulpit" {...register("name")}>
+              <select
+                id="pulpit"
+                {...register("name")}
+                className="dash-board__input"
+              >
                 <option value="" disabled selected hidden>
                   ---Оберіть кафедру---
                 </option>
@@ -164,7 +177,7 @@ export default function ManageCard() {
             </label>
             <input
               id="icon"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               defaultValue={"fa-globe"}
               {...register("icon")}
             />
@@ -187,7 +200,7 @@ export default function ManageCard() {
             <input
               id="seats"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               defaultValue={0}
               min={0}
               {...register("seats")}
@@ -200,7 +213,7 @@ export default function ManageCard() {
             <input
               id="area"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               defaultValue={0}
               min={0}
               {...register("area")}
@@ -213,7 +226,7 @@ export default function ManageCard() {
             <input
               id="pulpits"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               defaultValue={0}
               min={0}
               {...register("pulpits")}
@@ -226,7 +239,7 @@ export default function ManageCard() {
             <input
               id="rooms"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               defaultValue={0}
               min={0}
               {...register("rooms")}
@@ -239,7 +252,7 @@ export default function ManageCard() {
             <input
               id="bachelorFull"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               defaultValue={0}
               min={0}
               {...register("bachelorFull")}
@@ -252,7 +265,7 @@ export default function ManageCard() {
             <input
               id="bachelorPart"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               defaultValue={0}
               min={0}
               {...register("bachelorPart")}
@@ -265,7 +278,7 @@ export default function ManageCard() {
             <input
               id="masterFull"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               defaultValue={0}
               min={0}
               {...register("masterFull")}
@@ -278,7 +291,7 @@ export default function ManageCard() {
             <input
               id="masterPart"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               defaultValue={0}
               min={0}
               {...register("masterPart")}
@@ -291,7 +304,7 @@ export default function ManageCard() {
             <input
               id="phdFull"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               defaultValue={0}
               min={0}
               {...register("phdFull")}
@@ -304,7 +317,7 @@ export default function ManageCard() {
             <input
               id="phdPart"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               defaultValue={0}
               min={0}
               {...register("phdPart")}

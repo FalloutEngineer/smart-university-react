@@ -128,11 +128,11 @@ export default function DashSidebar({ page }: { page?: string }) {
             </NavLink>
           </li>
         )}
-        <li className="dash-sidebar__item">
+        {/* <li className="dash-sidebar__item">
           <NavLink to="/help" className={"dash-sidebar__link "}>
             Допомога
           </NavLink>
-        </li>
+        </li> */}
       </ul>
     </div>
   )

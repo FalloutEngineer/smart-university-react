@@ -19,14 +19,14 @@
                 .st16{fill:#483F39;}
                 .st17{fill:#74665D;}
                 .st18{fill:#EBE9E2;}
-                .st19{fill:#F5F4EC;}
+                .st19_{fill:#F5F4EC;}
                 .st20{fill:#BEBEB7;}
-                .st21{fill:#B2A886;}
-                .st22{fill:#9B5D15;}
-                .st23{fill:#824A13;}
+                .st21_{fill:#B2A886;}
+                .st22_{fill:#9B5D15;}
+                .st23_{fill:#824A13;}
                 .st24{enable-background:new    ;}
-                .st25{fill:#AE978A;}
-                .st26{fill:#F4EBE4;}
+                .st25_{fill:#AE978A;}
+                .st26_{fill:#F4EBE4;}
                 .st27{fill:#E3D7C9;}
                 .st9:hover {fill:rgb(49, 112, 207); }
                 .st10:hover {fill:rgb(255, 174, 0); }
@@ -120,35 +120,35 @@
                     <stop offset="0.8964" style="stop-color:#D8A271"></stop>
                     <stop offset="0.9944" style="stop-color:#DDA673"></stop>
                 </linearGradient>
-                <a xlink:href="#"><polygon id="f5_1" class="st9" points="783.8,391.3 212.6,720.2 212.6,720.2 18.5,608.9 18.8,668.8 212.6,779.5 783.8,449.7 	"></polygon></a>
+                <a><polygon id="f5_1" class="st9" points="783.8,391.3 212.6,720.2 212.6,720.2 18.5,608.9 18.8,668.8 212.6,779.5 783.8,449.7 	"></polygon></a>
                 <linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="18.5327" y1="527.5735" x2="783.7996" y2="527.5735">
                     <stop offset="1.385225e-07" style="stop-color:#B78A62"></stop>
                     <stop offset="0.3373" style="stop-color:#C09066"></stop>
                     <stop offset="0.8964" style="stop-color:#D8A271"></stop>
                     <stop offset="0.9944" style="stop-color:#DDA673"></stop>
                 </linearGradient>
-                <a xlink:href="#"><polygon id="f5_2" class="st10" points="783.8,333.5 212.6,662.3 18.5,552.5 18.8,610.9 212.6,721.7 783.8,391.8 	"></polygon></a>
+                <a xlink:href="../../floor/5%20корпус/2"><polygon id="f5_2" class="st10" points="783.8,333.5 212.6,662.3 18.5,552.5 18.8,610.9 212.6,721.7 783.8,391.8 	"></polygon></a>
                 <linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="18.5327" y1="469.9622" x2="783.7996" y2="469.9622">
                     <stop offset="1.385225e-07" style="stop-color:#B78A62"></stop>
                     <stop offset="0.3373" style="stop-color:#C09066"></stop>
                     <stop offset="0.8964" style="stop-color:#D8A271"></stop>
                     <stop offset="0.9944" style="stop-color:#DDA673"></stop>
                 </linearGradient>
-                <a xlink:href="#"><polygon id="f5_3" class="st11" points="783.8,276.6 212.6,605.5 212.6,605.5 18.5,494.2 18.8,552.5 212.6,663.3 783.8,333.5 	"></polygon></a>
+                <a xlink:href="../../floor/5%20корпус/3"><polygon id="f5_3" class="st11" points="783.8,276.6 212.6,605.5 212.6,605.5 18.5,494.2 18.8,552.5 212.6,663.3 783.8,333.5 	"></polygon></a>
                 <linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="18.5327" y1="412.3508" x2="783.7996" y2="412.3508">
                     <stop offset="1.385225e-07" style="stop-color:#B78A62"></stop>
                     <stop offset="0.3373" style="stop-color:#C09066"></stop>
                     <stop offset="0.8964" style="stop-color:#D8A271"></stop>
                     <stop offset="0.9944" style="stop-color:#DDA673"></stop>
                 </linearGradient>
-                <a xlink:href="#"><polygon id="f5_4" class="st12" points="783.8,218.3 212.6,547.1 18.5,437.3 18.8,495.7 212.6,606.4 783.8,276.6 	"></polygon></a>
+                <a xlink:href="../../floor/5%20корпус/4"><polygon id="f5_4" class="st12" points="783.8,218.3 212.6,547.1 18.5,437.3 18.8,495.7 212.6,606.4 783.8,276.6 	"></polygon></a>
                 <linearGradient id="SVGID_5_" gradientUnits="userSpaceOnUse" x1="18.2855" y1="339.4094" x2="783.7996" y2="339.4094">
                     <stop offset="1.385225e-07" style="stop-color:#B78A62"></stop>
                     <stop offset="0.3373" style="stop-color:#C09066"></stop>
                     <stop offset="0.8964" style="stop-color:#D8A271"></stop>
                     <stop offset="0.9944" style="stop-color:#DDA673"></stop>
                 </linearGradient>
-                <a xlink:href="#"><polygon id="f5_5" class="st13" points="783.8,131.2 212.6,461.1 212.6,461.1 18.3,347.3 18.8,436.8 212.6,547.6 783.8,217.8 	"></polygon></a>
+                <a xlink:href="../../floor/5%20корпус/5"><polygon id="f5_5" class="st13" points="783.8,131.2 212.6,461.1 212.6,461.1 18.3,347.3 18.8,436.8 212.6,547.6 783.8,217.8 	"></polygon></a>
             </g>
             <g id="Слой_2">
                 <g id="Слой_4_1_">
@@ -927,13 +927,13 @@
                                 447.8,604.2 450.4,602.5 				"></polygon>
                         </g>
                         <g>
-                            <polygon class="st19" points="447.8,604.2 447.7,643.4 447.7,644.1 447.6,653.2 442,649.1 442,640 442,639.2 442.1,600.1 
+                            <polygon class="st19_" points="447.8,604.2 447.7,643.4 447.7,644.1 447.6,653.2 442,649.1 442,640 442,639.2 442.1,600.1 
                                 445.3,602.4 				"></polygon>
                         </g>
                         <g>
                             <polygon class="st20" points="450.6,602.6 447.7,604.2 444.9,602.6 447.7,600.9 				"></polygon>
                         </g>
-                        <polygon class="st21" points="455.1,639.6 455.1,640.3 455.1,648.3 447.6,653.2 442,649.1 442,640 446.7,643.4 447.6,644.2 
+                        <polygon class="st21_" points="455.1,639.6 455.1,640.3 455.1,648.3 447.6,653.2 442,649.1 442,640 446.7,643.4 447.6,644.2 
                             447.7,644.1 			"></polygon>
                     </g>
                     <g>
@@ -942,29 +942,29 @@
                                 561.2,546.3 563.9,544.5 				"></polygon>
                         </g>
                         <g>
-                            <polygon class="st19" points="561.2,536.3 561.1,575.6 561.1,576.3 561.1,585.4 555.5,581.2 555.5,572.1 555.5,571.4 
+                            <polygon class="st19_" points="561.2,536.3 561.1,575.6 561.1,576.3 561.1,585.4 555.5,581.2 555.5,572.1 555.5,571.4 
                                 555.5,536.6 558.7,534.5 				"></polygon>
                         </g>
-                        <polygon class="st21" points="568.6,571.8 568.6,572.4 568.6,580.4 561.1,585.4 555.5,581.2 555.5,572.1 560.1,575.6 
+                        <polygon class="st21_" points="568.6,571.8 568.6,572.4 568.6,580.4 561.1,585.4 555.5,581.2 555.5,572.1 560.1,575.6 
                             561.1,576.3 561.1,576.3 			"></polygon>
                     </g>
                     <g>
-                        <polygon class="st22" points="489.1,583.2 489.6,620.3 463.4,635.4 463.6,598.8 			"></polygon>
-                        <polygon class="st23" points="463.6,594.6 463.5,635.4 462.9,634.8 462.9,594 			"></polygon>
-                        <polygon class="st23" points="476.8,627.6 478.5,626.6 478.5,590.2 476.7,591.1 			"></polygon>
+                        <polygon class="st22_" points="489.1,583.2 489.6,620.3 463.4,635.4 463.6,598.8 			"></polygon>
+                        <polygon class="st23_" points="463.6,594.6 463.5,635.4 462.9,634.8 462.9,594 			"></polygon>
+                        <polygon class="st23_" points="476.8,627.6 478.5,626.6 478.5,590.2 476.7,591.1 			"></polygon>
                     </g>
                     <g>
-                        <polygon class="st22" points="532.6,558 533.1,595.1 507,610.2 507.1,573.5 			"></polygon>
-                        <polygon class="st23" points="507.1,569.9 507,610.2 506.4,609.5 506.4,569.3 			"></polygon>
-                        <polygon class="st23" points="520.3,602.4 522.1,601.4 522.1,565 520.2,565.9 			"></polygon>
+                        <polygon class="st22_" points="532.6,558 533.1,595.1 507,610.2 507.1,573.5 			"></polygon>
+                        <polygon class="st23_" points="507.1,569.9 507,610.2 506.4,609.5 506.4,569.3 			"></polygon>
+                        <polygon class="st23_" points="520.3,602.4 522.1,601.4 522.1,565 520.2,565.9 			"></polygon>
                     </g>
                     <g>
                         <g class="st24">
                             <g>
-                                <polygon class="st25" points="435.4,600.9 435.4,605.7 464.4,622.6 464.4,617.8 					"></polygon>
+                                <polygon class="st25_" points="435.4,600.9 435.4,605.7 464.4,622.6 464.4,617.8 					"></polygon>
                             </g>
                             <g>
-                                <polygon class="st26" points="464.3,617.8 464.4,622.6 585.3,552.7 585.3,547.9 					"></polygon>
+                                <polygon class="st26_" points="464.3,617.8 464.4,622.6 585.3,552.7 585.3,547.9 					"></polygon>
                             </g>
                             <g>
                                 <polygon class="st27" points="435.4,600.9 464.4,617.8 585.3,547.9 556.3,531.1 					"></polygon>

@@ -37,8 +37,6 @@ export default function DashEditFloor() {
   }, [])
 
   async function tryEditFloor(data: Floor) {
-    console.log(data.floorColor)
-
     // const color = JSON.stringify(data.floorColor)
 
     await fetch(floorsAPI + "/" + building + "/" + number, {

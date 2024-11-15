@@ -8,7 +8,10 @@ export default function Footer() {
         <div className="row">
           <div className="col-xs-12 text-center">
             <p className="margin-b-0">
-              <a className="color-base fweight-700" href="/">
+              <a
+                className="color-base fweight-700"
+                href="https://www.kspu.edu/"
+              >
                 Херсоньский Державний Університет
               </a>
               <br />© 2024

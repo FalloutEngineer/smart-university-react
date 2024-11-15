@@ -21,8 +21,6 @@ export default function Cards() {
       const data = await response.json()
 
       setFacultyCards(data)
-
-      console.log(facultyCards)
     }
 
     fetchFaculties()
@@ -34,8 +32,6 @@ export default function Cards() {
       const data = await response.json()
 
       setPulpitCards(data)
-
-      console.log(pulpitCards)
     }
 
     fetchPulpits()

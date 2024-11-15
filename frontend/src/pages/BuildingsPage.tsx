@@ -5,6 +5,7 @@ import BuildingsHero from "../components/BuildingsHero"
 
 import "./buildingsPage.css"
 import BuildingsPageItem from "../components/BuildingsPageItem"
+import Corpus from "../components/Corpus"
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -31,8 +32,6 @@ export default function BuildingsPage() {
         const json = await response.json()
 
         if (response.ok) {
-          console.log("buildings: ", json)
-
           setBuildingPage(json)
 
           const readyImages =
@@ -43,8 +42,6 @@ export default function BuildingsPage() {
               : [{ url: "/img/1.jpg", caption: "" }]
 
           setSlides(readyImages)
-
-          console.log(slides)
         } else {
           console.error(response.status, response.text)
         }
@@ -58,6 +55,12 @@ export default function BuildingsPage() {
 
   const [buildings, setBuildings] = useState([])
 
+  const corpusesStyle = {
+    gridTemplateColumns: `repeat(${
+      buildings.length > 4 ? 4 : buildings.length
+    }, 1fr)`,
+  }
+
   useEffect(() => {
     const fetchBuildings = async () => {
       const response = await fetch(buildingsAPI)
@@ -67,7 +70,7 @@ export default function BuildingsPage() {
         setBuildings(json)
       } else {
         //TODO: toast error?
-        console.log(response.status, response.text)
+        console.error(response.status, response.text)
       }
     }
 
@@ -91,19 +94,21 @@ export default function BuildingsPage() {
         />
       </div>
 
-      <div className="page-list__container">
-        <div className="container">
-          <ul className="page-list">
-            {buildings !== null &&
-              buildings.map((building: any) => {
-                return (
-                  <BuildingsPageItem
-                    name={building.name}
-                    link={building.name}
-                  />
-                )
-              })}
-          </ul>
+      <div className="bg-color-sky-light" data-auto-height="true">
+        <div className="content-lg container">
+          <div
+            className="row row-space-1 margin-b-2 corpuses"
+            style={corpusesStyle}
+          >
+            {buildings.map((building: any) => {
+              return (
+                <Corpus
+                  heading={building.name}
+                  link={`/building/${building.name}`}
+                />
+              )
+            })}
+          </div>
         </div>
       </div>
     </Layout>

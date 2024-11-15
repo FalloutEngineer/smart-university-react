@@ -79,8 +79,6 @@ export default function EditCardPage() {
   }
 
   function onSubmit(data: any) {
-    console.log(data)
-
     if (params.type === "faculty") {
       tryEditCard(data, facultyCardsAPI)
     }
@@ -100,7 +98,7 @@ export default function EditCardPage() {
             </label>
             <input
               id="icon"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               {...register("icon")}
               defaultValue={card?.icon}
             />
@@ -124,7 +122,7 @@ export default function EditCardPage() {
             <input
               id="seats"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               min={0}
               {...register("seats")}
               defaultValue={card?.seats}
@@ -137,7 +135,7 @@ export default function EditCardPage() {
             <input
               id="area"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               min={0}
               {...register("area")}
               defaultValue={card?.area}
@@ -150,7 +148,7 @@ export default function EditCardPage() {
             <input
               id="pulpits"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               min={0}
               {...register("pulpits")}
               defaultValue={card?.pulpits}
@@ -163,7 +161,7 @@ export default function EditCardPage() {
             <input
               id="rooms"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               min={0}
               {...register("rooms")}
               defaultValue={card?.rooms}
@@ -176,7 +174,7 @@ export default function EditCardPage() {
             <input
               id="bachelorFull"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               min={0}
               {...register("bachelorFull")}
               defaultValue={card?.bachelorFull}
@@ -189,7 +187,7 @@ export default function EditCardPage() {
             <input
               id="bachelorPart"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               min={0}
               {...register("bachelorPart")}
               defaultValue={card?.bachelorPart}
@@ -202,7 +200,7 @@ export default function EditCardPage() {
             <input
               id="masterFull"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               min={0}
               {...register("masterFull")}
               defaultValue={card?.masterFull}
@@ -215,7 +213,7 @@ export default function EditCardPage() {
             <input
               id="masterPart"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               min={0}
               {...register("masterPart")}
               defaultValue={card?.masterPart}
@@ -228,7 +226,7 @@ export default function EditCardPage() {
             <input
               id="phdFull"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               min={0}
               {...register("phdFull")}
               defaultValue={card?.phdFull}
@@ -241,7 +239,7 @@ export default function EditCardPage() {
             <input
               id="phdPart"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               min={0}
               {...register("phdPart")}
               defaultValue={card?.phdPart}

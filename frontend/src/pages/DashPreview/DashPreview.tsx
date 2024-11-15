@@ -27,44 +27,46 @@ export default function DashPreview({
 
   const deleteCallback = () =>
     function () {
-      if (isFloor) {
-        fetch(endpoint + building + "/" + name, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${user}`,
-          },
-        })
-          .then((res) => {
-            return res.json()
+      let isUserSure = window.confirm("Ви справді хочете видалити цей об'єкт?")
+
+      if (isUserSure) {
+        if (isFloor) {
+          fetch(endpoint + building + "/" + name, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${user}`,
+            },
           })
-          .then((data) => {
-            console.log(data)
-            navigate(-1)
+            .then((res) => {
+              return res.json()
+            })
+            .then((data) => {
+              navigate(-1)
+            })
+            .catch((e) => {
+              //TODO: toast?
+              console.error(e)
+            })
+        } else {
+          fetch(endpoint + name, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${user}`,
+            },
           })
-          .catch((e) => {
-            //TODO: toast?
-            console.error(e)
-          })
-      } else {
-        fetch(endpoint + name, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${user}`,
-          },
-        })
-          .then((res) => {
-            return res.json()
-          })
-          .then((data) => {
-            console.log(data)
-            navigate(-1)
-          })
-          .catch((e) => {
-            //TODO: toast?
-            console.error(e)
-          })
+            .then((res) => {
+              return res.json()
+            })
+            .then((data) => {
+              navigate(-1)
+            })
+            .catch((e) => {
+              //TODO: toast?
+              console.error(e)
+            })
+        }
       }
     }
   return (

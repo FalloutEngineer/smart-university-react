@@ -118,7 +118,7 @@ export default function EditDamagePost() {
             </label>
             <input
               id="name"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               defaultValue={damage?.name}
               {...register("name")}
             />
@@ -149,7 +149,7 @@ export default function EditDamagePost() {
             </label>
             <textarea
               id="location"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               defaultValue={damage?.location}
               {...register("location")}
             />
@@ -161,7 +161,7 @@ export default function EditDamagePost() {
             <input
               type="text"
               id="status"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               {...register("status")}
             />
           </li>
@@ -171,7 +171,7 @@ export default function EditDamagePost() {
             </label>
             <textarea
               id="description"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               defaultValue={damage?.description}
               {...register("description")}
             />
@@ -183,7 +183,7 @@ export default function EditDamagePost() {
             <input
               id="sum"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               min={0}
               {...register("sum")}
               defaultValue={damage?.sum}

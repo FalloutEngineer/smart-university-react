@@ -70,7 +70,6 @@ export default function RolePage() {
 
         const data = await response.json()
 
-        console.log(data)
         setRole(data)
       } catch (e) {
         alert(e)

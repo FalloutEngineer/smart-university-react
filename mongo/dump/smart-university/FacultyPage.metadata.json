@@ -1,0 +1,1 @@
+{"options":{"capped":true,"size":{"$numberInt":"1024"},"max":{"$numberInt":"1"}},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"d87327a50dbb416c99be88feeb1f3b58","collectionName":"FacultyPage","type":"collection"}

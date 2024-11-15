@@ -9,8 +9,6 @@ export default function ParallaxWindow({
   children: any
   imageUrl: string
 }) {
-  console.log("imageUrl ", imageUrl)
-
   const styles = {
     backgroundImage: imageUrl,
     height: "fit-content",
@@ -21,6 +19,7 @@ export default function ParallaxWindow({
 
   return (
     <div className="parallax-window" data-parallax="scroll" style={styles}>
+      <div className="parallax-content"></div>
       {children}
     </div>
   )

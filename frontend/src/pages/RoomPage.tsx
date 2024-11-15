@@ -35,13 +35,10 @@ export default function RoomPage() {
 
       if (response.ok) {
         setRoom(json)
-        console.log("room: ", room)
       } else {
         console.error("Fetch error:", response.status)
       }
     }
-
-    console.log(room)
 
     fetchRoom().catch((e) => {
       console.error(e)
@@ -58,7 +55,6 @@ export default function RoomPage() {
 
       if (response.ok) {
         setFloor(json)
-        console.log(json)
       } else {
         console.error(response.status)
       }
@@ -94,8 +90,11 @@ export default function RoomPage() {
       </div>
       <div className="roomBody">
         <div className="roomContainer container">
-          <Link to={`/floor/${room.floor}`} className="roomToFaculty">
-            На сторінку поверха
+          <Link
+            to={`/floor/${room.building}/${room.floor}`}
+            className="roomToFaculty"
+          >
+            На сторінку поверху
           </Link>
           <div className="roomUpper">
             <RoomSlider slides={room.photo_links} />

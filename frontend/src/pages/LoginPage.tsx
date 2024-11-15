@@ -25,15 +25,13 @@ export default function LoginPage() {
 
     if (loggedIn) {
       if (redirectTo && redirectTo !== "") {
-        console.log("first: ", redirectTo)
         navigate(`../${redirectTo}`)
       } else {
-        console.log("second: ", redirectTo)
         navigate(-1)
       }
     } else {
       //TODO TOAST OR GOOD ERROR
-      console.log("Failed to login")
+      console.error("Failed to login")
     }
   }
 

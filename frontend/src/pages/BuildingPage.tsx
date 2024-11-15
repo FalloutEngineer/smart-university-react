@@ -37,12 +37,12 @@ export default function BuildingPage() {
         }
       } else {
         //TODO: toast error?
-        console.log(response.status, response.text)
+        console.error(response.status, response.text)
       }
     }
 
     fetchBuildings().catch((e) => {
-      console.log(e)
+      console.error(e)
     })
   }, [])
 
@@ -58,7 +58,6 @@ export default function BuildingPage() {
         })
 
         const responses = await Promise.all(idPromises)
-
         const jsons = await Promise.all(
           responses.map((resp) => {
             return resp.json()

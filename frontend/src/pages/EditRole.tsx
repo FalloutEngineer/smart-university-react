@@ -52,7 +52,7 @@ export default function EditRole() {
     const data = await response.json()
 
     if (data.message) {
-      console.log(data)
+      console.error(data)
     } else {
       setRole(data)
     }
@@ -69,7 +69,7 @@ export default function EditRole() {
     const data = await response.json()
 
     if (data.message) {
-      console.log(data)
+      console.error(data)
     } else {
       setBuildings(data)
     }
@@ -86,7 +86,7 @@ export default function EditRole() {
     const data = await response.json()
 
     if (data.message) {
-      console.log(data)
+      console.error(data)
     } else {
       setFloors(data)
     }
@@ -103,7 +103,7 @@ export default function EditRole() {
     const data = await response.json()
 
     if (data.message) {
-      console.log(data)
+      console.error(data)
     } else {
       setFaculties(data)
     }
@@ -120,7 +120,7 @@ export default function EditRole() {
     const data = await response.json()
 
     if (data.message) {
-      console.log(data)
+      console.error(data)
     } else {
       setRooms(data)
     }

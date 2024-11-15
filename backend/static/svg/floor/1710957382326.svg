@@ -6,7 +6,7 @@
         .st3{opacity: 0.4;fill:#0285FF;stroke:#1D1D1B;stroke-width:1.4704;stroke-miterlimit:10;}
         .st3:hover {fill: #0099ff; } 
         .st5{fill: black; font-size:15px; font-family:'Lemon/Milk(RUS BY LYAJKA) Regular';}
-        .st6{fill:#1D1D1B; font-size:12px;font-weight:700;}
+        .st6_{fill:#1D1D1B; font-size:12px;font-weight:700;}
         .st7{opacity: 0.4;fill:#228FD1;stroke:#1D1D1B;stroke-width:1.4704;stroke-miterlimit:10;}
         .st7:hover {fill: #077bc4; } 
         .st8{opacity: 0.4;fill:white;stroke:#1D1D1B;stroke-width:1.4704;stroke-miterlimit:10;}
@@ -232,31 +232,31 @@
         <text transform="matrix(1 0 0 1 939.717 704.5706)" class="st10">9</text>
     </g> -->
     <g id="Слой_4">
-        <text transform="matrix(1 0 0 1 83.0675 101.6994)" class="st6">Комп. кл.</text>
-        <text transform="matrix(1 0 0 1 646.4147 101.6994)" class="st6">Навч. ауд.</text>
-        <text transform="matrix(1 0 0 1 787.7893 101.6994)" class="st6">Комп. кл.</text>
-        <text transform="matrix(1 0 0 1 944.3157 101.6994)" class="st6">Комп. кл.</text>
-        <text transform="matrix(1 0 0 1 286.4903 101.6994)"><tspan x="0" y="0" class="st6">Комп. кл. /</tspan><tspan x="0" y="14.4" class="st6">Навч. ауд.</tspan></text>
-        <text transform="matrix(1 0 0 1 1244.7192 101.6994)"><tspan x="0" y="0" class="st6">Комп. кл. /</tspan><tspan x="0" y="14.4" class="st6">Навч. ауд.</tspan></text>
-        <text transform="matrix(1 0 0 1 1432.1202 101.6994)" class="st6">Лекц. ауд.</text>
-        <text transform="matrix(1 0 0 1 1785.4984 101.6994)" class="st6">Лекц. ауд.</text>
-        <text transform="matrix(1 0 0 1 1602.9506 101.6994)" class="st6">Навч. ауд.</text>
-        <text transform="matrix(1 0 0 1 1120.7192 101.6994)" class="st6">КАГМФ</text>
-        <text transform="matrix(1 0 0 1 118.9691 464.1636)"><tspan x="0" y="0" class="st6">Комп. кл. /</tspan><tspan x="0" y="14.4" class="st6">Навч. ауд.</tspan></text>
-        <text transform="matrix(1 0 0 1 700.6404 464.1636)" class="st6">КАГМФ</text>
-        <text transform="matrix(1 0 0 1 846.8254 464.1636)" class="st6">Лекц. ауд.</text>
-        <text transform="matrix(1 0 0 1 1270.5649 464.1636)" class="st6">КІПІЕК</text>
-        <text transform="matrix(1 0 0 1 1122.036 464.1636)"><tspan x="0" y="0" class="st6">Комп. кл. /</tspan><tspan x="0" y="14.4" class="st6">Навч. ауд.</tspan></text>
-        <text transform="matrix(1 0 0 1 1750.0737 464.1636)"><tspan x="0" y="0" class="st6">Комп. кл. /</tspan><tspan x="0" y="14.4" class="st6">Навч. ауд.</tspan></text>
+        <text transform="matrix(1 0 0 1 83.0675 101.6994)" class="st6_">Комп. кл.</text>
+        <text transform="matrix(1 0 0 1 646.4147 101.6994)" class="st6_">Навч. ауд.</text>
+        <text transform="matrix(1 0 0 1 787.7893 101.6994)" class="st6_">Комп. кл.</text>
+        <text transform="matrix(1 0 0 1 944.3157 101.6994)" class="st6_">Комп. кл.</text>
+        <text transform="matrix(1 0 0 1 286.4903 101.6994)"><tspan x="0" y="0" class="st6_">Комп. кл. /</tspan><tspan x="0" y="14.4" class="st6_">Навч. ауд.</tspan></text>
+        <text transform="matrix(1 0 0 1 1244.7192 101.6994)"><tspan x="0" y="0" class="st6_">Комп. кл. /</tspan><tspan x="0" y="14.4" class="st6_">Навч. ауд.</tspan></text>
+        <text transform="matrix(1 0 0 1 1432.1202 101.6994)" class="st6_">Лекц. ауд.</text>
+        <text transform="matrix(1 0 0 1 1785.4984 101.6994)" class="st6_">Лекц. ауд.</text>
+        <text transform="matrix(1 0 0 1 1602.9506 101.6994)" class="st6_">Навч. ауд.</text>
+        <text transform="matrix(1 0 0 1 1120.7192 101.6994)" class="st6_">КАГМФ</text>
+        <text transform="matrix(1 0 0 1 118.9691 464.1636)"><tspan x="0" y="0" class="st6_">Комп. кл. /</tspan><tspan x="0" y="14.4" class="st6_">Навч. ауд.</tspan></text>
+        <text transform="matrix(1 0 0 1 700.6404 464.1636)" class="st6_">КАГМФ</text>
+        <text transform="matrix(1 0 0 1 846.8254 464.1636)" class="st6_">Лекц. ауд.</text>
+        <text transform="matrix(1 0 0 1 1270.5649 464.1636)" class="st6_">КІПІЕК</text>
+        <text transform="matrix(1 0 0 1 1122.036 464.1636)"><tspan x="0" y="0" class="st6_">Комп. кл. /</tspan><tspan x="0" y="14.4" class="st6_">Навч. ауд.</tspan></text>
+        <text transform="matrix(1 0 0 1 1750.0737 464.1636)"><tspan x="0" y="0" class="st6_">Комп. кл. /</tspan><tspan x="0" y="14.4" class="st6_">Навч. ауд.</tspan></text>
     </g>
     <g id="Слой_6">
         <polyline class="st1" points="52.9,602.9 56.6,611.4 60.5,611.4 60.5,573.3 38.1,573.3 38.1,611.4 41.9,611.4 45.6,602.9 		"></polyline>
     
         <rect x="38.1" y="621.1" class="st2" width="11" height="44.9"></rect>
-        <text transform="matrix(1 0 0 1 68.8309 595.8264)" style="font-size: 15px; font-weight:500;" class="st6">Сходи</text>
-        <text transform="matrix(1 0 0 1 68.8309 647.1559)" style="font-size: 15px; font-weight:500;" class="st6">Ліфт</text>
+        <text transform="matrix(1 0 0 1 68.8309 595.8264)" style="font-size: 15px; font-weight:500;" class="st6_">Сходи</text>
+        <text transform="matrix(1 0 0 1 68.8309 647.1559)" style="font-size: 15px; font-weight:500;" class="st6_">Ліфт</text>
         <rect x="38.1" y="676.7" class="stv" width="19.7" height="46"></rect>
-	    <text transform="matrix(1 0 0 1 68.8309 705.2941)" style="font-size: 15px; font-weight:500;" class="st6">Відділ</text>
+	    <text transform="matrix(1 0 0 1 68.8309 705.2941)" style="font-size: 15px; font-weight:500;" class="st6_">Відділ</text>
     </g>
 
 

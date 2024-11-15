@@ -40,7 +40,6 @@ export default function CreateUser() {
 
     const data = await response.json()
 
-    console.log(data)
     setRoles(data)
   }
 

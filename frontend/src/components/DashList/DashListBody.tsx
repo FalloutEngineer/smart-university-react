@@ -27,6 +27,67 @@ export default function DashListBody({
   return (
     <div className="dash-list__container">
       <ul className="dash-list">
+        {listType === ItemTypeEnum.ROOM ? (
+          <li className="dash-list__item">
+            <p className="dash-list__heading">
+              <span className="dash-list__property dash-list__property_name">
+                Номер
+              </span>
+              <span className="dash-list__property">Факультет</span>
+              <span className="dash-list__property">Кафедра</span>
+              <span className="dash-list__property">Поверх</span>
+            </p>
+          </li>
+        ) : (
+          ""
+        )}
+        {listType === ItemTypeEnum.FLOOR ? (
+          <li className="dash-list__item">
+            <p className="dash-list__heading">
+              <span className="dash-list__property dash-list__property_name">
+                Номер
+              </span>
+              <span className="dash-list__property">Корпус</span>
+              <span className="dash-list__property">Факультет</span>
+            </p>
+          </li>
+        ) : (
+          ""
+        )}
+        {listType === ItemTypeEnum.FACULTY ? (
+          <li className="dash-list__item">
+            <p className="dash-list__heading">
+              <span className="dash-list__property dash-list__property_name">
+                Назва
+              </span>
+            </p>
+          </li>
+        ) : (
+          ""
+        )}
+        {listType === ItemTypeEnum.BUILDING ? (
+          <li className="dash-list__item">
+            <p className="dash-list__heading">
+              <span className="dash-list__property dash-list__property_name">
+                Назва
+              </span>
+            </p>
+          </li>
+        ) : (
+          ""
+        )}
+        {listType === ItemTypeEnum.PULPIT ? (
+          <li className="dash-list__item">
+            <p className="dash-list__heading">
+              <span className="dash-list__property dash-list__property_name">
+                Назва
+              </span>
+              <span className="dash-list__property">Факультет</span>
+            </p>
+          </li>
+        ) : (
+          ""
+        )}
         {listType === ItemTypeEnum.ROOM
           ? listData.map((listItem) => {
               return myRole.rooms.includes(listItem.number) ||
@@ -35,6 +96,7 @@ export default function DashListBody({
               ) : null
             })
           : ""}
+
         {listType === ItemTypeEnum.FLOOR
           ? listData.map((listItem) => {
               return myRole.floors.includes(listItem._id) ||

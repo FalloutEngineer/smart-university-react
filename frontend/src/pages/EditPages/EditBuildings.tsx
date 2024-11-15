@@ -22,7 +22,6 @@ export default function EditBuildings() {
       })
       .then((data) => {
         setPage(data)
-        console.log(data)
 
         reset()
       })

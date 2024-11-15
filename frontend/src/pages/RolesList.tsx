@@ -43,6 +43,14 @@ export default function RolesList() {
       <NavLink to={"../createRole"}>Створити роль</NavLink>
       <div className="dash-list__container">
         <ul className="dash-list">
+          <li className="dash-list__item">
+            <p className="dash-list__heading">
+              <span className="dash-list__property dash-list__property_name">
+                Назва
+              </span>
+              <span className="dash-list__property">Успадковує</span>
+            </p>
+          </li>
           {roles.map((role: any) => {
             return (
               <li className="dash-list__item">

@@ -65,6 +65,14 @@ export default function UsersList() {
       <NavLink to={"../createUser"}>Створити користувача</NavLink>
       <div className="dash-list__container">
         <ul className="dash-list">
+          <li className="dash-list__item">
+            <p className="dash-list__heading">
+              <span className="dash-list__property dash-list__property_name">
+                Username
+              </span>
+              <span className="dash-list__property">Роль</span>
+            </p>
+          </li>
           {users.length > 0
             ? users.map((user: any) => {
                 return (

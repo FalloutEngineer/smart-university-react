@@ -22,7 +22,6 @@ export default function CardPage() {
       const data = await response.json()
 
       setCardData(data)
-      console.log(data)
     } catch (e) {
       //TODO: TOAST?
       console.error(e)

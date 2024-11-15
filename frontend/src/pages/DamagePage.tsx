@@ -20,7 +20,7 @@ export default function DamagePage() {
         const response = await fetch(damagePostsAPI + params.name)
         const data = await response.json()
 
-        console.log(data)
+        console.error(data)
         setDamage(data)
       } catch (e) {
         //TODO: toast?
@@ -44,7 +44,7 @@ export default function DamagePage() {
           return res.json()
         })
         .then((data) => {
-          console.log(data)
+          console.error(data)
           navigate(-1)
         })
         .catch((e) => {

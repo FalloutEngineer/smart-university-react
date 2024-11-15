@@ -98,6 +98,15 @@ export default function DamageList() {
       <NavLink to={"../createDamagePost"}>Створити запис про збитки</NavLink>
       <div className="dash-list__container">
         <ul className="dash-list">
+          <li className="dash-list__item">
+            <p className="dash-list__heading">
+              <span className="dash-list__property dash-list__property_name">
+                Корпус
+              </span>
+              <span className="dash-list__property">Назва</span>
+              <span className="dash-list__property">Сума</span>
+            </p>
+          </li>
           {posts.map((post: any) => {
             return (
               <li className="dash-list__item">

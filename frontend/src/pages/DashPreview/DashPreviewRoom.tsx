@@ -23,21 +23,21 @@ export default function DashPreviewRoom({ name, endpoint }: DashPreview) {
       </NavLink>
       <ul className="dash-board__list">
         <li className="dash-board__item">
-          <h3 className="dash-board__label">Номер:</h3>
+          <h3 className="dash-board__label">Номер</h3>
           <div className="dash-board__value">{room?.number}</div>
         </li>
         <li className="dash-board__item">
-          <h3 className="dash-board__label">Поверх:</h3>
+          <h3 className="dash-board__label">Поверх</h3>
           <div className="dash-board__value">
             <NavLink to={`/floor-list/${room?.floor}`}>{room?.floor}</NavLink>
           </div>
         </li>
         <li className="dash-board__item">
-          <h3 className="dash-board__label">Кількість місць:</h3>
+          <h3 className="dash-board__label">Кількість місць</h3>
           <div className="dash-board__value">{room?.capacity}</div>
         </li>
         <li className="dash-board__item">
-          <h3 className="dash-board__label">Факультет:</h3>
+          <h3 className="dash-board__label">Факультет</h3>
           <div className="dash-board__value">
             <NavLink to={`/faculty-list/${room?.faculty}`}>
               {room?.faculty}
@@ -46,13 +46,13 @@ export default function DashPreviewRoom({ name, endpoint }: DashPreview) {
         </li>
         {room && room.type && (
           <li className="dash-board__item">
-            <h3 className="dash-board__label">Тип:</h3>
+            <h3 className="dash-board__label">Тип</h3>
             <div className="dash-board__value">{room?.type}</div>
           </li>
         )}
         {room && room.description && (
           <li className="dash-board__item">
-            <h3 className="dash-board__label">Опис:</h3>
+            <h3 className="dash-board__label">Опис</h3>
             <div className="dash-board__value">{room?.description}</div>
           </li>
         )}
@@ -65,7 +65,7 @@ export default function DashPreviewRoom({ name, endpoint }: DashPreview) {
 
         {room?.pulpits && room.pulpits.length > 0 && (
           <li className="dash-board__item">
-            <h3 className="dash-board__label">Кафедра:</h3>
+            <h3 className="dash-board__label">Кафедра</h3>
             <div className="dash-board__value">
               {room?.pulpits.map((pulpit: string) => {
                 return (
@@ -80,7 +80,7 @@ export default function DashPreviewRoom({ name, endpoint }: DashPreview) {
 
         {room && room.photo_links.length > 0 && (
           <li className="dash-board__images">
-            <h3 className="dash-board__label">Зображення:</h3>
+            <h3 className="dash-board__label">Зображення</h3>
             <ul className="dash-board__images-list">
               {room.photo_links.map((link) => {
                 return (

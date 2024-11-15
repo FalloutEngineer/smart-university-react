@@ -33,10 +33,7 @@ export default function Faculties() {
         const json = await response.json()
 
         if (response.ok) {
-          console.log("faculties: ", json)
-
           setFacultyPage(json)
-          console.log("jimages:", json.images)
 
           const readyImages =
             json.images.length > 0
@@ -46,8 +43,6 @@ export default function Faculties() {
               : [{ url: "/img/1.jpg", caption: "" }]
 
           setSlides(readyImages)
-
-          console.log(slides)
         } else {
           console.error(response.status, response.text)
         }
@@ -67,8 +62,6 @@ export default function Faculties() {
         const data = await response.json()
 
         setCards(data)
-
-        console.log("cards: ", cards)
       } catch (e) {
         //TODO: TOAST?
         console.error(e)

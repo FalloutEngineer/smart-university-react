@@ -804,7 +804,7 @@
 							<stop offset="0.47" style="stop-color:#8FC3AA"></stop>
 							<stop offset="0.59" style="stop-color:#8BC1A6"></stop>
 						</linearGradient>
-						<a xlink:href="#" title="8 поверх - Медичний факультет"> 
+						<a xlink:href="../../floor/Головний%20Корпус/8" title="8 поверх - Медичний факультет"> 
 							<polygon id="8-floor" class="st19" points="3.2,94.6 3.2,115.4 43.8,138.1 194,51.3 194.5,29.5 43.8,117.8 "></polygon>
 						</a>
 						
@@ -816,7 +816,7 @@
 							<stop offset="0.47" style="stop-color:#8FC3AA"></stop>
 							<stop offset="0.59" style="stop-color:#8BC1A6"></stop>
 						</linearGradient>
-						<a xlink:href="#" title="7 поверх - Медичний факультет"> 
+						<a xlink:href="../../floor/Головний%20Корпус/7" title="7 поверх - Медичний факультет"> 
 							<polygon id="7-floor" class="st20" points="3.2,115.4 3.2,131.4 43.8,154.1 194,67.3 194,51.3 43.8,138.1" style=""></polygon>
 						</a>
 							<linearGradient id="flr3_1_" gradientUnits="userSpaceOnUse" x1="-0.7287" y1="190.4042" x2="189.4682" y2="190.4042" gradientTransform="matrix(1 0 0 -1 0 309.1064)">
@@ -827,7 +827,7 @@
 							<stop offset="0.47" style="stop-color:#8FC3AA"></stop>
 							<stop offset="0.59" style="stop-color:#8BC1A6"></stop>
 						</linearGradient>
-						<a xlink:href="#" title="6 поверх - Факультет біології, географії та екології"> 
+						<a xlink:href="../../floor/Головний%20Корпус/6" title="6 поверх - Факультет біології, географії та екології"> 
 							<polygon id="6-floor" class="st21" points="3.2,131.4 3.2,147.5 43.8,170.1 194,83.3 194,67.3 43.8,154.1 		" style=""></polygon>
 						</a>
 							<linearGradient id="flr4_1_" gradientUnits="userSpaceOnUse" x1="-0.7398" y1="174.6192" x2="189.9966" y2="174.6192" gradientTransform="matrix(1 0 0 -1 0 309.1064)">
@@ -838,7 +838,7 @@
 							<stop offset="0.47" style="stop-color:#8FC3AA"></stop>
 							<stop offset="0.59" style="stop-color:#8BC1A6"></stop>
 						</linearGradient>
-						<a xlink:href="#" title="5 поверх - Факультет комп'ютерних наук, фізики та математики">
+						<a xlink:href="../../floor/Головний%20Корпус/5" title="5 поверх - Факультет комп'ютерних наук, фізики та математики">
 							<polygon id="5-floor" class="st22" points="3.2,147.5 3.2,163.3 43.8,185.9 194.5,98.9 194.5,83.1 43.8,170.1 		" style=""></polygon>
 						</a>
 							<linearGradient id="flr5_1_" gradientUnits="userSpaceOnUse" x1="-0.7398" y1="158.8442" x2="189.9966" y2="158.8442" gradientTransform="matrix(1 0 0 -1 0 309.1064)">
@@ -849,7 +849,7 @@
 							<stop offset="0.47" style="stop-color:#8FC3AA"></stop>
 							<stop offset="0.59" style="stop-color:#8BC1A6"></stop>
 						</linearGradient>
-						<a xlink:href="#" title="4 поверх - Факультет комп'ютерних наук, фізики та математики">
+						<a xlink:href="../../floor/Головний%20Корпус/4" title="4 поверх - Факультет комп'ютерних наук, фізики та математики">
 						<polygon id="4-floor" class="st23" points="3.2,163.3 3.2,179 43.8,201.6 194.5,114.6 194.5,98.9 43.8,185.9 		" style=""></polygon>
 						</a>
 							<linearGradient id="flr6_1_" gradientUnits="userSpaceOnUse" x1="-0.7287" y1="143.1717" x2="189.4682" y2="143.1717" gradientTransform="matrix(1 0 0 -1 0 309.1064)">
@@ -860,7 +860,7 @@
 							<stop offset="0.47" style="stop-color:#8FC3AA"></stop>
 							<stop offset="0.59" style="stop-color:#8BC1A6"></stop>
 						</linearGradient>
-						<a xlink:href="#" title="3 поверх - Факультет бізнесу і права">
+						<a xlink:href="../../floor/Головний%20Корпус/3" title="3 поверх - Факультет бізнесу і права">
 						<polygon id="3-floor" class="st24" points="3.2,179 3.2,194.4 43.8,217 194,130.2 194,114.8 43.8,201.6 		" style=""></polygon>
 						</a>
 							<linearGradient id="flr7_1_" gradientUnits="userSpaceOnUse" x1="-0.7398" y1="127.7742" x2="189.9966" y2="127.7742" gradientTransform="matrix(1 0 0 -1 0 309.1064)">
@@ -871,7 +871,7 @@
 							<stop offset="0.47" style="stop-color:#8FC3AA"></stop>
 							<stop offset="0.59" style="stop-color:#8BC1A6"></stop>
 						</linearGradient>
-						<a xlink:href="#" title="2 поверх - Педагогічний факультет">
+						<a xlink:href="../../floor/Головний%20Корпус/2" title="2 поверх - Педагогічний факультет">
 						<polygon id="2-floor" class="st25" points="3.2,194.4 3.2,210 43.8,232.2 194.5,145.8 194.5,130.4 43.8,217.1 		" style=""></polygon>
 						</a>
 							<linearGradient id="flr8_1_" gradientUnits="userSpaceOnUse" x1="-0.7398" y1="112.2892" x2="189.9966" y2="112.2892" gradientTransform="matrix(1 0 0 -1 0 309.1064)">
@@ -882,7 +882,7 @@
 							<stop offset="0.47" style="stop-color:#8FC3AA"></stop>
 							<stop offset="0.59" style="stop-color:#8BC1A6"></stop>
 						</linearGradient>
-						<a xlink:href="#" title="1 поверх - Факультет фізичного виховання та спорту">
+						<a xlink:href="../../floor/Головний%20Корпус/1" title="1 поверх - Факультет фізичного виховання та спорту">
 						<polygon id="1-floor" class="st26" points="3.2,210 3.2,225.2 43.8,247.8 194.5,161.6 194.5,145.8 43.8,232.2 " style=""></polygon>
 						</a>
 					</g>

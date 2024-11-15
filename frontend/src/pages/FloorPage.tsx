@@ -65,7 +65,7 @@ export default function FloorPage() {
   }
 
   const sensorsBlockStyles = {
-    backgroundColor: color,
+    backgroundColor: "#fafafa",
   }
 
   const fillColor = {
@@ -86,7 +86,7 @@ export default function FloorPage() {
         }
       } else {
         //TODO: toast error?
-        console.log(response.status, response.text)
+        console.error(response.status, response.text)
       }
     }
 
@@ -124,8 +124,6 @@ export default function FloorPage() {
         responses.map((response) => response.json())
       )
 
-      console.log(values)
-
       const readyRooms = values.map((room) => {
         return {
           chartName: `${room.type} ${room.number}`,
@@ -136,7 +134,7 @@ export default function FloorPage() {
       })
       setRooms(readyRooms)
 
-      const pieReadyRooms = [
+      let pieReadyRooms = [
         { name: "Аудиторія", value: 0 },
         { name: "Лабораторія", value: 0 },
         { name: "Комп'ютерна аудиторія", value: 0 },
@@ -150,6 +148,13 @@ export default function FloorPage() {
         if (room.type === "Комп'ютерна аудиторія") pieReadyRooms[2].value++
         if (room.type === "Кафедра") pieReadyRooms[3].value++
         if (room.type === "Приміщення") pieReadyRooms[4].value++
+      })
+
+      pieReadyRooms = pieReadyRooms.filter(function (item) {
+        if (item.value === 0) {
+          return false
+        }
+        return true
       })
 
       setPieChartData(pieReadyRooms)
@@ -177,7 +182,6 @@ export default function FloorPage() {
     async function fetchFacultyCards() {
       const response = await fetch(facultyCardApi + "/" + floor.faculty)
       const data = await response.json()
-      console.log(floor.faculty)
 
       setFacultyCard(data)
     }
@@ -214,22 +218,23 @@ export default function FloorPage() {
         // TODO: ADD LOGO TO DATABASE
         imageUrl="/img/logo.png"
       />
-      <div className="plan">
+      <div className="plan" style={{ paddingBottom: 15 }}>
         {svgURL !== "" ? <FloorMap url={svgURL} styles={fillColor} /> : ""}
       </div>
 
       <div className="ui-60" style={sensorsBlockStyles}>
         <div className="container">
           <div className="infoBox">
-            <div className="infoboxContainer">
+            {/* <div className="infoboxContainer">
               {facultyCard !== null && <Card params={facultyCard} />}
               {pulpitCards.map((card: any) => {
                 return <Card params={card} />
               })}
-            </div>
+            </div> */}
 
             {/* TODO: Pass data from server (sensor), pass link instean values, so items would change separetely from parent */}
 
+            <h2 className="facultyRooms__heading">Дані з датчиків</h2>
             <div className="qualityBoxes">
               <AirQuality co2={1100} aqi={10} />
 
@@ -239,33 +244,39 @@ export default function FloorPage() {
         </div>
       </div>
       {rooms.length > 0 && (
-        <div className="facultyRooms container">
-          <h2 className="facultyRooms__heading">
-            Список всіх приміщень поверха
-          </h2>
-          <ul className="facultyRooms__list">
-            {rooms.map((room: any) => {
-              return (
-                <li className="facultyRooms__item">
-                  <Link
-                    className="facultyRooms__itemLink"
-                    to={`../room/${room.number}`}
-                  >
-                    {room.type} {room.number}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
+        <div
+          className="ui-60"
+          style={{ backgroundColor: "rgb(250, 250, 250)" }}
+        >
+          <div className="facultyRooms container">
+            <h2 className="facultyRooms__heading">
+              Список всіх приміщень поверха
+            </h2>
+            <ul className="facultyRooms__list">
+              {rooms.map((room: any) => {
+                return (
+                  <li className="facultyRooms__item">
+                    <Link
+                      className="facultyRooms__itemLink"
+                      to={`../room/${room.number}`}
+                    >
+                      {room.type} {room.number}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
         </div>
       )}
 
       {rooms.length > 0 && (
         <>
           <div className="pieChartContainer">
+            <h2>Кількість кімнат за типом</h2>
             <PieChart
               width={windowSize[0] - (windowSize[0] / 100) * 15}
-              height={windowSize[0] / 4}
+              height={windowSize[0] / 6}
             >
               <Pie
                 data={pieChartData}
@@ -273,7 +284,7 @@ export default function FloorPage() {
                 cx="50%"
                 cy="50%"
                 outerRadius={100}
-                fill="#8884d8"
+                fill={color}
                 label={renderPieLabel}
               />
               <Tooltip />

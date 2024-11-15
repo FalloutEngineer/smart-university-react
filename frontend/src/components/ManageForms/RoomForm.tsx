@@ -44,7 +44,6 @@ export default function RoomForm({
 
   const onSubmit = (data: any) => {
     createRoomCallback(data)
-    console.log(data)
   }
 
   return (

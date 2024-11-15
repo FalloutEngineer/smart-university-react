@@ -31,20 +31,26 @@ export default function Card({ params }: { params: FacultyCardParams }) {
           params.phdPart) && (
           <p className="card__bold">Контингент здобувачів вищої освіти:</p>
         )}
-        {(params.bachelorFull || params.bachelorPart) && (
+        {params.bachelorFull || params.bachelorPart ? (
           <p>
             Бакалавр (денна/заочна): {params.bachelorFull}/{params.bachelorPart}
           </p>
+        ) : (
+          ""
         )}
-        {(params.masterFull || params.masterPart) && (
+        {params.masterFull || params.masterPart ? (
           <p>
             Магістр (денна/заочна): {params.masterFull}/{params.masterPart}
           </p>
+        ) : (
+          ""
         )}
-        {(params.phdFull || params.phdPart) && (
+        {params.phdFull || params.phdPart ? (
           <p>
             PhD (денна/заочна): {params.phdFull}/{params.phdPart}
           </p>
+        ) : (
+          ""
         )}
       </div>
     </div>

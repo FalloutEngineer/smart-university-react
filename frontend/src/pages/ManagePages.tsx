@@ -7,6 +7,13 @@ export default function ManagePages() {
     <DashLayout>
       <div className="dash-list__container">
         <ul className="dash-list">
+          <li className="dash-list__item">
+            <p className="dash-list__heading">
+              <span className="dash-list__property dash-list__property_name">
+                Назва
+              </span>
+            </p>
+          </li>
           <DashListPage
             pageData={{
               name: "Головна",

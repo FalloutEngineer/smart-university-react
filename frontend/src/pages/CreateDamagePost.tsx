@@ -100,7 +100,7 @@ export default function CreateDamagePost() {
             </label>
             <input
               id="name"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               {...register("name")}
             />
           </li>
@@ -130,7 +130,7 @@ export default function CreateDamagePost() {
             </label>
             <textarea
               id="location"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               {...register("location")}
             />
           </li>
@@ -141,7 +141,7 @@ export default function CreateDamagePost() {
             <input
               type="text"
               id="status"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               {...register("status")}
             />
           </li>
@@ -151,7 +151,7 @@ export default function CreateDamagePost() {
             </label>
             <textarea
               id="description"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               {...register("description")}
             />
           </li>
@@ -162,7 +162,7 @@ export default function CreateDamagePost() {
             <input
               id="sum"
               type="number"
-              className={styles.textArea}
+              className={"dash-board__input " + styles.textArea}
               min={0}
               {...register("sum")}
               defaultValue={0}

@@ -211,7 +211,7 @@ export default function Manage() {
 
   function handleError(error: any) {
     //TODO: toast
-    console.log(error)
+    console.error(error)
   }
 
   useEffect(() => {

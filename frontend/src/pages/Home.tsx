@@ -32,8 +32,6 @@ export default function Home() {
       const json = await response.json()
 
       if (response.ok) {
-        console.log("home: ", json)
-
         setHome(json)
       } else {
         console.error(response.status, response.text)
@@ -49,12 +47,10 @@ export default function Home() {
       const json = await response.json()
 
       if (response.ok) {
-        console.log(json)
-
         setBuildings(json)
       } else {
         //TODO: toast error?
-        console.log(response.status, response.text)
+        console.error(response.status, response.text)
       }
     }
 
