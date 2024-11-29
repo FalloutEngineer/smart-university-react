@@ -30,6 +30,7 @@ export default function DashEditRoom({ endpoint }: { endpoint: string }) {
       description: room?.description,
       assistant: room?.assistant,
       images: room?.photo_links,
+      sensorID: room?.sensorID,
     },
   })
 
@@ -68,10 +69,11 @@ export default function DashEditRoom({ endpoint }: { endpoint: string }) {
       formData.append("assistant", data.assistant)
 
       formData.append("pulpits[]", JSON.stringify(room.pulpits))
-      formData.append("co2[]", JSON.stringify([]))
-      formData.append("temperature[]", JSON.stringify([]))
-      formData.append("co2_history[]", JSON.stringify([]))
-      formData.append("temperature_history[]", JSON.stringify([]))
+      formData.append("sensorID", data.sensorID)
+      // formData.append("co2[]", JSON.stringify([]))
+      // formData.append("temperature[]", JSON.stringify([]))
+      // formData.append("co2_history[]", JSON.stringify([]))
+      // formData.append("temperature_history[]", JSON.stringify([]))
 
       await fetch(endpoint + name, {
         method: "PATCH",
@@ -155,6 +157,18 @@ export default function DashEditRoom({ endpoint }: { endpoint: string }) {
               type="text"
               className="dash-board__input"
               defaultValue={room?.assistant}
+            />
+          </li>
+          <li className="dash-board__item">
+            <label htmlFor="assistant" className="dash-board__label">
+              Ідентифікатор сенсора
+            </label>
+            <input
+              {...register("sensorID")}
+              id="sensorID"
+              type="text"
+              className="dash-board__input"
+              defaultValue={room?.sensorID}
             />
           </li>
           <li className="dash-board__item">

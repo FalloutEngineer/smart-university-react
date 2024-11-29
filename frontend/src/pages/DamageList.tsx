@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
-import DashListHeader from "../components/DashList/DashListHeader"
 import { NavLink } from "react-router-dom"
 
 import "./damageList.css"
@@ -12,13 +11,19 @@ const buildingsAPI = API_URL + "/api/buildings"
 
 export default function DamageList() {
   const [listHeaderOptions, setListHeaderOptions] = useState(null)
-  const [filter, setFilter] = useState(null)
 
   const [posts, setPosts] = useState([])
+
+  const [filteredPosts, setFilteredPosts] = useState<any[]>([])
 
   const [buildings, setBuildings] = useState([])
 
   const [selectedBuilding, setSelectedBuilding] = useState("")
+
+  const lastDateFilterRef = useRef("asc")
+  const lastPriceFilterRef = useRef("asc")
+
+  const filters = document.querySelectorAll(".dash-filter__select")
 
   const totalDamage = posts.reduce((accumulator: number, post: any) => {
     return accumulator + post.sum
@@ -57,6 +62,7 @@ export default function DamageList() {
         const data = await response.json()
 
         setPosts(data)
+        setFilteredPosts([...data])
       } catch (e) {
         //TODO: toast?
         console.error(e)
@@ -66,10 +72,76 @@ export default function DamageList() {
     getPosts()
   }, [])
 
+  function filterByDate(e: any) {
+    let result
+    if (e.target.value === "asc") {
+      result = [...posts]
+      lastDateFilterRef.current = "asc"
+    } else {
+      result = [...posts].reverse()
+      lastDateFilterRef.current = "desc"
+    }
+    setFilteredPosts(result)
+  }
+
+  function filterBySum(e: any) {
+    let result
+    result = [...posts].sort((current: any, next: any) => {
+      return next.sum - current.sum
+    })
+    lastPriceFilterRef.current = "desc"
+    if (e.target.value === "asc") {
+      result = result.reverse()
+      lastPriceFilterRef.current = "asc"
+    }
+    setFilteredPosts(result)
+  }
+
+  function onFilterClick(e: any, func: Function) {
+    const isActive = e.target.className.split(" ").includes("active")
+
+    if (!isActive) {
+      filters.forEach((filter) => {
+        filter.classList.remove("active")
+        e.target.classList.add("active")
+        func(e)
+      })
+    }
+  }
+
   return (
     <DashLayout>
       {/* //TODO: Власний фільтр */}
-      <DashListHeader options={listHeaderOptions} filterCallback={filter} />
+      {/* <DashListHeader options={listHeaderOptions} filterCallback={filter} /> */}
+      <div className="dash-filter">
+        <div className="dash-filter__item">
+          <span className="dash-filter__label">Дата додавання:</span>
+          <select
+            className="dash-filter__select active"
+            id="byDate"
+            onChange={filterByDate}
+            onClick={(e) => {
+              onFilterClick(e, filterByDate)
+            }}
+          >
+            <option value="asc">Спочатку старі</option>
+            <option value="desc">Спочатку нові</option>
+          </select>
+        </div>
+        <div className="dash-filter__item">
+          <span className="dash-filter__label">Сума:</span>
+          <select
+            className="dash-filter__select"
+            onChange={filterBySum}
+            onClick={(e) => {
+              onFilterClick(e, filterBySum)
+            }}
+          >
+            <option value="asc">За зростанням</option>
+            <option value="desc">За спаданням</option>
+          </select>
+        </div>
+      </div>
       <div className="damage-header">
         <div className="totalDamage">Загально збитків: {totalDamage} грн.</div>
         <div className="filteredDamage">
@@ -107,7 +179,7 @@ export default function DamageList() {
               <span className="dash-list__property">Сума</span>
             </p>
           </li>
-          {posts.map((post: any) => {
+          {filteredPosts.map((post: any) => {
             return (
               <li className="dash-list__item">
                 <NavLink to={"./" + post.name} className="dash-list__link">

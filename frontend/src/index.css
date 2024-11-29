@@ -6387,3 +6387,37 @@ div#chartdiv {
 .footer-manage {
   margin-bottom: 15px;
 }
+
+.dash-filter {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  gap: 15px;
+  padding-left: 20px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.dash-filter__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 7px;
+}
+
+.dash-filter__label {
+  color: black;
+  font-size: 16px;
+}
+
+.dash-filter__select {
+  background-color: lightgray;
+
+  border-radius: 8px;
+  padding: 7px;
+}
+
+.dash-filter__select.active {
+  background-color: white;
+}

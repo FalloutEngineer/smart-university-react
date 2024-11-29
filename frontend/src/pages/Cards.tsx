@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
-import DashListHeader from "../components/DashList/DashListHeader"
 import { NavLink } from "react-router-dom"
 
 const API_URL = process.env.REACT_APP_API_URL
@@ -9,11 +8,10 @@ const facultyCardAPI = API_URL + `/api/facultyCard`
 const pulpitCardAPI = API_URL + `/api/pulpitCard`
 
 export default function Cards() {
-  const [listHeaderOptions, setListHeaderOptions] = useState(null)
-  const [filter, setFilter] = useState(null)
-
   const [facultyCards, setFacultyCards] = useState([])
   const [pulpitCards, setPulpitCards] = useState([])
+
+  const [cards, setCards] = useState([])
 
   useEffect(() => {
     async function fetchFaculties() {
@@ -37,30 +35,34 @@ export default function Cards() {
     fetchPulpits()
   }, [])
 
+  useEffect(() => {
+    async function composeCards() {
+      const newFaculties = [...facultyCards]
+      const newPulpits = [...pulpitCards]
+
+      newFaculties.map((item: any) => (item.type = "faculty"))
+      newPulpits.map((item: any) => (item.type = "pulpit"))
+
+      const newArr = [...newFaculties, ...newPulpits]
+      newArr.sort((a: any, b: any) => a.name.localeCompare(b.name))
+      setCards(newArr)
+    }
+
+    composeCards()
+  }, [facultyCards, pulpitCards])
+
   return (
     <DashLayout>
-      <DashListHeader options={listHeaderOptions} filterCallback={filter} />
       <div className="dash-list__container">
         <ul className="dash-list">
-          {facultyCards.map((card: any) => {
+          {cards.map((card: any) => {
             return (
               <li className="dash-list__item">
                 <NavLink
-                  to={"./faculty/" + card.name}
-                  className="dash-list__link"
-                >
-                  <span className="dash-list__property dash-list__property_name">
-                    {card.name}
-                  </span>
-                </NavLink>
-              </li>
-            )
-          })}
-          {pulpitCards.map((card: any) => {
-            return (
-              <li className="dash-list__item">
-                <NavLink
-                  to={"./pulpit/" + card.name}
+                  to={
+                    (card.type === "faculty" ? "./faculty/" : "./pulpit/") +
+                    card.name
+                  }
                   className="dash-list__link"
                 >
                   <span className="dash-list__property dash-list__property_name">

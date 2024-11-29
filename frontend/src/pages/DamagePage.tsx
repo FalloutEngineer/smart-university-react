@@ -33,32 +33,40 @@ export default function DamagePage() {
 
   const deleteCallback = () =>
     function () {
-      fetch(damagePostsAPI + params.name, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${user}`,
-        },
-      })
-        .then((res) => {
-          return res.json()
+      let isUserSure = window.confirm("Ви справді хочете видалити цей об'єкт?")
+
+      if (isUserSure) {
+        fetch(damagePostsAPI + params.name, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user}`,
+          },
         })
-        .then((data) => {
-          console.error(data)
-          navigate(-1)
-        })
-        .catch((e) => {
-          //TODO: toast?
-          console.error(e)
-        })
+          .then((res) => {
+            return res.json()
+          })
+          .then((data) => {
+            console.error(data)
+            navigate(-1)
+          })
+          .catch((e) => {
+            //TODO: toast?
+            console.error(e)
+          })
+      }
     }
 
   return (
     <DashLayout>
+      <button className="dash-board__delete-btn" onClick={deleteCallback()}>
+        Видалити
+      </button>
+
       <NavLink className="dash-board__edit" to={`./edit`}>
         Редагувати
       </NavLink>
-      <button onClick={deleteCallback()}>Видалити</button>
+
       <ul className="dash-board__list">
         <li className="dash-board__item">
           <h3 className="dash-board__label">ID:</h3>

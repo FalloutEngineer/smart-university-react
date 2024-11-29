@@ -9,6 +9,7 @@ const API_URL = process.env.REACT_APP_API_URL
 
 const roomsAPI = API_URL + `/api/rooms`
 const floorsAPI = API_URL + `/api/floors`
+const sensorsAPI = API_URL + "/api/sensor"
 
 export default function RoomPage() {
   const params = useParams()
@@ -24,7 +25,10 @@ export default function RoomPage() {
     capacity: 100,
     assistant: "Іван Франко",
     photo_links: ["1680109934506.jpg"],
+    sensorID: "",
   })
+
+  const [sensorData, setSensorData]: any = useState(null)
 
   const [floor, setFloor]: any[] = useState(null)
 
@@ -63,9 +67,28 @@ export default function RoomPage() {
     fetchFaculty()
   }, [room])
 
+  useEffect(() => {
+    const fetchSensorData = async () => {
+      if (room.sensorID !== "") {
+        console.log(sensorsAPI + "/" + room.sensorID)
+        const response = await fetch(sensorsAPI + "/" + room.sensorID)
+
+        const json = await response.json()
+
+        if (response.ok) {
+          setSensorData(json)
+        } else {
+          console.error(response.status)
+        }
+      }
+    }
+
+    fetchSensorData()
+  }, [room])
+
   //TODO: FETCH FROM SERVER
-  const temperatureValue = 0
-  const co2Value = 1111
+  // const temperatureValue = 0
+  // const co2Value = 1111
 
   //TODO: fetch from server
   const floorHeaderStyles = {
@@ -156,14 +179,24 @@ export default function RoomPage() {
                   <h4 className="info__item-name">Асистент</h4>
                   <span className="info__item-value">{room.assistant}</span>
                 </li>
-                <li className="info__item">
-                  <h4 className="info__item-name">Температура</h4>
-                  <span className="info__item-value">{temperatureValue}</span>
-                </li>
-                <li className="info__item">
-                  <h4 className="info__item-name">Со2</h4>
-                  <span className="info__item-value">{co2Value}</span>
-                </li>
+                {sensorData ? (
+                  <>
+                    <li className="info__item">
+                      <h4 className="info__item-name">Температура</h4>
+                      <span className="info__item-value">
+                        {sensorData.temperature[0].value.toFixed(1)}
+                      </span>
+                    </li>
+                    <li className="info__item">
+                      <h4 className="info__item-name">Со2</h4>
+                      <span className="info__item-value">
+                        {Math.floor(sensorData.co2[0].value).toFixed(0)}
+                      </span>
+                    </li>
+                  </>
+                ) : (
+                  ""
+                )}
               </ul>
             </div>
           </div>

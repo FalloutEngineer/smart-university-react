@@ -72,6 +72,17 @@ export default function FloorForm({
 
         <li id="co2-item" className="dash-board__item">
           <label htmlFor="co2" className="dash-board__label">
+            Ідентифікатор сенсора
+          </label>
+          <input
+            {...register("sensorID")}
+            id="sensorID"
+            className="dash-board__input"
+          />
+        </li>
+
+        {/* <li id="co2-item" className="dash-board__item">
+          <label htmlFor="co2" className="dash-board__label">
             Посилання на сенсор CO2
           </label>
           <input
@@ -91,7 +102,7 @@ export default function FloorForm({
             className="dash-board__input"
             type="url"
           />
-        </li>
+        </li> */}
         <li id="color-item" className="dash-board__item">
           <label htmlFor="floorColor" className="dash-board__label">
             Колір

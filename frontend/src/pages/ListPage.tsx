@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
-import DashListHeader from "../components/DashList/DashListHeader"
 import DashListBody from "../components/DashList/DashListBody"
 import { ItemTypeEnum } from "../enums"
 import { useCookies } from "react-cookie"
@@ -14,8 +13,6 @@ const pulpitsAPI = API_URL + `/api/pulpits`
 const buildingsAPI = API_URL + `/api/buildings`
 
 export default function ListPage({ listType }: { listType: ItemTypeEnum }) {
-  const listHeaderOptions = getListHeaderOptions(listType)
-
   const [items, setItems] = useState(null)
 
   const fetchRooms = async () => {
@@ -86,8 +83,6 @@ export default function ListPage({ listType }: { listType: ItemTypeEnum }) {
 
   return (
     <DashLayout>
-      {/* TODO: maybe zustand? */}
-      <DashListHeader options={listHeaderOptions} filterCallback={filter} />
       {items && <DashListBody listData={items} listType={listType} />}
     </DashLayout>
   )

@@ -72,8 +72,9 @@ router.post("/", requireAuth, upload.single("svg"), async (req, res) => {
         faculty: req.body.faculty,
         rooms: req.body.rooms,
         building: req.body.building,
-        temperatureSensorURL: req.body.temperatureSensorURL,
-        co2SensorURL: req.body.co2SensorURL,
+        // temperatureSensorURL: req.body.temperatureSensorURL,
+        // co2SensorURL: req.body.co2SensorURL,
+        sensorID: req.body.sensorID,
         floorColor: req.body.floorColor ?? "#ffffff",
         svg: svg,
       })

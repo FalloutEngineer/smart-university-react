@@ -56,17 +56,22 @@ export default function CardPage() {
   }
 
   function onDeleteClick() {
-    if (params.type === "faculty") {
-      tryDeleteCard(facultyCardsAPI)
-    }
-    if (params.type === "pulpit") {
-      tryDeleteCard(pulpitCardsAPI)
+    let isUserSure = window.confirm("Ви справді хочете видалити цей об'єкт?")
+
+    if (isUserSure) {
+      if (params.type === "faculty") {
+        tryDeleteCard(facultyCardsAPI)
+      }
+      if (params.type === "pulpit") {
+        tryDeleteCard(pulpitCardsAPI)
+      }
     }
   }
 
   return (
     <DashLayout>
       <button
+        className="dash-board__delete-btn"
         onClick={() => {
           onDeleteClick()
         }}
@@ -74,7 +79,9 @@ export default function CardPage() {
         Видалити
       </button>
 
-      <NavLink to={"./edit"}>Редагувати</NavLink>
+      <NavLink className="dash-board__edit" to={"./edit"}>
+        Редагувати
+      </NavLink>
 
       <ul className="dash-board__list">
         <li className="dash-board__item">

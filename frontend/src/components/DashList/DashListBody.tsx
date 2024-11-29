@@ -89,36 +89,46 @@ export default function DashListBody({
           ""
         )}
         {listType === ItemTypeEnum.ROOM
-          ? listData.map((listItem) => {
-              return myRole.rooms.includes(listItem.number) ||
-                isEditor(myRole) ? (
-                <DashListRoom itemData={listItem} />
-              ) : null
-            })
+          ? listData
+              .sort((a, b) => a.number - b.number)
+              .map((listItem) => {
+                return myRole.rooms.includes(listItem.number) ||
+                  isEditor(myRole) ? (
+                  <DashListRoom itemData={listItem} />
+                ) : null
+              })
           : ""}
 
         {listType === ItemTypeEnum.FLOOR
-          ? listData.map((listItem) => {
-              return myRole.floors.includes(listItem._id) ||
-                isEditor(myRole) ? (
-                <DashListFloor itemData={listItem} />
-              ) : null
-            })
+          ? listData
+              .sort((a: any, b: any) =>
+                a.building[0].localeCompare(b.building[0])
+              )
+              .map((listItem) => {
+                return myRole.floors.includes(listItem._id) ||
+                  isEditor(myRole) ? (
+                  <DashListFloor itemData={listItem} />
+                ) : null
+              })
           : ""}
         {listType === ItemTypeEnum.FACULTY
-          ? listData.map((listItem) => {
-              return myRole.faculties.includes(listItem._id) ||
-                isEditor(myRole) ? (
-                <DashListFaculty itemData={listItem} />
-              ) : null
-            })
+          ? listData
+              .sort((a: any, b: any) => a.name.localeCompare(b.name))
+              .map((listItem) => {
+                return myRole.faculties.includes(listItem._id) ||
+                  isEditor(myRole) ? (
+                  <DashListFaculty itemData={listItem} />
+                ) : null
+              })
           : ""}
         {listType === ItemTypeEnum.PULPIT
-          ? listData.map((listItem) => {
-              return isEditor(myRole) ? (
-                <DashListPulpit itemData={listItem} />
-              ) : null
-            })
+          ? listData
+              .sort((a: any, b: any) => a.faculty.localeCompare(b.faculty))
+              .map((listItem) => {
+                return isEditor(myRole) ? (
+                  <DashListPulpit itemData={listItem} />
+                ) : null
+              })
           : ""}
         {listType === ItemTypeEnum.BUILDING
           ? listData.map((listItem) => {

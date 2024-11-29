@@ -30,6 +30,7 @@ export type FloorData = {
   building: string
   rooms: number[]
   floorColor: string
+  sensorID: string
   __v: number
 } | null
 
@@ -44,10 +45,11 @@ export type RoomData = {
   description: string
   assistant: string
   pulpits: any
+  sensorID: string
   co2?: string[]
-  temperature?: string[]
-  co2_history?: string[]
-  temperature_history?: string[]
+  // temperature?: string[]
+  // co2_history?: string[]
+  // temperature_history?: string[]
   __v: number
 } | null
 

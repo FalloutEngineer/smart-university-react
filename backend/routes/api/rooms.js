@@ -64,42 +64,55 @@ async function getRoom(req, res, next) {
 //create one
 router.post("/", requireAuth, upload.any("images"), async (req, res) => {
   if (isEditor(req.role)) {
-    if (req.body.number) {
-      req.body.number = Number(req.body.number)
+    try {
+      if (req.body.number) {
+        req.body.number = Number(req.body.number)
+      }
+
+      if (req.body.capacity) {
+        req.body.capacity = Number(req.body.capacity)
+      }
+
+      if (req.body.building) {
+        req.body.building = JSON.parse(req.body.building)
+      }
+
+      if (req.body.pulpits) {
+        req.body.pulpits = JSON.parse(req.body.pulpits)
+      }
+
+      if (req.body.sensorID) {
+        req.body.sensorID = JSON.parse(req.body.sensorID)
+      }
+    } catch (err) {
+      console.log(err)
+      console.log(req)
+
+      res.status(400).json({ message: err.message })
+      return
     }
 
-    if (req.body.capacity) {
-      req.body.capacity = Number(req.body.capacity)
-    }
+    // if (req.body.co2) {
+    //   req.body.co2 = JSON.parse(req.body.co2)
+    // }
 
-    if (req.body.building) {
-      req.body.building = JSON.parse(req.body.building)
-    }
+    // if (req.body.temperature) {
+    //   req.body.temperature = JSON.parse(req.body.temperature)
+    // }
 
-    if (req.body.pulpits) {
-      req.body.pulpits = JSON.parse(req.body.pulpits)
-    }
+    // if (req.body.co2_history) {
+    //   req.body.co2_history = JSON.parse(req.body.co2_history)
+    // }
 
-    if (req.body.co2) {
-      req.body.co2 = JSON.parse(req.body.co2)
-    }
-
-    if (req.body.temperature) {
-      req.body.temperature = JSON.parse(req.body.temperature)
-    }
-
-    if (req.body.co2_history) {
-      req.body.co2_history = JSON.parse(req.body.co2_history)
-    }
-
-    if (req.body.temperature_history) {
-      req.body.temperature_history = JSON.parse(req.body.temperature_history)
-    }
+    // if (req.body.temperature_history) {
+    //   req.body.temperature_history = JSON.parse(req.body.temperature_history)
+    // }
 
     let isFacultyExists = await Faculty.exists({ name: req.body.faculty })
     let isFloorValid = await Floor.exists({
       number: req.body.floor,
       faculty: req.body.faculty,
+      building: req.body.building,
     })
 
     let pulpitsArray = []
@@ -128,19 +141,23 @@ router.post("/", requireAuth, upload.any("images"), async (req, res) => {
         assistant: req.body.assistant,
         model: req.body.model,
         pulpits: req.body.pulpits[0] != "" ? req.body.pulpits : [],
-        co2: req.body.co2[0] != "" ? req.body.co2 : [],
-        temperature: req.body.temperature[0] != "" ? req.body.temperature : [],
-        co2_history: req.body.co2_history[0] != "" ? req.body.co2_history : [],
-        temperature_history:
-          req.body.temperature_history[0] != ""
-            ? req.body.temperature_history
-            : [],
+        sensorID: req.body.sensorID,
+        // co2: req.body.co2[0] != "" ? req.body.co2 : [],
+        // temperature: req.body.temperature[0] != "" ? req.body.temperature : [],
+        // co2_history: req.body.co2_history[0] != "" ? req.body.co2_history : [],
+        // temperature_history:
+        //   req.body.temperature_history[0] != ""
+        //     ? req.body.temperature_history
+        //     : [],
       })
 
       try {
         const newRoom = await room.save()
 
-        const floorObj = await Floor.findOne({ number: req.body.floor })
+        const floorObj = await Floor.findOne({
+          number: req.body.floor,
+          building: [req.body.building],
+        })
         floorObj.rooms.push(req.body.number)
         const updatedFloor = await floorObj.save()
 

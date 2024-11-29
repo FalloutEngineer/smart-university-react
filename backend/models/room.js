@@ -45,22 +45,26 @@ const roomSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
-  co2: {
-    type: [],
-    required: true,
+  sensorID: {
+    type: String,
+    required: false,
   },
-  temperature: {
-    type: [],
-    required: true,
-  },
-  co2_history: {
-    type: [],
-    required: true,
-  },
-  temperature_history: {
-    type: [],
-    required: true,
-  },
+  // co2: {
+  //   type: [],
+  //   required: true,
+  // },
+  // temperature: {
+  //   type: [],
+  //   required: true,
+  // },
+  // co2_history: {
+  //   type: [],
+  //   required: true,
+  // },
+  // temperature_history: {
+  //   type: [],
+  //   required: true,
+  // },
 })
 
 module.exports = mongoose.model("Room", roomSchema)

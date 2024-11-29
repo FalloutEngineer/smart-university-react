@@ -13,8 +13,10 @@ export type Room = {
   floor: string
   pulpit: string
   number: number
+  building: string
   capacity: number
   roomType: RoomTypes
+  sensorID: string
   description: string
   assistant: string
   images: FileList
@@ -34,8 +36,9 @@ export type Floor = {
   number: number
   building: string
   svg: string
-  co2: string
-  temperature: string
+  sensorID: string
+  // co2: string
+  // temperature: string
   floorColor: string
 }
 

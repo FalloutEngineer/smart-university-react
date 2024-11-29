@@ -44,6 +44,8 @@ export default function Manage() {
     changeSelectedType(type)
   }
 
+  console.log(user)
+
   function tryCreateFaculty(data: Faculty) {
     if (data.name !== "") {
       fetch(facultiesAPI, {
@@ -110,6 +112,7 @@ export default function Manage() {
       formData.append("faculty", data.faculty)
       formData.append("capacity", String(data.capacity))
       formData.append("type", data.roomType)
+      formData.append("building", JSON.stringify(data.building))
 
       for (let i = 0; i < data.images.length; i++) {
         formData.append("images", data.images[i])
@@ -118,6 +121,7 @@ export default function Manage() {
       formData.append("description", data.description)
       formData.append("assistant", data.assistant)
       formData.append("pulpits[]", JSON.stringify([data.pulpit]))
+      formData.append("sensorID", JSON.stringify(data.sensorID))
       formData.append("co2[]", JSON.stringify([]))
       formData.append("temperature[]", JSON.stringify([]))
       formData.append("co2_history[]", JSON.stringify([]))
@@ -152,8 +156,9 @@ export default function Manage() {
       formData.append("svg", data.svg[0])
       formData.append("faculty", data.faculty)
       formData.append("building", data.building)
-      formData.append("co2", JSON.stringify(data.co2))
-      formData.append("temperature", JSON.stringify(data.temperature))
+      formData.append("sensorID", data.sensorID)
+      // formData.append("co2", JSON.stringify(data.co2))
+      // formData.append("temperature", JSON.stringify(data.temperature))
       formData.append("floorColor", data.floorColor)
 
       await fetch(floorsAPI, {

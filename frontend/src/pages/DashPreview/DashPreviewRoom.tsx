@@ -63,6 +63,13 @@ export default function DashPreviewRoom({ name, endpoint }: DashPreview) {
           </li>
         )}
 
+        {room && room.sensorID && room.sensorID !== "" && (
+          <li className="dash-board__item">
+            <h3 className="dash-board__label">Ідентифікатор сенсора</h3>
+            <div className="dash-board__value">{room?.sensorID}</div>
+          </li>
+        )}
+
         {room?.pulpits && room.pulpits.length > 0 && (
           <li className="dash-board__item">
             <h3 className="dash-board__label">Кафедра</h3>

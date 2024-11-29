@@ -33,6 +33,8 @@ const facultiesAPI = API_URL + "/api/faculties"
 const facultyCardApi = API_URL + `/api/facultyCard`
 const pulpitCardApi = API_URL + `/api/pulpitCard`
 
+const sensorsAPI = API_URL + "/api/sensor"
+
 export default function FloorPage() {
   const params = useParams()
 
@@ -59,6 +61,8 @@ export default function FloorPage() {
 
   const [facultyCard, setFacultyCard]: any = useState(null)
   const [pulpitCards, setPulpitCards]: any[] = useState([])
+
+  const [sensorData, setSensorData]: any = useState(null)
 
   const renderPieLabel = function (entry: any) {
     return entry.name
@@ -209,6 +213,19 @@ export default function FloorPage() {
     }
   }, [JSON.stringify(faculty)])
 
+  useEffect(() => {
+    async function fetchSensor() {
+      const response = await fetch(sensorsAPI + "/" + floor.sensorID)
+      const data = await response.json()
+
+      setSensorData(data)
+    }
+
+    if (floor && floor.sensorID && floor.sensorID !== "") {
+      fetchSensor()
+    }
+  }, [JSON.stringify(floor)])
+
   return (
     <Layout>
       <FloorHeader
@@ -224,23 +241,22 @@ export default function FloorPage() {
 
       <div className="ui-60" style={sensorsBlockStyles}>
         <div className="container">
-          <div className="infoBox">
-            {/* <div className="infoboxContainer">
-              {facultyCard !== null && <Card params={facultyCard} />}
-              {pulpitCards.map((card: any) => {
-                return <Card params={card} />
-              })}
-            </div> */}
+          {sensorData && (
+            <div className="infoBox">
+              <h2 className="facultyRooms__heading">Дані з датчиків</h2>
+              <div className="qualityBoxes">
+                <AirQuality
+                  co2={sensorData.co2[0].value.toFixed(0)}
+                  aqi={sensorData.tvoc[0].value.toFixed(0)}
+                />
 
-            {/* TODO: Pass data from server (sensor), pass link instean values, so items would change separetely from parent */}
-
-            <h2 className="facultyRooms__heading">Дані з датчиків</h2>
-            <div className="qualityBoxes">
-              <AirQuality co2={1100} aqi={10} />
-
-              <AirStatus temperature={21.1} humidity={50} />
+                <AirStatus
+                  temperature={sensorData.temperature[0].value.toFixed(1)}
+                  humidity={sensorData.humidity[0].value.toFixed(2)}
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       {rooms.length > 0 && (

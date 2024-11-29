@@ -47,6 +47,8 @@ const damagePost = require("./routes/api/damagePost.js")
 
 const aboutRoute = require("./routes/api/aboutMe.js")
 
+const sensorRoute = require("./routes/api/sensor.js")
+
 app.use("/api/buildings", buildingsRoute)
 app.use("/api/floors", floorsRoute)
 app.use("/api/rooms", roomsRoute)
@@ -69,6 +71,8 @@ app.use("/api/aboutMe", aboutRoute)
 
 const authRouter = require("./routes/api/auth")
 app.use("/api/auth", authRouter)
+
+app.use("/api/sensor", sensorRoute)
 
 app.get("*", function (req, res) {
   res.status(404).send("Requested address doesn't exist")

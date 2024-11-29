@@ -68,6 +68,12 @@ export default function DashPreviewFloor({ name, endpoint }: DashPreview) {
             </div>
           </li>
         )}
+        {floor && floor.sensorID && floor.sensorID !== "" && (
+          <li className="dash-board__item">
+            <h3 className="dash-board__label">Ідентифікатор сенсора</h3>
+            <div className="dash-board__value">{floor?.sensorID}</div>
+          </li>
+        )}
       </ul>
     </>
   )

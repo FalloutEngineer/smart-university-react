@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import DashLayout from "../components/DashLayout/DashLayout"
 import { NavLink } from "react-router-dom"
-import DashListHeader from "../components/DashList/DashListHeader"
 import { useAuthContext } from "../hooks/useAuthContext"
 
 const API_URL = process.env.REACT_APP_API_URL
@@ -39,7 +38,6 @@ export default function RolesList() {
 
   return (
     <DashLayout>
-      <DashListHeader options={listHeaderOptions} filterCallback={filter} />
       <NavLink to={"../createRole"}>Створити роль</NavLink>
       <div className="dash-list__container">
         <ul className="dash-list">

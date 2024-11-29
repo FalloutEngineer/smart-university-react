@@ -195,6 +195,17 @@ export default function RoomForm({
             type="text"
           />
         </li>
+        <li id="assistant-item" className="dash-board__item">
+          <label htmlFor="" className="dash-board__label">
+            ID датчика
+          </label>
+          <input
+            {...register("sensorID")}
+            id="sensorID"
+            className="dash-board__input"
+            type="text"
+          />
+        </li>
         <li id="images-item" className="dash-board__item">
           <label htmlFor="" className="dash-board__label">
             Зображення

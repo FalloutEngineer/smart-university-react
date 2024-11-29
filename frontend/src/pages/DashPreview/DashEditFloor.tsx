@@ -17,6 +17,7 @@ export default function DashEditFloor() {
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
+      sensorID: floor?.sensorID,
       floorColor: floor?.floorColor,
     },
   })
@@ -77,6 +78,18 @@ export default function DashEditFloor() {
               type="color"
               id="floorColor"
               defaultValue={floor?.floorColor}
+            />
+          </li>
+          <li className="dash-board__item">
+            <label htmlFor="assistant" className="dash-board__label">
+              Ідентифікатор сенсора
+            </label>
+            <input
+              {...register("sensorID")}
+              id="sensorID"
+              type="text"
+              className="dash-board__input"
+              defaultValue={floor?.sensorID}
             />
           </li>
         </ul>

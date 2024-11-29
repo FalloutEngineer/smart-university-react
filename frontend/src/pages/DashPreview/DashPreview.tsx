@@ -1,6 +1,6 @@
 import React from "react"
 import { DashPreviewComponent } from "../../types"
-import { useNavigate, useParams } from "react-router-dom"
+import { NavLink, useNavigate, useParams } from "react-router-dom"
 import DashLayout from "../../components/DashLayout/DashLayout"
 import DeleteButton from "../../components/DashPreview/DeleteButton"
 import { useAuthContext } from "../../hooks/useAuthContext"

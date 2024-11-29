@@ -18,12 +18,15 @@ const floorSchema = new mongoose.Schema({
     type: Array,
     required: true,
   },
-  temperatureSensorURL: {
+  sensorID: {
     type: String,
   },
-  co2SensorURL: {
-    type: String,
-  },
+  // temperatureSensorURL: {
+  //   type: String,
+  // },
+  // co2SensorURL: {
+  //   type: String,
+  // },
   floorColor: {
     type: String,
     required: true,
