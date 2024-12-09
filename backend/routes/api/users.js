@@ -131,8 +131,6 @@ router.patch("/:username", requireAuth, getUser, async (req, res) => {
     res.user.password = hashedPassword
   }
 
-  console.log(res.user)
-
   try {
     const userRole = await Role.findOne({ _id: res.user.role })
     const isEditable = isUserEditable(req.role, userRole)
